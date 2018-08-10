@@ -1,6 +1,12 @@
 <h1>Hearthstone</h1>
 
-{{#each model as |card|}}
+{{#each model.cardclasses as |cardclass|}}
+{{cardclass.name_fr}}
+{{/each}}
+
+<hr>
+
+{{#each model.cards as |card|}}
 <img src={{card.image}}>
 {{/each}}
 {{outlet}}
