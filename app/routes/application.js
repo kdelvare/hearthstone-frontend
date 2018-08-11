@@ -3,7 +3,8 @@ import RSVP from 'rsvp';
 
 export default Route.extend({
 	queryParams: {
-		class: { refreshModel: true }
+		class: { refreshModel: true },
+		cost: { refreshModel: true }
 	},
 
 	model(params) {
