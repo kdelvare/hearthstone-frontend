@@ -1,12 +1,13 @@
-<h1>Hearthstone</h1>
-
 {{#each model.cardclasses as |cardclass|}}
-{{cardclass.name_fr}}
+	<img src={{cardclass.image}} title={{cardclass.name_fr}} alt={{cardclass.name_fr}} width="64px"
+		style={{if (and class (not-eq class cardclass.id)) "filter:opacity(30%)"}}
+		{{action 'toggleParam' 'class' cardclass.id}}
+	/>
 {{/each}}
 
 <hr>
 
 {{#each model.cards as |card|}}
-<img src={{card.image}}>
+	<img src={{card.image}}>
 {{/each}}
 {{outlet}}

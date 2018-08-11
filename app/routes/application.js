@@ -2,10 +2,14 @@ import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 
 export default Route.extend({
-	model() {
+	queryParams: {
+		class: { refreshModel: true }
+	},
+
+	model(params) {
 		return RSVP.hash({
 			cardclasses: this.store.query('cardclass', { collectible: true }),
-			cards: this.store.findAll('card')
+			cards: this.store.query('card', params)
 		});
 	}
 });
