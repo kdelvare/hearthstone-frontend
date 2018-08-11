@@ -16,6 +16,15 @@
 	{{/each}}
 </div>
 
+<div>
+	{{#each model.cardsets as |set|}}
+		<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"
+		style={{if (and cardset (not-eq cardset set.id)) "filter:opacity(30%)"}}
+		{{action 'toggleParam' 'cardset' set.id}}
+		/>
+	{{/each}}
+</div>
+
 <hr>
 
 {{#each model.cards as |card|}}

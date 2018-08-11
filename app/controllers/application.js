@@ -1,9 +1,10 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-	queryParams: ['class', 'cost'],
+	queryParams: ['class', 'cost', 'cardset'],
 	class: null,
 	cost: null,
+	cardset: null,
 
 	actions: {
 		toggleParam(name, value) {
