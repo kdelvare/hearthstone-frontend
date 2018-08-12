@@ -1,5 +1,9 @@
 import DS from 'ember-data';
 
-export default DS.JSONSerializer.extend({
-	primaryKey: 'hs_id'
+export default DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin, {
+	primaryKey: 'hs_id',
+
+	attrs: {
+		collections: { embedded: 'always' }
+	}
 });

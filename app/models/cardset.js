@@ -8,6 +8,6 @@ export default DS.Model.extend({
 	standard: DS.attr('boolean'),
 
 	image: computed('hs_id', function() {
-		return `assets/cardset_${this.get('id')}.png`;
+		return `/assets/cardset_${this.get('id')}.png`;
 	})
 });

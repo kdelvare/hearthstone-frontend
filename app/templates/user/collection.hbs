@@ -1,0 +1,39 @@
+<div>
+	{{#each model.cardclasses as |cardclass|}}
+		<img src={{cardclass.image}} title={{cardclass.name_fr}} alt={{cardclass.name_fr}} width="64px"
+			class={{if (and class (not-eq class cardclass.id)) "faded"}}
+			{{action 'toggleParam' 'class' cardclass.id}}
+		/>
+	{{/each}}
+</div>
+
+<div>
+	{{#each (array '0' '1' '2' '3' '4' '5' '6' '7' '8' '9' '10') as |mana|}}
+		<img src={{concat "/assets/mana_" mana ".png"}} alt={{mana}}
+			class={{if (and cost (not-eq cost mana)) "faded"}}
+			{{action 'toggleParam' 'cost' mana}}
+		/>
+	{{/each}}
+</div>
+
+<div>
+	{{#each model.cardsets as |set|}}
+		<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"
+			class={{if (and cardset (not-eq cardset set.id)) "faded"}}
+			{{action 'toggleParam' 'cardset' set.id}}
+		/>
+	{{/each}}
+</div>
+
+<hr>
+
+{{#each model.cards as |card|}}
+	<div class="card" style="float:left">
+		<div class="image">
+			<img src={{card.image}}
+				class={{if (not (filter-by "user_id" model.user.id_int card.collections)) "faded"}}
+			/>
+		</div>
+		<p class="number"> {{get (object-at 0 (filter-by "user_id" model.user.id_int card.collections)) "number"}} </p>
+	</div>
+{{/each}}

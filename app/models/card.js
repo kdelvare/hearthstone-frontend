@@ -11,6 +11,8 @@ export default DS.Model.extend({
 	health: DS.attr('number'),
 	atk: DS.attr('number'),
 
+	collections: DS.hasMany(),
+
 	image: computed('hs_card_id', function() {
 		const LOCALE = 'frFR';
 		const RESOLUTION = '256x';
