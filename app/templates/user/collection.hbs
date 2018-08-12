@@ -32,8 +32,11 @@
 		<div class="image">
 			<img src={{card.image}}
 				class={{if (not (filter-by "user_id" model.user.id_int card.collections)) "faded"}}
+				{{action 'addToCollection' card}}
 			/>
 		</div>
-		<p class="number"> {{get (object-at 0 (filter-by "user_id" model.user.id_int card.collections)) "number"}} </p>
+		<p class="number" {{action 'removeFromCollection' card}}>
+			{{get (object-at 0 (filter-by "user_id" model.user.id_int card.collections)) "number"}}
+		</p>
 	</div>
 {{/each}}
