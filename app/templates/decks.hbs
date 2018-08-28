@@ -1,0 +1,13 @@
+{{input value=importString}}
+<button {{action "import"}}>Importer</button>
+
+<hr/>
+
+{{#if showDeck}}
+	Héros : {{hero.name_fr}}
+	<ul>
+		{{#each cards as |card|}}
+			<li>Carte {{card.card.name_fr}} x{{card.number}}</li>
+		{{/each}}
+	</ul>
+{{/if}}

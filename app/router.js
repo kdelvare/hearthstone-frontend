@@ -7,6 +7,7 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+	this.route('decks');
 	this.route('user', { path: '/users/:id' }, function() {
 		this.route('collection');
 	})

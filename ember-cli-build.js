@@ -9,6 +9,28 @@ module.exports = function(defaults) {
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
+
+	/* Module nommé
+	app.import('node_modules/handlebars/dist/handlebars.amd.min.js');*/
+	/* Module AMD anonyme
+	app.import('node_modules/bootbox/bootbox.js', {
+		using: [
+			{ transformation: 'amd', as: 'bootbox' }
+		]
+	});*/
+	/* Module CJS
+	app.import('node_modules/valid-url/index.js', {
+		using: [
+			{ transformation: 'cjs', as: 'valid-url' }
+		]
+	});*/
+
+	app.import('node_modules/deckstrings/dist/browser.js', {
+		using: [
+			{ transformation: 'es6', as: 'deckstrings' }
+		]
+	});
+
   //
   // If you need to use different assets in different
   // environments, specify an object as the first parameter. That
