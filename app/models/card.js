@@ -11,7 +11,9 @@ export default DS.Model.extend({
 	health: DS.attr('number'),
 	atk: DS.attr('number'),
 
-	collections: DS.hasMany(),
+	cardset: DS.belongsTo({ async: true }),
+	rarity: DS.belongsTo({ async: true }),
+	collections: DS.hasMany({ async: true }),
 
 	image: computed('hs_card_id', function() {
 		const LOCALE = 'frFR';
