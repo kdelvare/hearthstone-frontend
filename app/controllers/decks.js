@@ -1,22 +1,44 @@
 import Controller from '@ember/controller';
-import { encode, decode, FormatType } from 'deckstrings';
+import { decode } from 'deckstrings';
 
 export default Controller.extend({
 	actions: {
 		import() {
-			const importString = "AAECAZICAA9AX/0C9wPmBcQGhQjVCOQIoM0CmNIChOYC4vgC3/sCv/0CAA=="; //this.get('importString');
+			const importString = this.get('importString');
 			const decoded = decode(importString);
-			this.set("hero", this.get('store').findRecord('card', decoded.heroes[0]));
-			const cards = [];
-			decoded.cards.forEach((card) => {
-				cards.pushObject({
-					card: this.get('store').findRecord('card', card[0]),
-					number: card[1]
+
+			//const hero = this.get('store').findRecord('card', decoded.heroes[0]);
+			this.get('store').query('cardclass', { card: decoded.heroes[0] }).then(cardclasses => {
+				const cardclass = cardclasses.firstObject;
+				const deck = this.get('store').createRecord('deck', {
+					name: 'Aggro Mech (TopDecks budget)',
+					url: 'https://www.hearthstonetopdecks.com/decks/budget-mech-warrior-deck-list-guide/',
+					cardclass: cardclass
+				});
+
+				let deckcard;
+				decoded.cards.forEach((decodedcard) => {
+					this.get('store').findRecord('card', decodedcard[0]).then(card => {
+						deckcard = this.get('store').createRecord('deckcard', {
+							card: card,
+							number: decodedcard[1]
+						});
+						deck.deckcards.pushObject(deckcard);
+					})
+				});
+				this.set('deck', deck);
+
+				this.set('showDeck', true);
+			});
+		},
+
+		save() {
+			this.get('deck').save().then(deck => {
+				this.get('deck').deckcards.forEach((deckcard) => {
+					deckcard.set('deck', deck);
+					deckcard.save();
 				})
 			});
-			this.set("cards", cards);
-
-			this.set("showDeck", true);
 		}
 	}
 });

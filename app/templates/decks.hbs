@@ -4,10 +4,16 @@
 <hr/>
 
 {{#if showDeck}}
-	Héros : {{hero.name_fr}}
+	Héros : {{deck.cardclass.name_fr}}
 	<ul>
-		{{#each cards as |card|}}
-			<li>Carte {{card.card.name_fr}} x{{card.number}}</li>
+		{{#each deck.deckcards as |deckcard|}}
+			<li>{{deckcard.card.name_fr}} x{{deckcard.number}}</li>
 		{{/each}}
 	</ul>
+
+	Nom : {{input value=deck.name}}
+	<br/>
+	URL : {{input value=deck.url}}
+	<br/>
+	<button {{action "save"}}>Enregistrer</button>
 {{/if}}

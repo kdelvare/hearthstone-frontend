@@ -7,7 +7,7 @@ export default DS.Model.extend({
 	collectible: DS.attr('boolean'),
 	standard: DS.attr('boolean'),
 
-	image: computed('hs_id', function() {
+	image: computed('id', function() {
 		return `/assets/cardset_${this.get('id')}.png`;
 	})
 });
