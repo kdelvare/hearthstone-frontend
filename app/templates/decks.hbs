@@ -16,4 +16,18 @@
 	URL : {{input value=deck.url}}
 	<br/>
 	<button {{action "save"}}>Enregistrer</button>
+
+	<hr/>
 {{/if}}
+
+<ul>
+{{#each model as |deck|}}
+	<li>
+		{{deck.cardclass.name_fr}}
+		{{#link-to 'deck' deck.id}}
+			{{deck.name}}
+		{{/link-to}}
+		{{deck.url}}
+	</li>
+{{/each}}
+</ul>
