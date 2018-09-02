@@ -1,0 +1,17 @@
+<ul>
+{{#each model.decks as |deck|}}
+	<li>
+		{{deck.cardclass.name_fr}}
+		{{#link-to 'deck' deck.id}}
+			{{deck.name}}
+		{{/link-to}}
+		{{deck.url}}
+		<ul>
+			{{#each deck.deckcards as |deckcard|}}
+				{{log deckcard.card}}
+				<li>{{deckcard.number}}x {{deckard.card.name_fr}}</li>
+			{{/each}}
+		</ul>
+	</li>
+{{/each}}
+</ul>

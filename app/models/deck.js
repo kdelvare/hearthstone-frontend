@@ -5,8 +5,8 @@ export default DS.Model.extend({
 	name: DS.attr('string'),
 	url: DS.attr('string'),
 
-	cardclass: DS.belongsTo({ async: true }),
-	deckcards: DS.hasMany({ async: true}),
+	cardclass: DS.belongsTo(),
+	deckcards: DS.hasMany(),
 
 	id_int: computed('id', function() {
 		return parseInt(this.get('id'));

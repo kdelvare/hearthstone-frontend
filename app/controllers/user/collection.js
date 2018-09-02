@@ -18,32 +18,28 @@ export default Controller.extend({
 
 		addToCollection(card) {
 			const user = this.get('model.user');
-			card.get('collections').then((collections) => {
-				const userCollections = collections.filterBy('user_id', user.id_int);
+			this.get('store').query('collection', { filter: { user: user.id, card: card.id } }).then(userCollections => {
+				let userCollection;
 				if (userCollections.length) {
-					const userCollection = userCollections[0];
+					userCollection = userCollections.firstObject;
 					userCollection.incrementProperty('number');
-					userCollection.save();
 				} else {
-					const userCollection = this.get('store').createRecord('collection', {
-						card_id: card.id,
-						user_id: user.id,
+					userCollection = this.get('store').createRecord('collection', {
+						card: card,
+						user: user,
 						number: 1
 					});
-					collections.pushObject(userCollection);
-					userCollection.save();/*.then(() => {
-						card.save();
-					})*/
 				}
-			})
+				userCollection.save();
+			});
 		},
 
 		removeFromCollection(card) {
 			const user = this.get('model.user');
-			card.get('collections').then((collections) => {
-				const userCollections = collections.filterBy('user_id', user.id_int);
+			this.get('store').query('collection', { filter: { user: user.id, card: card.id } }).then(userCollections => {
+				let userCollection;
 				if (userCollections.length) {
-					const userCollection = userCollections[0];
+					userCollection = userCollections.firstObject;
 					const number = userCollection.number;
 					if (number > 1) {
 						userCollection.decrementProperty('number');

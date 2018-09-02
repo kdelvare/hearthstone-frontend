@@ -11,10 +11,14 @@ export default Route.extend({
 
 	model(params) {
 		const user = this.modelFor('user');
+		let cardFilters = { collectible: true, limit: 28, user: user.id };
+		if (params.class) { cardFilters.cardclass = params.class }
+		if (params.cost) { cardFilters.cost = params.cost }
+		if (params.cardset) { cardFilters.cardset = params.cardset }
 		return RSVP.hash({
-			cardclasses: this.store.query('cardclass', { collectible: true }),
-			cardsets: this.store.query('cardset', { collectible: true }),
-			cards: this.store.query('card', assign(params, { user: user.id, limit: 28 })),
+			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
+			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
+			cards: this.store.query('card', assign(params, { filter: cardFilters, sort: 'cost,name_fr' })),
 			user: user
 		});
 	}

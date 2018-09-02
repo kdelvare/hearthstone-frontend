@@ -4,10 +4,15 @@
 
 .card .number {
 	text-align: center;
-	margin-top: -25px;
+	margin-bottom: -15px;
 	height: 10px;
 	font-weight: bold;
 	font-size: 24px;
+}
+
+.number {
+	position: relative;
+	z-index: 10;
 }
 
 table {
