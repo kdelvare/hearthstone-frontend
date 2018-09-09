@@ -16,7 +16,14 @@
 }
 
 table {
-	text-align: right;
+	/*text-align: right;*/
+	border-collapse: collapse;
+}
+table, th, td {
+	border: 1px solid black;
+}
+th, td {
+	padding: 2px 5px;
 }
 
 .rarity-Gratuite {
@@ -31,6 +38,47 @@ table {
 .rarity-Légendaire {
 	color: red;
 }
+
 .cardclass {
 	font-weight: bold;
+}
+th.cardclass {
+	color: white;
+}
+.cardclass-Druide {
+	background-color: #703606;
+}
+.cardclass-Chasseur {
+	background-color: #016e01;
+}
+.cardclass-Mage {
+	background-color: #0091ac;
+}
+.cardclass-Paladin {
+	background-color: #aa8f00;
+}
+.cardclass-Prêtre {
+	background-color: #c7c1a1;
+}
+.cardclass-Voleur {
+	background-color: #4c4d48;
+}
+.cardclass-Chaman {
+	background-color: #021887;
+}
+.cardclass-Démoniste {
+	background-color: #7624ad;
+}
+.cardclass-Guerrier {
+	background-color: #8e1001;
+}
+
+.owned {
+	background-color: lightgray;
+}
+.cardset-Classique {
+	background-color: #e6b8af;
+}
+.cardset-current {
+	background-color: #fce5cd;
 }

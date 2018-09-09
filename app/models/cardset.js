@@ -9,5 +9,17 @@ export default DS.Model.extend({
 
 	image: computed('id', function() {
 		return `/assets/cardset_${this.get('id')}.png`;
+	}),
+
+	class: computed('id', function() {
+		const id = this.get('id');
+		switch (id) {
+			case '3': //Classique
+				return 'Classique';
+			case '1127': //Armageboum
+				return 'current';
+			default:
+				return '';
+		}
 	})
 });

@@ -2,7 +2,7 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 export default DS.Model.extend({
-	number: DS.attr('string'),
+	number: DS.attr('number'),
 
 	deck: DS.belongsTo(),
 	card: DS.belongsTo(),

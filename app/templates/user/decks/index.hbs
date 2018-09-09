@@ -1,14 +1,42 @@
-<ul>
-{{#each model.decks as |deck|}}
-	<li>
-		{{deck.cardclass.name_fr}}
-		{{#link-to 'user.decks.deck' model.user.id deck.id}}
-			{{deck.name}}
-		{{/link-to}}
-		{{deck.url}}
-		{{#if deck.dust}}
-			({{deck.dust}})
-		{{/if}}
-	</li>
-{{/each}}
-</ul>
+<table>
+	<tr>
+		{{#each model.cardclasses as |cardclass|}}
+			{{#if (lt cardclass.id 12)}}
+				<th class={{concat 'cardclass cardclass-' cardclass.name_fr}}>{{cardclass.name_fr}}</th>
+			{{/if}}
+		{{/each}}
+	</tr>
+	{{#each model.deckgroups as |deckgroup|}}
+		<tr>
+			<th colspan="9">{{deckgroup.name}} - {{deckgroup.url}}</th>
+		</tr>
+		<tr>
+			{{#each deckgroup.decks as |deck|}}
+				<td>
+					{{deck.cardclass.name_fr}} {{deck.name}}
+					<br/>
+					{{#if deck.dust}}
+						({{deck.dust}})
+					{{/if}}
+				</td>
+			{{/each}}
+		</tr>
+		<tr>
+			{{#each deckgroup.decks as |deck|}}
+				<td>
+					<table>
+						{{#each deck.deckcards as |deckcard|}}
+							{{#with deckcard.card as |card|}}
+								{{log card.collections.firstObject.number deckcard.number card.cardset.class}}
+								<tr><td class={{if (gte card.collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' card.cardset.class)}}>
+									{{if card.collections.firstObject card.collections.firstObject.number 0}}/{{deckcard.number}}
+									<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+								</td></tr>
+							{{/with}}
+						{{/each}}
+					</table>
+				</td>
+			{{/each}}
+		</tr>
+	{{/each}}
+</table>
