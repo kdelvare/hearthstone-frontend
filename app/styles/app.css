@@ -18,3 +18,19 @@
 table {
 	text-align: right;
 }
+
+.rarity-Gratuite {
+	color: gray;
+}
+.rarity-Rare {
+	color: blue;
+}
+.rarity-Epique {
+	color: purple;
+}
+.rarity-Légendaire {
+	color: red;
+}
+.cardclass {
+	font-weight: bold;
+}

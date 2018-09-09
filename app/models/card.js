@@ -12,6 +12,7 @@ export default DS.Model.extend({
 	atk: DS.attr('number'),
 
 	cardset: DS.belongsTo(),
+	cardclass: DS.belongsTo(),
 	rarity: DS.belongsTo(),
 	collections: DS.hasMany(),
 
@@ -21,5 +22,21 @@ export default DS.Model.extend({
 		const CARD_ID = this.get('hs_card_id');
 		const EXT = 'png';
 		return `https://art.hearthstonejson.com/v1/render/latest/${LOCALE}/${RESOLUTION}/${CARD_ID}.${EXT}`;
+	}),
+
+	dust: computed('rarity', function() {
+		const rarity = this.get('rarity');
+		switch(rarity.get('name_fr')) {
+			case 'Commune':
+				return 40;
+			case 'Rare':
+				return 100;
+			case 'Epique':
+				return 400;
+			case 'Légendaire':
+				return 1600;
+			default:
+				return 0;
+		}
 	})
 });

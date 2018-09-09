@@ -1,0 +1,9 @@
+{{model.cardclass.name_fr}} {{model.name}} - {{model.url}}
+
+<ul>
+	{{#each model.deckcards as |deckcard|}}
+		{{#with deckcard.card as |card|}}
+			<li>{{if card.collections.firstObject card.collections.firstObject.number 0}}/{{deckcard.number}} <span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span></li>
+		{{/with}}
+	{{/each}}
+</ul>

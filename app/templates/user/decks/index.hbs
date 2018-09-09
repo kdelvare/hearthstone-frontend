@@ -1,0 +1,14 @@
+<ul>
+{{#each model.decks as |deck|}}
+	<li>
+		{{deck.cardclass.name_fr}}
+		{{#link-to 'user.decks.deck' model.user.id deck.id}}
+			{{deck.name}}
+		{{/link-to}}
+		{{deck.url}}
+		{{#if deck.dust}}
+			({{deck.dust}})
+		{{/if}}
+	</li>
+{{/each}}
+</ul>

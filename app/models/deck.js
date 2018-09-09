@@ -10,5 +10,12 @@ export default DS.Model.extend({
 
 	id_int: computed('id', function() {
 		return parseInt(this.get('id'));
+	}),
+
+	dust: computed('deckcards.@each.dust', function() {
+		const deckcards = this.get('deckcards');
+		return deckcards.reduce((value, deckcard) => {
+			return value += deckcard.get('dust');
+		}, 0);
 	})
 });
