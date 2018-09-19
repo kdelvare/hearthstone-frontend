@@ -13,7 +13,7 @@
 		<tr>
 			{{#each deckgroup.decks as |deck|}}
 				<td>
-					{{deck.cardclass.name_fr}} {{deck.name}}
+					{{deck.name}}
 					<br/>
 					{{#if deck.dust}}
 						({{deck.dust}})
@@ -25,9 +25,8 @@
 			{{#each deckgroup.decks as |deck|}}
 				<td>
 					<table>
-						{{#each deck.deckcards as |deckcard|}}
+						{{#each deck.sortedDeckcards as |deckcard|}}
 							{{#with deckcard.card as |card|}}
-								{{log card.collections.firstObject.number deckcard.number card.cardset.class}}
 								<tr><td class={{if (gte card.collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' card.cardset.class)}}>
 									{{if card.collections.firstObject card.collections.firstObject.number 0}}/{{deckcard.number}}
 									<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>

@@ -6,13 +6,12 @@ export default Controller.extend({
 		import() {
 			const importString = this.get('importString');
 			const decoded = decode(importString);
+			console.log('decoded', decoded);
 
 			//const hero = this.get('store').findRecord('card', decoded.heroes[0]);
-			this.get('store').query('cardclass', { card: decoded.heroes[0] }).then(cardclasses => {
+			this.get('store').query('cardclass', { filter: { card_id: decoded.heroes[0] }}).then(cardclasses => {
 				const cardclass = cardclasses.firstObject;
 				const deck = this.get('store').createRecord('deck', {
-					name: 'Aggro Mech (TopDecks budget)',
-					url: 'https://www.hearthstonetopdecks.com/decks/budget-mech-warrior-deck-list-guide/',
 					cardclass: cardclass
 				});
 
@@ -33,8 +32,9 @@ export default Controller.extend({
 		},
 
 		save() {
-			this.get('deck').save().then(deck => {
-				this.get('deck').deckcards.forEach((deckcard) => {
+			const importedDeck = this.get('deck');
+			importedDeck.save().then(deck => {
+				importedDeck.deckcards.forEach((deckcard) => {
 					deckcard.set('deck', deck);
 					deckcard.save();
 				})

@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
+import { all } from 'rsvp';
 
 export default DS.Model.extend({
 	name: DS.attr('string'),
@@ -17,5 +18,9 @@ export default DS.Model.extend({
 		return deckcards.reduce((value, deckcard) => {
 			return value += deckcard.get('dust');
 		}, 0);
+	}),
+
+	sortedDeckcards: computed('deckcards.@each.card', function() {
+		return this.get('deckcards').sortBy('card.cost', 'card.name_fr');
 	})
 });
