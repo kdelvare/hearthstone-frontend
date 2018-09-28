@@ -1,1 +1,63 @@
-Total collectible cards: {{model.total.owned}} / {{model.total.total}}
+{{#with model.stat.total as |total|}}
+	<table>
+		<tr>
+			<th></th>
+			{{#each model.cardsets as |set|}}
+				<th>
+					<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"/>
+				</th>
+			{{/each}}
+			<th>TOTAL</th>
+			<th>%</th>
+		</tr>
+
+		{{#each ordered_rarities as |rarity|}}
+			<tr>
+				<th>{{rarity.name_fr}}</th>
+				{{#each model.cardsets as |set|}}
+					<td>
+						{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "owned"}}
+						/
+						{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}
+					</td>
+				{{/each}}
+				<th>
+					{{get (get total.rarities rarity.id) "owned"}}
+					/
+					{{get (get total.rarities rarity.id) "total"}}
+				</th>
+				<th>
+					{{get (get total.rarities rarity.id) "rate"}} %
+				</th>
+			</tr>
+		{{/each}}
+
+		<tr>
+			<th>TOTAL</th>
+			{{#each model.cardsets as |set|}}
+				<th>
+					{{get (get total.cardsets set.id) "owned"}}
+					/
+					{{get (get total.cardsets set.id) "total"}}
+				</th>
+			{{/each}}
+			<th>
+				{{total.owned}}
+				/
+				{{total.total}}
+			</th>
+		</tr>
+
+		<tr>
+			<th>%</th>
+			{{#each model.cardsets as |set|}}
+				<th>
+					{{get (get total.cardsets set.id) "rate"}} %
+				</th>
+			{{/each}}
+			<th>
+				{{total.rate}} %
+			</th>
+		</tr>
+	</table>
+{{/with}}
