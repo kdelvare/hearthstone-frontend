@@ -1,10 +1,11 @@
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
+import { computed, set } from '@ember/object';
+import RSVP from 'rsvp';
 
 export default Controller.extend({
 	ordered_rarities: computed('model.rarities', function() {
 		const rarities = this.get('model.rarities').toArray();
-		const free = rarities[1];
+		const free = rarities[0];
 		rarities[0] = rarities[1];
 		rarities[1] = free;
 		return rarities;
@@ -45,30 +46,44 @@ export default Controller.extend({
 				rate: 0
 			};
 		});
+		console.log('total', total);
 
 		cards.forEach(card => {
-			const cardset = card.cardset.get('id');
-			const rarity = card.rarity.get('id');
+			const promises = {
+				cardset: card.get('cardset'),
+				rarity: card.get('rarity')
+			};
+			RSVP.hash(promises).then( ({ cardset, rarity }) => {
+				cardset = parseInt(cardset.id);
+				rarity = parseInt(rarity.id);
+				//console.log('cardset rarity', cardset, rarity, card);
+				set(total, 'total', total.total + 1);
+				const cardsetTotal = total.cardsets[cardset];
+				set(cardsetTotal, 'total', cardsetTotal.total + 1);
+				const cardsetRarityTotal = total.cardsets[cardset].rarities[rarity];
+				set(cardsetRarityTotal, 'total', cardsetRarityTotal.total + 1);
+				const rarityTotal = total.rarities[rarity];
+				set(rarityTotal, 'total', rarityTotal.total + 1);
 
-			total.total += 1;
-			total.cardsets[cardset].total += 1;
-			total.cardsets[cardset].rarities[rarity].total += 1;
-			total.rarities[rarity].total += 1;
-
-			card.get('collections').forEach(collection => {
-				if (collection.user_id === user.id_int) {
-					total.owned += 1;
-					total.cardsets[cardset].owned += 1;
-					total.cardsets[cardset].rarities[rarity].owned += 1;
-					total.rarities[rarity].owned += 1;
-				}
-			});
+				card.get('collections').then(collections => {
+					collections.forEach(collection => {
+						collection.get('user').then(collectionUser => {
+							if (collectionUser.id === user.id) {
+								set(total, 'owned', total.owned + 1);
+								set(cardsetTotal, 'owned', cardsetTotal.owned + 1);
+								set(cardsetRarityTotal, 'owned', cardsetRarityTotal.owned + 1);
+								set(rarityTotal, 'owned', rarityTotal.owned + 1);
+							}
+						})
+					});
+				});
+			})
 		});
 
 		if (total.total) {
 			total.rate = Math.round(100 * total.owned / total.total);
 		}
-		let value;
+		/*let value;
 		cardsets.forEach(cardset => {
 			value = total.cardsets[cardset.id];
 			value.rate = Math.round(100 * value.owned / value.total);
@@ -80,7 +95,7 @@ export default Controller.extend({
 		rarities.forEach(rarity => {
 			value = total.rarities[rarity.id];
 			value.rate = Math.round(100 * value.owned / value.total);
-		});
+		});*/
 
 		return total;
 	})

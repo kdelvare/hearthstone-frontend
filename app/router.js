@@ -14,6 +14,7 @@ Router.map(function() {
 		this.route('decks', function() {
 			this.route('deck', { path: '/:deck_id' });
 		});
+		this.route('stats');
 	})
 });
 

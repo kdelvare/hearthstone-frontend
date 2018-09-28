@@ -10,8 +10,7 @@
 		<th>%</th>
 	</tr>
 
-	{{log ordered_rarities}}
-	{{#each model.rarities as |rarity|}}
+	{{#each ordered_rarities as |rarity|}}
 		<tr>
 			<th>{{rarity.name_fr}}</th>
 			{{#each model.cardsets as |set|}}
