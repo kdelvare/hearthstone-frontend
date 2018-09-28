@@ -4,7 +4,7 @@ import { assign } from '@ember/polyfills';
 
 export default Route.extend({
 	model(params) {
-		//const user = this.modelFor('user');
-		return this.store.queryRecord('stat', {});
+		const user = this.modelFor('user');
+		return this.store.queryRecord('stat', { user: user.id });
 	}
 });
