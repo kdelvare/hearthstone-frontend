@@ -27,7 +27,7 @@
 					{{get (get total.rarities rarity.id) "total"}}
 				</th>
 				<th>
-					{{get (get total.rarities rarity.id) "rate"}} %
+					{{round (mult 100 (div (get (get total.rarities rarity.id) "owned") (get (get total.rarities rarity.id) "total")))}} %
 				</th>
 			</tr>
 		{{/each}}
@@ -52,11 +52,11 @@
 			<th>%</th>
 			{{#each model.cardsets as |set|}}
 				<th>
-					{{get (get total.cardsets set.id) "rate"}} %
+					{{round (mult 100 (div (get (get total.cardsets set.id) "owned") (get (get total.cardsets set.id) "total")))}} %
 				</th>
 			{{/each}}
 			<th>
-				{{total.rate}} %
+				{{round (mult 100 (div total.owned total.total))}} %
 			</th>
 		</tr>
 	</table>
