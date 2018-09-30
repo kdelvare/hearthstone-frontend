@@ -1,10 +1,37 @@
-<strong>Users</strong>
-<ul>
+<hr/>
+
+<div id="users">
 	{{#each model as |user|}}
-		<li>
-			{{#link-to 'user' user.id}}
-				{{user.name}}
+		{{#if user.id}}
+			{{#link-to 'user.collection' user.id}}
+				<div class="user">
+					<img src={{concat "https://robohash.org/" user.name ".png?size=100x100"}}/>
+					<br/>
+					{{user.name}}
+				</div>
 			{{/link-to}}
-		</li>
+		{{else}}
+			<div class="user">
+				<img src={{concat "https://robohash.org/" user.name ".png?size=100x100"}}/>
+				<br/>
+				{{user.name}}
+			</div>
+		{{/if}}
 	{{/each}}
-</ul>
+</div>
+
+<div id="newUser">
+	<p>
+		Nouvel utilisateur
+		{{input value=newUser.name}}
+	</p>
+	<p>
+		Collection
+		<select onchange={{action (mut initCollection) value="target.value"}}>
+			<option value='empty'>Vide</option>
+			<option value='start'>Cartes basiques niveau 0</option>
+			<option value='basic'>Cartes basiques niveau 10</option>
+		</select>
+	</p>
+	<button {{action "save"}}>Enregistrer</button>
+</div>

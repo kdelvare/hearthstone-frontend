@@ -1,8 +1,18 @@
 a.icon {
 	text-decoration: none;
 }
-a:visited {
+a:link, a:visited {
 	color: black;
+}
+
+.user {
+	float: left;
+	text-align: center;
+}
+#newUser {
+	float: left;
+	padding-top: 10px;
+	padding-left: 20px;
 }
 
 .faded {
