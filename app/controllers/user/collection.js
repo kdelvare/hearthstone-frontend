@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
 	queryParams: ['class', 'cost', 'cardset'],
@@ -7,6 +8,10 @@ export default Controller.extend({
 	cardset: null,
 
 	actions: {
+		filterOwned(collection) {
+			return collection.user.get('id') === this.get('model.user.id');
+		},
+
 		toggleParam(name, value) {
 			const param = this.get(name);
 			if (param === value) {
@@ -18,37 +23,41 @@ export default Controller.extend({
 
 		addToCollection(card) {
 			const user = this.get('model.user');
-			this.get('store').query('collection', { filter: { user: user.id, card: card.id } }).then(userCollections => {
-				let userCollection;
-				if (userCollections.length) {
-					userCollection = userCollections.firstObject;
-					userCollection.incrementProperty('number');
-				} else {
-					userCollection = this.get('store').createRecord('collection', {
-						card: card,
-						user: user,
-						number: 1
-					});
-				}
-				userCollection.save();
+			const userCollections = card.collections.filter(collection => {
+				return collection.user.get('id') === user.id;
 			});
+
+			let userCollection;
+			if (userCollections.length) {
+				userCollection = userCollections.firstObject;
+				userCollection.incrementProperty('number');
+			} else {
+				userCollection = this.get('store').createRecord('collection', {
+					card: card,
+					user: user,
+					number: 1
+				});
+			}
+			userCollection.save();
 		},
 
 		removeFromCollection(card) {
 			const user = this.get('model.user');
-			this.get('store').query('collection', { filter: { user: user.id, card: card.id } }).then(userCollections => {
-				let userCollection;
-				if (userCollections.length) {
-					userCollection = userCollections.firstObject;
-					const number = userCollection.number;
-					if (number > 1) {
-						userCollection.decrementProperty('number');
-					} else {
-						userCollection.deleteRecord();
-					}
-					userCollection.save();
-				}
+			const userCollections = card.collections.filter(collection => {
+				return collection.user.get('id') === user.id;
 			});
+
+			let userCollection;
+			if (userCollections.length) {
+				userCollection = userCollections.firstObject;
+				const number = userCollection.number;
+				if (number > 1) {
+					userCollection.decrementProperty('number');
+				} else {
+					userCollection.deleteRecord();
+				}
+				userCollection.save();
+			}
 		},
 	}
 });

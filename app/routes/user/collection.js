@@ -18,7 +18,7 @@ export default Route.extend({
 		return RSVP.hash({
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
-			cards: this.store.query('card', assign(params, { filter: cardFilters, sort: 'cost,name_fr' })),
+			cards: this.store.query('card', assign(params, { filter: cardFilters, include: 'collections,collections.user', fields: { collections: 'user,number' }, sort: 'cost,name_fr' })),
 			user: user
 		});
 	}

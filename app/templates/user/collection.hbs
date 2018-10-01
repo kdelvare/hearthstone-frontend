@@ -29,14 +29,23 @@
 
 {{#each model.cards as |card|}}
 	<div class="card" style="float:left">
-		<div class="number" {{action 'removeFromCollection' card}}>
-			{{card.collections.firstObject.number}}
-		</div>
-		<div class="image">
-			<img src={{card.image}}
-				class={{if (not card.collections.firstObject.number) "faded"}}
-				{{action 'addToCollection' card}}
-			/>
-		</div>
+		{{#with (filter (action "filterOwned") card.collections) as |collection|}}
+			<div class="number" {{action 'removeFromCollection' card}}>
+				{{collection.firstObject.number}}
+			</div>
+			<div class="image">
+				<img src={{card.image}}
+					{{action 'addToCollection' card}}
+				/>
+			</div>
+		{{else}}
+			<div class="number"/>
+			<div class="image">
+				<img src={{card.image}}
+					class="faded"
+					{{action 'addToCollection' card}}
+				/>
+			</div>
+		{{/with}}
 	</div>
 {{/each}}
