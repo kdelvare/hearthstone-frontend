@@ -11,7 +11,7 @@ export default Route.extend({
 
 	model(params) {
 		const user = this.modelFor('user');
-		let cardFilters = { collectible: true, limit: 28, user: user.id };
+		let cardFilters = { collectible: true, limit: 28 };
 		if (params.class) { cardFilters.cardclass = params.class }
 		if (params.cost) { cardFilters.cost = params.cost }
 		if (params.cardset) { cardFilters.cardset = params.cardset }
