@@ -23,9 +23,11 @@
 				{{#each model.cardsets as |set|}}
 					{{#if (or (not standard) set.standard)}}
 						<td>
-							{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "owned"}}
-							/
-							{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}
+							{{#if (get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total")}}
+								{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "owned"}}
+								/
+								{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}
+							{{/if}}
 						</td>
 					{{/if}}
 				{{/each}}
