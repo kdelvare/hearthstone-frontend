@@ -7,9 +7,11 @@ export default Controller.extend({
 	cost: null,
 	cardset: null,
 
+	standard: true,
+
 	actions: {
-		filterOwned(collection) {
-			return collection.user.get('id') === this.get('model.user.id');
+		toggleFormat() {
+			this.toggleProperty('standard');
 		},
 
 		toggleParam(name, value) {
@@ -19,6 +21,10 @@ export default Controller.extend({
 			} else {
 				this.set(name, value);
 			}
+		},
+
+		filterOwned(collection) {
+			return collection.user.get('id') === this.get('model.user.id');
 		},
 
 		addToCollection(card) {

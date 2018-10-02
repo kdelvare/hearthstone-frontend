@@ -1,11 +1,17 @@
 {{#with model.stat.total as |total|}}
 	<table>
 		<tr>
-			<th></th>
+			<th class="format">
+				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}}
+					{{action 'toggleFormat'}}
+				/>
+			</th>
 			{{#each model.cardsets as |set|}}
-				<th>
-					<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"/>
-				</th>
+				{{#if (or (not standard) set.standard)}}
+					<th>
+						<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"/>
+					</th>
+				{{/if}}
 			{{/each}}
 			<th>TOTAL</th>
 			<th>%</th>
@@ -15,11 +21,13 @@
 			<tr>
 				<th>{{rarity.name_fr}}</th>
 				{{#each model.cardsets as |set|}}
-					<td>
-						{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "owned"}}
-						/
-						{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}
-					</td>
+					{{#if (or (not standard) set.standard)}}
+						<td>
+							{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "owned"}}
+							/
+							{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}
+						</td>
+					{{/if}}
 				{{/each}}
 				<th>
 					{{get (get total.rarities rarity.id) "owned"}}
@@ -35,11 +43,13 @@
 		<tr>
 			<th>TOTAL</th>
 			{{#each model.cardsets as |set|}}
-				<th>
-					{{get (get total.cardsets set.id) "owned"}}
-					/
-					{{get (get total.cardsets set.id) "total"}}
-				</th>
+				{{#if (or (not standard) set.standard)}}
+					<th>
+						{{get (get total.cardsets set.id) "owned"}}
+						/
+						{{get (get total.cardsets set.id) "total"}}
+					</th>
+				{{/if}}
 			{{/each}}
 			<th>
 				{{total.owned}}
@@ -51,9 +61,11 @@
 		<tr>
 			<th>%</th>
 			{{#each model.cardsets as |set|}}
-				<th>
-					{{round (mult 100 (div (get (get total.cardsets set.id) "owned") (get (get total.cardsets set.id) "total")))}} %
-				</th>
+				{{#if (or (not standard) set.standard)}}
+					<th>
+						{{round (mult 100 (div (get (get total.cardsets set.id) "owned") (get (get total.cardsets set.id) "total")))}} %
+					</th>
+				{{/if}}
 			{{/each}}
 			<th>
 				{{round (mult 100 (div total.owned total.total))}} %

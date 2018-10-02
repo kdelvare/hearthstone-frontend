@@ -1,3 +1,9 @@
+<div class="format">
+	<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}}
+		{{action 'toggleFormat'}}
+	/>
+</div>
+
 <div>
 	{{#each model.cardclasses as |cardclass|}}
 		<img src={{cardclass.image}} title={{cardclass.name_fr}} alt={{cardclass.name_fr}} width="64px"
@@ -18,10 +24,12 @@
 
 <div>
 	{{#each model.cardsets as |set|}}
-		<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"
-			class={{if (and cardset (not-eq cardset set.id)) "faded"}}
-			{{action 'toggleParam' 'cardset' set.id}}
-		/>
+		{{#if (or (not standard) set.standard)}}
+			<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"
+				class={{if (and cardset (not-eq cardset set.id)) "faded"}}
+				{{action 'toggleParam' 'cardset' set.id}}
+			/>
+		{{/if}}
 	{{/each}}
 </div>
 
