@@ -30,12 +30,12 @@
 					{{/if}}
 				{{/each}}
 				<th>
-					{{get (get total.rarities rarity.id) "owned"}}
+					{{get (get total.rarities rarity.id) (if standard "owned_std" "owned")}}
 					/
-					{{get (get total.rarities rarity.id) "total"}}
+					{{get (get total.rarities rarity.id) (if standard "total_std" "total")}}
 				</th>
 				<th>
-					{{round (mult 100 (div (get (get total.rarities rarity.id) "owned") (get (get total.rarities rarity.id) "total")))}} %
+					{{round (mult 100 (div (get (get total.rarities rarity.id) (if standard "owned_std" "owned")) (get (get total.rarities rarity.id) (if standard "total_std" "total"))))}} %
 				</th>
 			</tr>
 		{{/each}}
@@ -52,9 +52,9 @@
 				{{/if}}
 			{{/each}}
 			<th>
-				{{total.owned}}
+				{{if standard total.owned_std total.owned}}
 				/
-				{{total.total}}
+				{{if standard total.total_std total.total}}
 			</th>
 		</tr>
 
@@ -68,7 +68,7 @@
 				{{/if}}
 			{{/each}}
 			<th>
-				{{round (mult 100 (div total.owned total.total))}} %
+				{{round (mult 100 (div (if standard total.owned_std total.owned) (if standard total.total_std total.total)))}} %
 			</th>
 		</tr>
 	</table>
