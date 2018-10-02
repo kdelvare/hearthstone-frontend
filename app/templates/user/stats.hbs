@@ -35,7 +35,7 @@
 					{{get (get total.rarities rarity.id) (if standard "total_std" "total")}}
 				</th>
 				<th>
-					{{round (mult 100 (div (get (get total.rarities rarity.id) (if standard "owned_std" "owned")) (get (get total.rarities rarity.id) (if standard "total_std" "total"))))}} %
+					{{round (mult 100 (div (get (get total.rarities rarity.id) (if standard "owned_std" "owned")) (get (get total.rarities rarity.id) (if standard "total_std" "total"))))}}&nbsp;%
 				</th>
 			</tr>
 		{{/each}}
@@ -45,16 +45,12 @@
 			{{#each model.cardsets as |set|}}
 				{{#if (or (not standard) set.standard)}}
 					<th>
-						{{get (get total.cardsets set.id) "owned"}}
-						/
-						{{get (get total.cardsets set.id) "total"}}
+						{{get (get total.cardsets set.id) "owned"}}&nbsp;/&nbsp;{{get (get total.cardsets set.id) "total"}}
 					</th>
 				{{/if}}
 			{{/each}}
 			<th>
-				{{if standard total.owned_std total.owned}}
-				/
-				{{if standard total.total_std total.total}}
+				{{if standard total.owned_std total.owned}}&nbsp;/&nbsp;{{if standard total.total_std total.total}}
 			</th>
 		</tr>
 
@@ -68,7 +64,7 @@
 				{{/if}}
 			{{/each}}
 			<th>
-				{{round (mult 100 (div (if standard total.owned_std total.owned) (if standard total.total_std total.total)))}} %
+				{{round (mult 100 (div (if standard total.owned_std total.owned) (if standard total.total_std total.total)))}}&nbsp;%
 			</th>
 		</tr>
 	</table>
