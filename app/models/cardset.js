@@ -16,6 +16,8 @@ export default DS.Model.extend({
 		switch (id) {
 			case '3': //Classique
 				return 'Classique';
+			case '1125': //Bois maudit
+				return 'year';
 			case '1127': //Armageboum
 				return 'current';
 			default:

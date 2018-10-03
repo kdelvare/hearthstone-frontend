@@ -135,6 +135,9 @@ th.cardclass {
 .cardset-Classique {
 	background-color: #e6b8af;
 }
+.cardset-year {
+	background-color: #fef3e7;
+}
 .cardset-current {
-	background-color: #fce5cd;
+	background-color: #fbdab7;
 }
