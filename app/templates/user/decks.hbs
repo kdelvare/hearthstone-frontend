@@ -1,0 +1,48 @@
+<table>
+	{{#each model.deckgroups as |deckgroup|}}
+		<tr>
+			<th colspan="9">{{deckgroup.name}} - {{deckgroup.url}}</th>
+		</tr>
+		<tr>
+			{{#each model.cardclasses as |cardclass|}}
+				{{#if (lt cardclass.id 12)}}
+					<th class={{concat 'cardclass cardclass-' cardclass.name_fr}}>{{cardclass.name_fr}}</th>
+				{{/if}}
+			{{/each}}
+		</tr>
+		<tr>
+			{{#each deckgroup.sortedDecks as |deck|}}
+				<td>
+					{{deck.name}}
+					<br/>
+					{{#if deck.dust}}
+						({{deck.dust}})
+					{{/if}}
+				</td>
+			{{/each}}
+		</tr>
+		<tr>
+			{{#each deckgroup.sortedDecks as |deck|}}
+				<td>
+					<table>
+						{{#each deck.sortedDeckcards as |deckcard|}}
+							{{#with deckcard.card as |card|}}
+								{{#with (filter (action "filterOwned") card.collections) as |collections|}}
+									<tr><td class={{if (gte collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' card.cardset.class)}}>
+										{{collections.firstObject.number}}/{{deckcard.number}}
+										<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+									</td></tr>
+								{{else}}
+									<tr><td class={{concat 'cardset-' card.cardset.class}}>
+										0/{{deckcard.number}}
+										<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+									</td></tr>
+								{{/with}}
+							{{/with}}
+						{{/each}}
+					</table>
+				</td>
+			{{/each}}
+		</tr>
+	{{/each}}
+</table>

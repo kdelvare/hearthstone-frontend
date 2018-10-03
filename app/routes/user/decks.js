@@ -5,7 +5,10 @@ export default Route.extend({
 	model() {
 		const user = this.modelFor('user');
 		return RSVP.hash({
-			deckgroups: this.store.findAll('deckgroup'),
+			deckgroups: this.store.findAll('deckgroup', {
+				include: 'decks,decks.cardclass,decks.deckcards,decks.deckcards.card,decks.deckcards.card.cardset,decks.deckcards.card.cardclass,decks.deckcards.card.rarity,decks.deckcards.card.collections,decks.deckcards.card.collections.user',
+				fields: { decks: 'name', deckards: 'number', collections: 'number' }
+			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			user: user
 		});
