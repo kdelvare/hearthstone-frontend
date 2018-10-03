@@ -46,8 +46,11 @@ table {
 	/*text-align: right;*/
 	border-collapse: collapse;
 }
-table, th, td {
+th, td {
 	border: 1px solid black;
+}
+th.noborder {
+	border: none;
 }
 th, td {
 	padding: 2px 5px;

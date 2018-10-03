@@ -3,6 +3,15 @@
 {{#with model.stat.completion as |total|}}
 	<table>
 		<tr>
+			<th class="noborder" colspan={{if standard 3 9}}></th>
+			{{#unless standard}}
+				<th colspan="3">Année du Kraken</th>
+			{{/unless}}
+			<th colspan="3">Année du Mammouth</th>
+			<th colspan="2">Année du Corbeau</th>
+		</tr>
+
+		<tr>
 			<th class="format">
 				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}}
 					{{action 'toggleFormat'}}
@@ -78,6 +87,15 @@
 
 {{#with model.stat.total as |total|}}
 	<table>
+		<tr>
+			<th class="noborder" colspan={{if standard 3 9}}></th>
+			{{#unless standard}}
+				<th colspan="3">Année du Kraken</th>
+			{{/unless}}
+			<th colspan="3">Année du Mammouth</th>
+			<th colspan="2">Année du Corbeau</th>
+		</tr>
+
 		<tr>
 			<th class="format">
 				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}}
