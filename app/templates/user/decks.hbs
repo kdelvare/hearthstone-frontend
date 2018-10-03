@@ -29,7 +29,7 @@
 							{{#with deckcard.card as |card|}}
 								{{#with (filter (action "filterOwned") card.collections) as |collections|}}
 									<tr><td class={{if (gte collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' card.cardset.class)}}>
-										{{collections.firstObject.number}}/{{deckcard.number}}
+										{{min collections.firstObject.number deckcard.number}}/{{deckcard.number}}
 										<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
 									</td></tr>
 								{{else}}
