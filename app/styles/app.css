@@ -5,6 +5,10 @@ a:link, a:visited {
 	color: black;
 }
 
+.pointer {
+	cursor: pointer;
+}
+
 .user {
 	float: left;
 	text-align: center;
@@ -29,17 +33,23 @@ th.format img {
 	filter: opacity(30%);
 }
 
+.card {
+	float: left;
+}
+
 .card .number {
 	text-align: center;
-	margin-bottom: -15px;
+	margin-bottom: -20px;
 	height: 10px;
 	font-weight: bold;
 	font-size: 24px;
-}
-
-.number {
 	position: relative;
 	z-index: 10;
+}
+
+.card .number i {
+	color: lightgray;
+	margin: 0 20px;
 }
 
 table {

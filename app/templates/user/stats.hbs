@@ -13,9 +13,7 @@
 
 		<tr>
 			<th class="format">
-				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}}
-					{{action 'toggleFormat'}}
-				/>
+				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}} class="pointer" {{action 'toggleFormat'}} />
 			</th>
 			{{#each model.cardsets as |set|}}
 				{{#if (or (not standard) set.standard)}}
@@ -98,9 +96,7 @@
 
 		<tr>
 			<th class="format">
-				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}}
-					{{action 'toggleFormat'}}
-				/>
+				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}} class="pointer" {{action 'toggleFormat'}} />
 			</th>
 			{{#each model.cardsets as |set|}}
 				{{#if (or (not standard) set.standard)}}
