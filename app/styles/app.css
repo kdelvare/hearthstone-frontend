@@ -1,5 +1,21 @@
-a.icon {
+.navigation {
+	display: inline;
+	margin-bottom: 5px;
+	margin-right: 20px;
+}
+.navigation a {
 	text-decoration: none;
+	margin-right: 10px;
+}
+.navigation .fa-stack {
+	margin-top: -20px;
+}
+.navigation .user-avatar {
+	margin-bottom: -3px;
+}
+.navigation .user-name {
+	font-weight: bold;
+	margin-right: 5px;
 }
 a:link, a:visited {
 	color: black;

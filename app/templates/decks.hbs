@@ -1,7 +1,11 @@
+Importer un deck
+
+<hr/>
+
 {{input value=importString}}
 <button {{action "import"}}>Importer</button>
 
-<hr/>
+<br/>
 
 {{#if showDeck}}
 	Héros : {{deck.cardclass.name_fr}}
@@ -19,15 +23,3 @@
 
 	<hr/>
 {{/if}}
-
-<ul>
-{{#each model as |deck|}}
-	<li>
-		{{deck.cardclass.name_fr}}
-		{{#link-to 'deck' deck.id}}
-			{{deck.name}}
-		{{/link-to}}
-		{{deck.url}}
-	</li>
-{{/each}}
-</ul>

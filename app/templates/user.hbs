@@ -1,12 +1,16 @@
-<strong>{{model.name}}</strong>
--
-{{#link-to 'user.collection' model.id}}
-	Collection
-{{/link-to}}
--
-{{#link-to 'user.stats' model.id}}
-	Stats
-{{/link-to}}
+<div class="navigation">
+	<img src={{concat "https://robohash.org/" model.name ".png?size=42x42"}} class="user-avatar"/>
+
+	<span class="user-name">{{model.name}}</span>
+
+	{{#link-to 'user.collection' model.id title="Collection"}}
+		<i class="fas fa-th pointer fa-2x"></i>
+	{{/link-to}}
+
+	{{#link-to 'user.stats' model.id title="Stats"}}
+		<i class="fas fa-percent pointer fa-2x"></i>
+	{{/link-to}}
+</div>
 
 <hr/>
 

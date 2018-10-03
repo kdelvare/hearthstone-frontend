@@ -1,5 +1,12 @@
-{{#link-to 'index' class='icon'}}
-	<i class="fas fa-home pointer"></i>
-{{/link-to}}
+<div class="navigation">
+	{{#link-to 'index' title="Accueil"}}
+		<i class="fas fa-home pointer fa-2x"></i>
+	{{/link-to}}
+
+	{{#link-to 'decks' class="fa-stack fa-1x" title="Importer un deck"}}
+		<i class="fas fa-camera fa-layer-group fa-stack-2x"></i>
+		<i class="fas fa-camera fa-long-arrow-alt-down fa-stack-2x" style="color: green;"></i>
+	{{/link-to}}
+</div>
 
 {{outlet}}
