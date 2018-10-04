@@ -68,6 +68,11 @@ th.format img {
 	margin: 0 20px;
 }
 
+.missing {
+	color: darkred;
+	font-weight: bold;
+}
+
 table {
 	/*text-align: right;*/
 	border-collapse: collapse;
@@ -80,6 +85,9 @@ th.noborder {
 }
 th, td {
 	padding: 2px 5px;
+}
+tr.decks {
+	vertical-align: top;
 }
 
 .rarity-Gratuite {

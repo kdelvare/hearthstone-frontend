@@ -16,12 +16,18 @@
 					{{deck.name}}
 					<br/>
 					{{#if deck.dust}}
-						({{deck.dust}})
+						{{get (get deckstats deck.id) "owned"}}/{{deck.size}}
+						({{get (get deckstats deck.id) "dust"}}/{{deck.dust}})
+						{{#with (sub deck.dust (get (get deckstats deck.id) "dust")) as |missing|}}
+							<span class={{if (gt missing 0) "missing"}}>
+								{{missing}}
+							</span>
+						{{/with}}
 					{{/if}}
 				</td>
 			{{/each}}
 		</tr>
-		<tr>
+		<tr class="decks">
 			{{#each deckgroup.sortedDecks as |deck|}}
 				<td>
 					<table>

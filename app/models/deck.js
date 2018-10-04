@@ -20,6 +20,13 @@ export default DS.Model.extend({
 		}, 0);
 	}),
 
+	size: computed('deckcards.@each.number', function() {
+		const deckcards = this.get('deckcards');
+		return deckcards.reduce((value, deckcard) => {
+			return value += deckcard.get('number');
+		}, 0);
+	}),
+
 	sortedDeckcards: computed('deckcards.@each.card', function() {
 		return this.get('deckcards').sortBy('card.cost', 'card.name_fr');
 	})
