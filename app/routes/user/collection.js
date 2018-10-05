@@ -6,7 +6,8 @@ export default Route.extend({
 	queryParams: {
 		class: { refreshModel: true },
 		cost: { refreshModel: true },
-		cardset: { refreshModel: true }
+		cardset: { refreshModel: true },
+		standard: { refreshModel: true }
 	},
 
 	model(params) {
@@ -15,6 +16,7 @@ export default Route.extend({
 		if (params.class) { cardFilters.cardclass = params.class }
 		if (params.cost) { cardFilters.cost = params.cost }
 		if (params.cardset) { cardFilters.cardset = params.cardset }
+		if (params.standard) { cardFilters.standard = true }
 		return RSVP.hash({
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
