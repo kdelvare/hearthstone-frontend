@@ -21,6 +21,17 @@
 </div>
 
 <div>
+	{{#each model.rarities as |cardrarity|}}
+		{{#if (not-eq cardrarity.id '2')}}
+			<img src={{cardrarity.image}} title={{cardrarity.name_fr}} alt={{cardrarity.name_fr}}
+				class={{concat "pointer" (if (and rarity (not-eq rarity cardrarity.id)) " faded")}}
+				{{action 'toggleParam' 'rarity' cardrarity.id}}
+			/>
+		{{/if}}
+	{{/each}}
+</div>
+
+<div>
 	{{#each model.cardsets as |set|}}
 		{{#if (or (not standard) set.standard)}}
 			<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"

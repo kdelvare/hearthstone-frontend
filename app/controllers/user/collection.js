@@ -2,11 +2,11 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
-	queryParams: ['class', 'cost', 'cardset', 'standard'],
+	queryParams: ['class', 'cost', 'rarity', 'cardset', 'standard'],
 	class: null,
 	cost: null,
+	rarity: null,
 	cardset: null,
-
 	standard: true,
 
 	actions: {
