@@ -79,6 +79,70 @@
 			</th>
 		</tr>
 	</table>
+
+	<br/>
+
+	<table>
+		<tr>
+			<th class="format">
+				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}} class="pointer" {{action 'toggleFormat'}} />
+			</th>
+			{{#each model.cardclasses as |cardclass|}}
+				<th>
+					<img src={{cardclass.image}} title={{cardclass.name_fr}} alt={{cardclass.name_fr}} height="50px"/>
+				</th>
+			{{/each}}
+			<th>TOTAL</th>
+			<th>%</th>
+		</tr>
+
+		{{#each ordered_rarities as |rarity|}}
+			<tr>
+				<th>{{rarity.name_fr}}</th>
+				{{#each model.cardclasses as |cardclass|}}
+					<td>
+						{{#if (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total"))}}
+							{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "owned_std" "owned")}}
+							/
+							{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}
+						{{/if}}
+					</td>
+				{{/each}}
+				<th>
+					{{get (get total.rarities rarity.id) (if standard "owned_std" "owned")}}
+					/
+					{{get (get total.rarities rarity.id) (if standard "total_std" "total")}}
+				</th>
+				<th>
+					{{round (mult 100 (div (get (get total.rarities rarity.id) (if standard "owned_std" "owned")) (get (get total.rarities rarity.id) (if standard "total_std" "total"))))}}&nbsp;%
+				</th>
+			</tr>
+		{{/each}}
+
+		<tr>
+			<th>TOTAL</th>
+			{{#each model.cardclasses as |cardclass|}}
+				<th>
+					{{get (get total.cardclasses cardclass.id) (if standard "owned_std" "owned")}}&nbsp;/&nbsp;{{get (get total.cardclasses cardclass.id) (if standard "total_std" "total")}}
+				</th>
+			{{/each}}
+			<th>
+				{{if standard total.owned_std total.owned}}&nbsp;/&nbsp;{{if standard total.total_std total.total}}
+			</th>
+		</tr>
+
+		<tr>
+			<th>%</th>
+			{{#each model.cardclasses as |cardclass|}}
+				<th>
+					{{round (mult 100 (div (get (get total.cardclasses cardclass.id) (if standard "owned_std" "owned")) (get (get total.cardclasses cardclass.id) (if standard "total_std" "total"))))}} %
+				</th>
+			{{/each}}
+			<th>
+				{{round (mult 100 (div (if standard total.owned_std total.owned) (if standard total.total_std total.total)))}}&nbsp;%
+			</th>
+		</tr>
+	</table>
 {{/with}}
 
 <h3>Diversité</h3>
@@ -156,6 +220,70 @@
 						{{round (mult 100 (div (get (get total.cardsets set.id) "owned") (get (get total.cardsets set.id) "total")))}} %
 					</th>
 				{{/if}}
+			{{/each}}
+			<th>
+				{{round (mult 100 (div (if standard total.owned_std total.owned) (if standard total.total_std total.total)))}}&nbsp;%
+			</th>
+		</tr>
+	</table>
+
+	<br/>
+
+	<table>
+		<tr>
+			<th class="format">
+				<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}} class="pointer" {{action 'toggleFormat'}} />
+			</th>
+			{{#each model.cardclasses as |cardclass|}}
+				<th>
+					<img src={{cardclass.image}} title={{cardclass.name_fr}} alt={{cardclass.name_fr}} height="50px"/>
+				</th>
+			{{/each}}
+			<th>TOTAL</th>
+			<th>%</th>
+		</tr>
+
+		{{#each ordered_rarities as |rarity|}}
+			<tr>
+				<th>{{rarity.name_fr}}</th>
+				{{#each model.cardclasses as |cardclass|}}
+					<td>
+						{{#if (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total"))}}
+							{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "owned_std" "owned")}}
+							/
+							{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}
+						{{/if}}
+					</td>
+				{{/each}}
+				<th>
+					{{get (get total.rarities rarity.id) (if standard "owned_std" "owned")}}
+					/
+					{{get (get total.rarities rarity.id) (if standard "total_std" "total")}}
+				</th>
+				<th>
+					{{round (mult 100 (div (get (get total.rarities rarity.id) (if standard "owned_std" "owned")) (get (get total.rarities rarity.id) (if standard "total_std" "total"))))}}&nbsp;%
+				</th>
+			</tr>
+		{{/each}}
+
+		<tr>
+			<th>TOTAL</th>
+			{{#each model.cardclasses as |cardclass|}}
+				<th>
+					{{get (get total.cardclasses cardclass.id) (if standard "owned_std" "owned")}}&nbsp;/&nbsp;{{get (get total.cardclasses cardclass.id) (if standard "total_std" "total")}}
+				</th>
+			{{/each}}
+			<th>
+				{{if standard total.owned_std total.owned}}&nbsp;/&nbsp;{{if standard total.total_std total.total}}
+			</th>
+		</tr>
+
+		<tr>
+			<th>%</th>
+			{{#each model.cardclasses as |cardclass|}}
+				<th>
+					{{round (mult 100 (div (get (get total.cardclasses cardclass.id) (if standard "owned_std" "owned")) (get (get total.cardclasses cardclass.id) (if standard "total_std" "total"))))}} %
+				</th>
 			{{/each}}
 			<th>
 				{{round (mult 100 (div (if standard total.owned_std total.owned) (if standard total.total_std total.total)))}}&nbsp;%
