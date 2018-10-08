@@ -1,7 +1,14 @@
 <table>
 	{{#each model.deckgroups as |deckgroup|}}
 		<tr>
-			<th colspan="9">{{deckgroup.name}} - {{deckgroup.url}}</th>
+			<th colspan="9">
+				{{deckgroup.name}}
+				{{#if deckgroup.url}}
+					<a href={{deckgroup.url}} target="_blank">
+						<i class="fas fa-external-link-alt"></i>
+					</a>
+				{{/if}}
+			</th>
 		</tr>
 		<tr>
 			{{#each model.cardclasses as |cardclass|}}
@@ -14,6 +21,11 @@
 			{{#each deckgroup.sortedDecks as |deck|}}
 				<td>
 					{{deck.name}}
+					{{#if deck.url}}
+						<a href={{deck.url}} target="_blank">
+							<i class="fas fa-external-link-alt"></i>
+						</a>
+					{{/if}}
 					<br/>
 					{{#if deck.dust}}
 						{{get (get deckstats deck.id) "owned"}}/{{deck.size}}
