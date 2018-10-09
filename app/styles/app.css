@@ -4,7 +4,6 @@
 	margin-right: 20px;
 }
 .navigation a {
-	text-decoration: none;
 	margin-right: 10px;
 }
 .navigation .fa-stack {
@@ -18,6 +17,7 @@
 	margin-right: 5px;
 }
 a:link, a:visited {
+	text-decoration: none;
 	color: black;
 }
 
@@ -80,8 +80,31 @@ table {
 th, td {
 	border: 1px solid black;
 }
-th.noborder {
+.noborder {
 	border: none;
+}
+.stat1 {
+	border-right: none;
+	text-align: right;
+}
+.stat2 {
+	border-left: none;
+	border-right: none;
+	text-align: center;
+	padding: 2px 0;
+}
+.stat3, .stat4 {
+	border-left: none;
+	text-align: right;
+}
+.stat3 {
+	width: 15px;
+}
+.stat4 {
+	width: 20px;
+}
+.percent {
+	text-align: right;
 }
 th, td {
 	padding: 2px 5px;
