@@ -47,22 +47,22 @@
 {{#each model.cards as |card|}}
 	{{#with (filter (action "filterOwned") card.collections) as |collection|}}
 		<div class="card">
+			<div class="image">
+				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
+			</div>
 			<div class="number">
 				<i class="fas fa-minus-circle pointer" {{action 'removeFromCollection' card}}></i>
 				{{collection.firstObject.number}}
 				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
 			</div>
-			<div class="image">
-				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
-			</div>
 		</div>
 	{{else}}
 		<div class="card faded">
-			<div class="number">
-				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
-			</div>
 			<div class="image">
 				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
+			</div>
+			<div class="number">
+				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
 			</div>
 		</div>
 	{{/with}}

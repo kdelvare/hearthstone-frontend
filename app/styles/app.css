@@ -51,11 +51,12 @@ th.format img {
 
 .card {
 	float: left;
+	margin-bottom: 20px;
 }
 
 .card .number {
 	text-align: center;
-	margin-bottom: -20px;
+	margin-top: -40px;
 	height: 10px;
 	font-weight: bold;
 	font-size: 24px;
