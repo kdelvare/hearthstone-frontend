@@ -1,7 +1,11 @@
 import Route from '@ember/routing/route';
+import RSVP from 'rsvp';
 
 export default Route.extend({
 	model() {
-		return this.store.findAll('deck');
+		return RSVP.hash({
+			decks: this.store.findAll('deck'),
+			deckgroups: this.store.findAll('deckgroup')
+		});
 	}
 });

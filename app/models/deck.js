@@ -8,6 +8,7 @@ export default DS.Model.extend({
 
 	cardclass: DS.belongsTo(),
 	deckcards: DS.hasMany(),
+	deckgroup: DS.belongsTo(),
 
 	id_int: computed('id', function() {
 		return parseInt(this.get('id'));

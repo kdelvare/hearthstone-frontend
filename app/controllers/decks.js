@@ -31,13 +31,19 @@ export default Controller.extend({
 			});
 		},
 
+		setDeckgroup(deckgroup) {
+			this.get('store').findRecord('deckgroup', deckgroup).then(deckgroup => {
+				this.get('deck').set('deckgroup', deckgroup);
+			});
+		},
+
 		save() {
 			const importedDeck = this.get('deck');
 			importedDeck.save().then(deck => {
 				importedDeck.deckcards.forEach((deckcard) => {
 					deckcard.set('deck', deck);
 					deckcard.save();
-				})
+				});
 			});
 		}
 	}

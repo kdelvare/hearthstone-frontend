@@ -19,6 +19,11 @@ Importer un deck
 	<br/>
 	URL : {{input value=deck.url}}
 	<br/>
+	Groupe : <select onchange={{action "setDeckgroup" value="target.value"}}>
+		{{#each model.deckgroups as |deckgroup|}}
+			<option value={{deckgroup.id}}>{{deckgroup.name}}</option>
+		{{/each}}
+	</select>
 	<button {{action "save"}}>Enregistrer</button>
 
 	<hr/>
