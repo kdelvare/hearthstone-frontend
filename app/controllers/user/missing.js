@@ -22,6 +22,10 @@ export default Controller.extend({
 			} else {
 				this.set(name, value);
 			}
+			// Reset pagination
+			if (name !== "page") {
+				this.set("page", 1);
+			}
 		},
 
 		filterOwned(collection) {
