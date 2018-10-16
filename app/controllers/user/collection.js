@@ -10,12 +10,6 @@ export default Controller.extend({
 	standard: true,
 	page: 1,
 
-	pagination: {
-		page: 1,
-		perPage: 28,
-		totalPages: computed.alias('model.cards.meta.page-count'),
-	},
-
 	actions: {
 		toggleFormat() {
 			this.toggleProperty('standard');

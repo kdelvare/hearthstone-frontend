@@ -8,6 +8,7 @@ export default Controller.extend({
 	rarity: null,
 	cardset: null,
 	standard: true,
+	page: 1,
 
 	actions: {
 		toggleFormat() {
