@@ -2,12 +2,19 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
-	queryParams: ['class', 'cost', 'rarity', 'cardset', 'standard'],
+	queryParams: ['class', 'cost', 'rarity', 'cardset', 'standard', 'page'],
 	class: null,
 	cost: null,
 	rarity: null,
 	cardset: null,
 	standard: true,
+	page: 1,
+
+	pagination: {
+		page: 1,
+		perPage: 28,
+		totalPages: computed.alias('model.cards.meta.page-count'),
+	},
 
 	actions: {
 		toggleFormat() {

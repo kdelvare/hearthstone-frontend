@@ -69,6 +69,25 @@ th.format img {
 	margin: 0 20px;
 }
 
+.pagination {
+	clear: left;
+	width: 100%;
+}
+
+.pagination i, .pagination span {
+	margin: 20px;
+}
+
+.pagination span {
+	font-weight: bold;
+	font-size: 32px;
+}
+
+.inner {
+	display: table;
+	margin: 0 auto;
+}
+
 .missing {
 	color: darkred;
 	font-weight: bold;
