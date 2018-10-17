@@ -77,7 +77,7 @@
 			<i class="fas fa-angle-left fa-2x pointer" title={{pageNumber}} alt={{pageNumber}} {{action 'toggleParam' 'page' pageNumber}}></i>
 		{{/with}}
 		<span>
-			{{page}}
+			{{page}} / {{model.cards.meta.pagination.last.number}}
 		</span>
 		{{#with model.cards.meta.pagination.next.number as |pageNumber|}}
 			<i class="fas fa-angle-right fa-2x pointer" title={{pageNumber}} alt={{pageNumber}} {{action 'toggleParam' 'page' pageNumber}}></i>
