@@ -6,7 +6,7 @@ export default Controller.extend({
 		import() {
 			const importString = this.get('importString');
 			const decoded = decode(importString);
-			console.log('decoded', decoded);
+			//console.log('decoded', decoded);
 
 			//const hero = this.get('store').findRecord('card', decoded.heroes[0]);
 			this.get('store').query('cardclass', { filter: { card_id: decoded.heroes[0] }}).then(cardclasses => {
