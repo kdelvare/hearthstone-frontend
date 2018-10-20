@@ -26,6 +26,13 @@
 							<i class="fas fa-external-link-alt"></i>
 						</a>
 					{{/if}}
+					{{#if (gt (sub deck.dust (get (get deckstats deck.id) "dust")) 0)}}
+						{{#with (filter (action "filterOwned") deck.wanteddecks) as |wanteddecks|}}
+							<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
+						{{else}}
+							<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" deck}}></i>
+						{{/with}}
+					{{/if}}
 					<br/>
 					{{#if deck.dust}}
 						{{get (get deckstats deck.id) "owned"}}/{{deck.size}}

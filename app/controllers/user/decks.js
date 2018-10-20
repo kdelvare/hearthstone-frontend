@@ -35,6 +35,19 @@ export default Controller.extend({
 	actions: {
 		filterOwned(collection) {
 			return collection.user.get('id') === this.get('model.user.id');
+		},
+
+		addWanteddeck(deck) {
+			const wanteddeck = this.get('store').createRecord('wanteddeck', {
+				user: this.get('model.user'),
+				deck: deck
+			});
+			wanteddeck.save();
+		},
+
+		removeWanteddeck(wanteddeck) {
+			wanteddeck.deleteRecord();
+			wanteddeck.save();
 		}
 	}
 });
