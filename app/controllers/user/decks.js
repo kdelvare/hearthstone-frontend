@@ -42,10 +42,39 @@ export default Controller.extend({
 				user: this.get('model.user'),
 				deck: deck
 			});
-			wanteddeck.save();
+			wanteddeck.save().then(wanteddeck => {
+				deck.deckcards.forEach(deckcard => {
+					let userCollection = deckcard.card.get('collections').filter(collection => {
+						return collection.user.get('id') === this.get('model.user.id');
+					}).firstObject;
+					if (userCollection) {
+						const missingNumber = deckcard.number - userCollection.number;
+						if (missingNumber > 0) {
+							const wantedcard = this.get('store').createRecord('wantedcard', {
+								user: this.get('model.user'),
+								card: deckcard.card,
+								wanteddeck: wanteddeck,
+								number: missingNumber
+							});
+							wantedcard.save();
+						}
+					} else {
+						const wantedcard = this.get('store').createRecord('wantedcard', {
+							user: this.get('model.user'),
+							card: deckcard.card,
+							wanteddeck: wanteddeck,
+							number: deckcard.number
+						});
+						wantedcard.save();
+					}
+				});
+			});
 		},
 
 		removeWanteddeck(wanteddeck) {
+			wanteddeck.get('deck').then(deck => {
+				deck.wanteddecks.removeObject(wanteddeck);
+			});
 			wanteddeck.deleteRecord();
 			wanteddeck.save();
 		}
