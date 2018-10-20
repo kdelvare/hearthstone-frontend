@@ -51,6 +51,13 @@
 				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
 			</div>
 			<div class="number">
+				<div class="wanted">
+					{{#with (filter (action "filterOwned") card.wantedcards) as |wantedcards|}}
+						<span>
+							{{wantedcards.firstObject.number}} <i class="fas fa-heart"></i>
+						</span>
+					{{/with}}
+				</div>
 				<i class="fas fa-minus-circle pointer" {{action 'removeFromCollection' card}}></i>
 				{{collection.firstObject.number}}
 				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
@@ -62,6 +69,13 @@
 				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
 			</div>
 			<div class="number">
+				<div class="wanted">
+					{{#with (filter (action "filterOwned") card.wantedcards) as |wantedcards|}}
+						<span>
+							{{wantedcards.firstObject.number}} <i class="fas fa-heart"></i>
+						</span>
+					{{/with}}
+				</div>
 				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
 			</div>
 		</div>

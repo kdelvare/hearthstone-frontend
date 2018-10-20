@@ -15,6 +15,7 @@ export default DS.Model.extend({
 	cardclass: DS.belongsTo(),
 	rarity: DS.belongsTo(),
 	collections: DS.hasMany(),
+	wantedcards: DS.hasMany(),
 
 	image: computed('hs_card_id', function() {
 		const LOCALE = 'frFR';
