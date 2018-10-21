@@ -51,6 +51,21 @@
 				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
 			</div>
 			<div class="number">
+				<div class="wanted">
+					{{#with (filter (action "filterOwned") card.wantedcards) as |wantedcards|}}
+						<span>
+							{{reduce (action "sumWanted") 0 wantedcards}} <i class="fas fa-heart"></i>
+						</span>
+						<ul class="wanteddecks">
+							{{#each wantedcards as |wantedcard|}}
+								<li>
+									{{wantedcard.number}} <i class="fas fa-heart"></i>
+									{{wantedcard.wanteddeck.deck.cardclass.name_fr}} {{wantedcard.wanteddeck.deck.name}}
+								</li>
+							{{/each}}
+						</ul>
+					{{/with}}
+				</div>
 				<i class="fas fa-minus-circle pointer" {{action 'removeFromCollection' card}}></i>
 				{{collection.firstObject.number}}
 				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
@@ -62,6 +77,21 @@
 				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
 			</div>
 			<div class="number">
+				<div class="wanted">
+					{{#with (filter (action "filterOwned") card.wantedcards) as |wantedcards|}}
+						<span>
+							{{reduce (action "sumWanted") 0 wantedcards}} <i class="fas fa-heart"></i>
+						</span>
+						<ul class="wanteddecks">
+							{{#each wantedcards as |wantedcard|}}
+								<li>
+									{{wantedcard.number}} <i class="fas fa-heart"></i>
+									{{wantedcard.wanteddeck.deck.cardclass.name_fr}} {{wantedcard.wanteddeck.deck.name}}
+								</li>
+							{{/each}}
+						</ul>
+					{{/with}}
+				</div>
 				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
 			</div>
 		</div>
