@@ -70,14 +70,42 @@ th.format img {
 }
 
 .card .number .wanted {
-	float: right;
-	filter: opacity(100%);
 	color: red;
+	position: absolute;
+	right: 5px;
 }
 
 .card .number .wanted i {
 	color: red;
 	margin: 0 15px 0 3px;
+}
+
+.card .wanteddecks {
+	visibility: hidden;
+	position: absolute;
+	z-index: 1;
+	width: 200px;
+	top: 80%;
+	left: 50%;
+	margin-left: -100px;
+	margin-top: 20px;
+	font-weight: normal;
+	font-size: 14px;
+	color: black;
+	list-style-type: none;
+	text-align: left;
+	background-color: white;
+	border-radius: 6px;
+	border: 1px black solid;
+	padding: 2px 5px;
+}
+
+.card .wanted:hover .wanteddecks {
+	visibility: visible;
+}
+
+.card .number .wanted .wanteddecks i {
+	margin: 0 3px;
 }
 
 .pagination {

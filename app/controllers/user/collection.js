@@ -31,6 +31,10 @@ export default Controller.extend({
 			return collection.user.get('id') === this.get('model.user.id');
 		},
 
+		sumWanted(total, wantedcard) {
+			return total + wantedcard.number;
+		},
+
 		addToCollection(card) {
 			const user = this.get('model.user');
 			const userCollections = card.collections.filter(collection => {
