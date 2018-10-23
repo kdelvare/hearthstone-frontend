@@ -40,6 +40,9 @@ export default Controller.extend({
 			const userCollections = card.collections.filter(collection => {
 				return collection.user.get('id') === user.id;
 			});
+			const userWantedcards = card.wantedcards.filter(wantedcard => {
+				return wantedcard.user.get('id') === user.id;
+			});
 
 			let userCollection;
 			if (userCollections.length) {
@@ -53,6 +56,16 @@ export default Controller.extend({
 				});
 			}
 			userCollection.save();
+
+			userWantedcards.forEach(wantedcard => {
+				const number = wantedcard.number;
+				if (number > 1) {
+					wantedcard.decrementProperty('number');
+				} else {
+					wantedcard.deleteRecord();
+				}
+				wantedcard.save();
+			});
 		},
 
 		removeFromCollection(card) {
