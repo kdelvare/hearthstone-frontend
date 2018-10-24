@@ -80,6 +80,10 @@ th.format img {
 	margin: 0 15px 0 3px;
 }
 
+.card .number .wanted .notwanted i {
+	color: lightgray;
+}
+
 .card .wanteddecks {
 	visibility: hidden;
 	position: absolute;

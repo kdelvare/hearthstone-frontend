@@ -86,5 +86,30 @@ export default Controller.extend({
 				userCollection.save();
 			}
 		},
+
+		cycleWanted(card) {
+			const user = this.get('model.user');
+			const userWantedcards = card.wantedcards.filter(wantedcard => {
+				return (wantedcard.user.get('id') === user.id) && !wantedcard.wanteddeck.get('id');
+			});
+
+			let userWantedcard;
+			if (userWantedcards.length) {
+				userWantedcard = userWantedcards.firstObject;
+				const number = userWantedcard.number;
+				if (number === 1) {
+					userWantedcard.incrementProperty('number');
+				} else {
+					userWantedcard.deleteRecord();
+				}
+			} else {
+				userWantedcard = this.get('store').createRecord('wantedcard', {
+					card: card,
+					user: user,
+					number: 1
+				});
+			}
+			userWantedcard.save();
+		}
 	}
 });
