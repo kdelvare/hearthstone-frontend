@@ -48,8 +48,8 @@ export default Controller.extend({
 			if (userCollections.length) {
 				userCollection = userCollections.firstObject;
 				userCollection.incrementProperty('number');
-				if (userCollection.number === 2 && card.rarity.name_fr !== "Légendaire") {
-					userCollection.incrementProperty('completion');
+				if (userCollection.number === 2 && card.rarity.get('name_fr') !== "Légendaire") {
+					userCollection.set('completion', 2);
 				}
 			} else {
 				userCollection = this.get('store').createRecord('collection', {
@@ -84,8 +84,8 @@ export default Controller.extend({
 				const number = userCollection.number;
 				if (number > 1) {
 					userCollection.decrementProperty('number');
-					if (number === 1 && card.rarity.name_fr !== "Légendaire") {
-						userCollection.decrementProperty('completion');
+					if (number === 2 && card.rarity.get('name_fr') !== "Légendaire") {
+						userCollection.set('completion', 1);
 					}
 				} else {
 					userCollection.deleteRecord();
