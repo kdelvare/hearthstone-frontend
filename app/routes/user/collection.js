@@ -31,7 +31,7 @@ export default Route.extend({
 			cards: this.store.query('card', assign(params, {
 				filter: cardFilters,
 				include: 'collections,collections.user,wantedcards,wantedcards.user,wantedcards.wanteddeck,wantedcards.wanteddeck.deck,wantedcards.wanteddeck.deck.cardclass',
-				fields: { collections: 'user,number', wantedcards: 'user,number,wanteddeck', wanteddecks: 'deck', decks: 'name,cardclass' },
+				fields: { collections: 'user,number,completion', wantedcards: 'user,number,wanteddeck', wanteddecks: 'deck', decks: 'name,cardclass' },
 				sort: 'cost,name_fr',
 				page: paginator
 			})),
