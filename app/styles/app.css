@@ -139,6 +139,7 @@ th.format img {
 table {
 	/*text-align: right;*/
 	border-collapse: collapse;
+	margin-bottom: 5px;
 }
 th, td {
 	border: 1px solid black;
@@ -183,10 +184,10 @@ tr.decks {
 	color: blue;
 }
 .rarity-Epique {
-	color: purple;
+	color: darkviolet;
 }
 .rarity-Légendaire {
-	color: red;
+	color: chocolate;
 }
 
 .cardclass {
@@ -223,15 +224,18 @@ th.cardclass {
 	background-color: #8e1001;
 }
 
-.owned {
+.decks td {
+	background-color: white;
+}
+.decks td.owned {
 	background-color: lightgray;
 }
-.cardset-Classique {
-	background-color: #e6b8af;
+.decks td.cardset-Classique {
+	background-color: lightblue;
 }
-.cardset-year {
-	background-color: #fef3e7;
+.decks td.cardset-year {
+	background-color: lightyellow;
 }
-.cardset-current {
-	background-color: #fbdab7;
+.decks td.cardset-current {
+	background-color: blanchedalmond;
 }
