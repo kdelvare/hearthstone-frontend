@@ -239,3 +239,35 @@ th.cardclass {
 .decks td.cardset-current {
 	background-color: blanchedalmond;
 }
+
+.deckcard {
+	position: relative;
+}
+
+.cardinfo {
+	visibility: hidden;
+	position: absolute;
+	z-index: 1;
+	width: 256px;
+	top: 80%;
+	left: 50%;
+	margin-left: -128px;
+	margin-top: 20px;
+}
+
+.cardinfo .cardset {
+	font-weight: normal;
+	font-size: 14px;
+	color: black;
+	background-color: white;
+	text-align: center;
+	font-weight: bold;
+	border-radius: 6px;
+	border: 1px black solid;
+	padding: 2px 5px;
+	margin-top: -50px;
+}
+
+.deckcard:hover .cardinfo {
+	visibility: visible;
+}
