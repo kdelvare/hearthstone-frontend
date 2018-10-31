@@ -13,6 +13,7 @@ Router.map(function() {
 		this.route('collection');
 		this.route('missing');
 		this.route('wanted');
+		this.route('extra');
 		this.route('decks', function() {
 			this.route('deck', { path: '/:deck_id' });
 		});
