@@ -9,6 +9,7 @@ export default Route.extend({
 		rarity: { refreshModel: true },
 		cardset: { refreshModel: true },
 		standard: { refreshModel: true },
+		own: { refreshModel: true },
 		page: { refreshModel: true }
 	},
 
@@ -20,6 +21,7 @@ export default Route.extend({
 		if (params.rarity) { cardFilters.rarity = params.rarity }
 		if (params.cardset) { cardFilters.cardset = params.cardset }
 		if (params.standard) { cardFilters.standard = true }
+		if (params.own) { cardFilters.own = [ params.own, user.id ] }
 		let paginator = {
 			number: params.page || 1,
 			size: 28

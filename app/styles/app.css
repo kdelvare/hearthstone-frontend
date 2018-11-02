@@ -35,12 +35,17 @@ a:link, a:visited {
 	padding-left: 20px;
 }
 
-div.format {
+.extrafilters {
 	float: right;
+	align: right;
 }
-div.format img {
+.extrafilters img.format {
 	width: 150px;
 }
+.extrafilters .fa-stack {
+	margin-top: -18px;
+}
+
 th.format img {
 	width: 40px;
 }

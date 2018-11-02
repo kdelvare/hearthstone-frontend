@@ -1,5 +1,17 @@
-<div class="format">
-	<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}} class="pointer" {{action 'toggleFormat'}} />
+<div class="extrafilters">
+	<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}} class="format pointer" {{action 'toggleFormat'}} />
+	<br/>
+	<span class="fa-stack fa-1x pointer {{if (and own (not-eq own 'missing')) "faded"}}"
+		title="Collection manquante" {{action 'toggleParam' 'own' 'missing'}}>
+		<i class="fas fa-th fa-layer-group fa-stack-2x"></i>
+		<i class="fas fa-times fa-stack-2x" style="color: darkred;"></i>
+	</span>
+	<i class="fas fa-heart pointer fa-2x {{if (and own (not-eq own 'wanted')) "faded"}}"
+		title="Recherchées" {{action 'toggleParam' 'own' 'wanted'}}
+	/>
+	<i class="fas fa-flask pointer fa-2x {{if (and own (not-eq own 'extra')) "faded"}}"
+		title="Surnuméraires" {{action 'toggleParam' 'own' 'extra'}}
+	/>
 </div>
 
 <div>

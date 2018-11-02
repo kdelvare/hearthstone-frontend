@@ -1,12 +1,13 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-	queryParams: ['class', 'cost', 'rarity', 'cardset', 'standard', 'page'],
+	queryParams: ['class', 'cost', 'rarity', 'cardset', 'standard', 'own', 'page'],
 	class: null,
 	cost: null,
 	rarity: null,
 	cardset: null,
 	standard: true,
+	own: null,
 	page: 1,
 
 	actions: {
