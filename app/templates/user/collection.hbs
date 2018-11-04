@@ -1,9 +1,12 @@
 <div class="extrafilters">
 	<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}} class="format pointer" {{action 'toggleFormat'}} />
 	<br/>
+	<i class="fas fa-square pointer fa-2x {{if (and own (not-eq own 'owned')) "faded"}}"
+		title="Possédées" {{action 'toggleParam' 'own' 'owned'}}
+	/>
 	<span class="fa-stack fa-1x pointer {{if (and own (not-eq own 'missing')) "faded"}}"
-		title="Collection manquante" {{action 'toggleParam' 'own' 'missing'}}>
-		<i class="fas fa-th fa-layer-group fa-stack-2x"></i>
+		title="Manquantes" {{action 'toggleParam' 'own' 'missing'}}>
+		<i class="fas fa-square fa-stack-2x"></i>
 		<i class="fas fa-times fa-stack-2x" style="color: darkred;"></i>
 	</span>
 	<i class="fas fa-heart pointer fa-2x {{if (and own (not-eq own 'wanted')) "faded"}}"
