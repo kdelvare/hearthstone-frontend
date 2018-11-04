@@ -1,14 +1,20 @@
 import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
 	queryParams: ['class', 'cost', 'rarity', 'cardset', 'standard', 'own', 'page'],
-	class: null,
+	class: "",
 	cost: null,
 	rarity: null,
 	cardset: null,
 	standard: true,
 	own: null,
 	page: 1,
+
+	// Separator needs to be "," for jasonapi-resourcce queryParam, but " " for w split helper
+	wclass: computed('class', function() {
+		return this.get('class').replace(",", " ");
+	}),
 
 	actions: {
 		toggleFormat() {
@@ -17,7 +23,19 @@ export default Controller.extend({
 
 		toggleParam(name, value) {
 			const param = this.get(name);
-			if (param === value) {
+			if (name === "class") {
+				let values = param.split(',');
+				if (values.includes(value)) {
+					values.splice(values.indexOf(value), 1);
+				} else if (value === "12") {
+					values.push("12");
+				} else if (values.includes("12")) {
+					values = [value, "12"];
+				} else {
+					values = [value];
+				}
+				this.set(name, values.join(','));
+			} else if (param === value) {
 				this.set(name, null);
 			} else {
 				this.set(name, value);

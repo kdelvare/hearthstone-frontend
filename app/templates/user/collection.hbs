@@ -20,7 +20,7 @@
 <div>
 	{{#each model.cardclasses as |cardclass|}}
 		<img src={{cardclass.image}} title={{cardclass.name_fr}} alt={{cardclass.name_fr}} width="64px"
-			class={{concat "pointer" (if (and class (not-eq class cardclass.id)) " faded")}}
+			class={{concat "pointer" (if (and class (not (contains cardclass.id (w wclass)))) " faded")}}
 			{{action 'toggleParam' 'class' cardclass.id}}
 		/>
 	{{/each}}
