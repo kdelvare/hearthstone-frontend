@@ -38,7 +38,11 @@
 								{{/link-to}}
 							</td>
 							<td class="stat2">/</td>
-							<td class="stat3">{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}</td>
+							<td class="stat3">
+								<span title="{{round (mult 100 (div (get (get (get (get total.cardsets set.id) "rarities") rarity.id) "owned") (get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total")))}}%">
+									{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}
+								</span>
+							</td>
 						{{else}}
 							<td colspan="3"></td>
 						{{/if}}
@@ -120,7 +124,11 @@
 						{{/link-to}}
 					</td>
 					<td class="stat2">/</td>
-					<td class="stat3">{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}</td>
+					<td class="stat3">
+						<span title="{{round (mult 100 (div (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "owned_std" "owned")) (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total"))))}}%">
+							{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}
+						</span>
+					</td>
 				{{/each}}
 				<th class="stat1">
 					{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='missing')}}
@@ -209,7 +217,11 @@
 								{{/link-to}}
 							</td>
 							<td class="stat2">/</td>
-							<td class="stat3">{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}</td>
+							<td class="stat3">
+								<span title="{{round (mult 100 (div (get (get (get (get total.cardsets set.id) "rarities") rarity.id) "owned") (get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total")))}}%">
+									{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}
+								</span>
+							</td>
 						{{else}}
 							<td colspan="3"></td>
 						{{/if}}
@@ -291,7 +303,11 @@
 						{{/link-to}}
 					</td>
 					<td class="stat2">/</td>
-					<td class="stat3">{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}</td>
+					<td class="stat3">
+						<span title="{{round (mult 100 (div (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "owned_std" "owned")) (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total"))))}}%">
+							{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}
+						</span>
+					</td>
 				{{/each}}
 				<th class="stat1">
 					{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='missing')}}
