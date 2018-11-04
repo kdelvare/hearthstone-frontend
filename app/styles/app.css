@@ -61,7 +61,7 @@ th.format img {
 
 .card .image {
 	position: relative;
-	z-index: 2;
+	z-index: 1;
 }
 .card .image:hover .cardinfo {
 	visibility: visible;
