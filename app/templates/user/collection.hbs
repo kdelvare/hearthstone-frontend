@@ -61,6 +61,11 @@
 		<div class="card">
 			<div class="image">
 				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
+				<div class="cardinfo">
+					<div class="cardset">
+						{{card.cardset.name_fr}}
+					</div>
+				</div>
 			</div>
 			<div class="number">
 				<div class="wanted pointer" {{action 'cycleWanted' card}}>
@@ -93,6 +98,11 @@
 		<div class="card">
 			<div class="image faded">
 				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
+				<div class="cardinfo">
+					<div class="cardset">
+						{{card.cardset.name_fr}}
+					</div>
+				</div>
 			</div>
 			<div class="number">
 				<div class="wanted pointer" {{action 'cycleWanted' card}}>
