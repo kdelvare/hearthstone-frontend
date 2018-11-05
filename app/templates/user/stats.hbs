@@ -96,18 +96,40 @@
 		</th>
 	</tr>
 
-	<!--tr>
-		<th>0/+</th>
+	<tr>
+		<th>Paquet utile</th>
 		{{#each model.cardsets as |set|}}
-			{{#if (or (not standard) set.standard)}}
-				<th class="stat1">
-					{{get (get completion.cardsets set.id) "owned"}}
-				</th>
-				<th class="stat2">/</th>
-				<th class="stat3">{{get (get completion.cardsets set.id) "total"}}</th>
+			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+				<td colspan="3" class="percent">
+					<div class="less">
+						{{round (get (get (get completion.cardsets set.id) "getnewsum") 1)}}&nbsp;%
+						<div class="more">
+							<table>
+								<tr>
+									<th></th>
+									<th>Exactement</th>
+									<th>Au moins</th>
+								</tr>
+								{{#each (w "0 1 2 3 4 5") as |getnew|}}
+									<tr>
+										<th>{{getnew}} nouvelles cartes dans un paquet</th>
+										<td class="percent">
+											{{round (get (get (get completion.cardsets set.id) "getnew") getnew)}}&nbsp;%
+										</td>
+										<td class="percent">
+											{{round (get (get (get completion.cardsets set.id) "getnewsum") getnew)}}&nbsp;%
+										</td>
+									</tr>
+								{{/each}}
+							</table>
+						</div>
+					</div>
+				</td>
+			{{else if (eq set.name_fr "Basique")}}
+				<td colspan="3" class="percent"/>
 			{{/if}}
 		{{/each}}
-	</tr-->
+	</tr>
 </table>
 
 <br/>

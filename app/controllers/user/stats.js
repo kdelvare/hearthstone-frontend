@@ -19,7 +19,7 @@ export default Controller.extend({
 		const rarities = this.get('model.rarities');
 
 		let data = completion;
-		let subdata;
+		let subdata, common, rare;
 		data.rate = 100 * data.owned / data.total;
 		data.rate_std = 100 * data.owned_std / data.total_std;
 		cardsets.forEach(cardset => {
@@ -29,6 +29,23 @@ export default Controller.extend({
 				subdata = data.rarities[rarity.id];
 				subdata.rate = 100 * subdata.owned / subdata.total;
 			});
+			common = data.rarities['1'].rate / 100;
+			rare = data.rarities['3'].rate / 100;
+			data.getnew = [
+				100 * (common ** 4 * rare),
+				100 * (4 * (1 - common) * common ** 3 * rare + common ** 4 * (1 - rare)),
+				100 * (6 * (1 - common) ** 2 * common ** 2 * rare + 4 * (1 - common) * common ** 3 * (1 - rare)),
+				100 * (4 * (1 - common) ** 3 * common * rare + 6 * (1 - common) ** 2 * common ** 2 * (1 - rare)),
+				100 * ((1 - common) ** 4 * rare + 4 * (1 - common) ** 3 * common * (1 - rare)),
+				100 * ((1 - common) ** 4 * (1 - rare))
+			];
+			data.getnewsum = [];
+			data.getnewsum[5] = data.getnew[5];
+			data.getnewsum[4] = data.getnewsum[5] + data.getnew[4];
+			data.getnewsum[3] = data.getnewsum[4] + data.getnew[3];
+			data.getnewsum[2] = data.getnewsum[3] + data.getnew[2];
+			data.getnewsum[1] = data.getnewsum[2] + data.getnew[1];
+			data.getnewsum[0] = data.getnewsum[1] + data.getnew[0];
 		});
 		cardclasses.forEach(cardclass => {
 			data = completion.cardclasses[cardclass.id];

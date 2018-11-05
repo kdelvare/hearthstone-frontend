@@ -186,6 +186,21 @@ th, td {
 .percent {
 	text-align: right;
 }
+.less {
+	position: relative;
+}
+.more {
+	visibility: hidden;
+	position: absolute;
+	z-index: 1;
+}
+.less:hover .more {
+	visibility: visible;
+}
+.more table th, td {
+	background-color: white;
+	white-space: nowrap;
+}
 th, td {
 	padding: 2px 5px;
 }
