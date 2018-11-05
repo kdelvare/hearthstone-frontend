@@ -12,7 +12,7 @@ export default Controller.extend({
 		return rarities;
 	}),
 
-	completion: computed('model.stat.completion', 'model.cardsets', 'model.cardclasses', 'model.rarities', function() {
+	completion: computed('model.{stat.completion,cardsets,cardclasses,rarities}', function() {
 		const completion = this.get('model.stat.completion');
 		const cardsets = this.get('model.cardsets');
 		const cardclasses = this.get('model.cardclasses');
@@ -66,7 +66,7 @@ export default Controller.extend({
 		return completion;
 	}),
 
-	total: computed('model.stat.total', 'model.cardsets', 'model.cardclasses', 'model.rarities', function() {
+	total: computed('model.{stat.total,cardsets,cardclasses,rarities}', function() {
 		const total = this.get('model.stat.total');
 		const cardsets = this.get('model.cardsets');
 		const cardclasses = this.get('model.cardclasses');
