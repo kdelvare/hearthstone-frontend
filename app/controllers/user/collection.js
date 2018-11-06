@@ -54,7 +54,7 @@ export default Controller.extend({
 			return total + wantedcard.number;
 		},
 
-		addToCollection(card) {
+		addToCollection(card, golden) {
 			const user = this.get('model.user');
 			const userCollections = card.collections.filter(collection => {
 				return collection.user.get('id') === user.id;
@@ -67,6 +67,9 @@ export default Controller.extend({
 			if (userCollections.length) {
 				userCollection = userCollections.firstObject;
 				userCollection.incrementProperty('number');
+				if (golden) {
+					userCollection.incrementProperty('golden');
+				}
 				if (userCollection.number === 2 && card.rarity.get('name_fr') !== "Légendaire") {
 					userCollection.set('completion', 2);
 				}
@@ -75,7 +78,8 @@ export default Controller.extend({
 					card: card,
 					user: user,
 					number: 1,
-					completion: 1
+					completion: 1,
+					golden: golden ? 1 : 0
 				});
 			}
 			userCollection.save();
@@ -91,7 +95,7 @@ export default Controller.extend({
 			});
 		},
 
-		removeFromCollection(card) {
+		removeFromCollection(card, golden) {
 			const user = this.get('model.user');
 			const userCollections = card.collections.filter(collection => {
 				return collection.user.get('id') === user.id;
@@ -103,6 +107,9 @@ export default Controller.extend({
 				const number = userCollection.number;
 				if (number > 1) {
 					userCollection.decrementProperty('number');
+					if (golden) {
+						userCollection.decrementProperty('golden');
+					}
 					if (number === 2 && card.rarity.get('name_fr') !== "Légendaire") {
 						userCollection.set('completion', 1);
 					}

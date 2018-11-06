@@ -77,7 +77,7 @@ th.format img {
 	font-weight: bold;
 	font-size: 24px;
 	position: relative;
-	z-index: 1;
+	z-index: 2;
 }
 
 .card .number i {
@@ -98,6 +98,13 @@ th.format img {
 
 .card .number .wanted .notwanted i {
 	color: lightgray;
+}
+
+.card .number .golden {
+	color: goldenrod;
+}
+.card .number .golden i {
+	color: palegoldenrod;
 }
 
 .card .wanteddecks {
