@@ -266,6 +266,9 @@ th.cardclass {
 .decks td.cardset-current {
 	background-color: blanchedalmond;
 }
+.complete {
+	background-color: #d0f0d0;
+}
 
 .deckcard {
 	position: relative;

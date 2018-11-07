@@ -46,7 +46,7 @@
 		</tr>
 		<tr>
 			{{#each deckgroup.sortedDecks as |deck|}}
-				<td>
+				<td class={{if (and deck.dust (eq deck.dust (get (get deckstats deck.id) "dust"))) "complete"}}>
 					{{deck.name}}
 					{{#if deck.url}}
 						<a href={{deck.url}} target="_blank">
