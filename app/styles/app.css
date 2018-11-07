@@ -59,17 +59,6 @@ th.format img {
 	margin-bottom: 20px;
 }
 
-.card .image {
-	position: relative;
-	z-index: 1;
-}
-.card .image:hover .cardinfo {
-	visibility: visible;
-}
-.card .cardinfo .cardset {
-	margin-top: 50px;
-}
-
 .card .number {
 	text-align: center;
 	margin-top: -40px;

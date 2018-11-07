@@ -63,12 +63,7 @@
 	{{#with (filter (action "filterOwned") card.collections) as |collection|}}
 		<div class="card">
 			<div class="image">
-				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
-				<div class="cardinfo">
-					<div class="cardset">
-						{{card.cardset.name_fr}}
-					</div>
-				</div>
+				<img src={{card.image}} class="pointer" title={{card.cardset.name_fr}} {{action 'addToCollection' card}} />
 			</div>
 			<div class="number">
 				<div class="wanted pointer" {{action 'cycleWanted' card}}>
@@ -109,12 +104,7 @@
 	{{else}}
 		<div class="card">
 			<div class="image faded">
-				<img src={{card.image}} class="pointer" {{action 'addToCollection' card}} />
-				<div class="cardinfo">
-					<div class="cardset">
-						{{card.cardset.name_fr}}
-					</div>
-				</div>
+				<img src={{card.image}} class="pointer" title={{card.cardset.name_fr}} {{action 'addToCollection' card}} />
 			</div>
 			<div class="number">
 				<div class="wanted pointer" {{action 'cycleWanted' card}}>
