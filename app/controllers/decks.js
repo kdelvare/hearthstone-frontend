@@ -8,9 +8,8 @@ export default Controller.extend({
 			const decoded = decode(importString);
 			//console.log('decoded', decoded);
 
-			//const hero = this.get('store').findRecord('card', decoded.heroes[0]);
-			this.get('store').query('cardclass', { filter: { card_id: decoded.heroes[0] }}).then(cardclasses => {
-				const cardclass = cardclasses.firstObject;
+			this.get('store').findRecord('card', decoded.heroes[0], { include : 'cardclass' }).then(card => {
+				const cardclass = card.cardclass;
 				const deck = this.get('store').createRecord('deck', {
 					cardclass: cardclass
 				});
