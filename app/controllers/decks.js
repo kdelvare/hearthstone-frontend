@@ -42,6 +42,9 @@ export default Controller.extend({
 				importedDeck.deckcards.forEach((deckcard) => {
 					deckcard.set('deck', deck);
 					deckcard.save();
+					this.set('importString', '');
+					this.set('deck', null);
+					this.set('showDeck', false);
 				});
 			});
 		}
