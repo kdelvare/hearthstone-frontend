@@ -68,10 +68,15 @@ th.format img {
 	position: relative;
 	z-index: 2;
 }
-
 .card .number i {
 	color: lightgray;
-	margin: 0 20px;
+	position: absolute;
+}
+.card .number i.fa-minus-circle {
+	left: 80px;
+}
+.card .number i.fa-plus-circle {
+	right: 80px;
 }
 
 .card .number .wanted {
@@ -79,21 +84,21 @@ th.format img {
 	position: absolute;
 	right: 5px;
 }
-
 .card .number .wanted i {
 	color: red;
+	position: relative;
 	margin: 0 15px 0 3px;
 }
-
 .card .number .wanted .notwanted i {
 	color: lightgray;
 }
 
 .card .number .golden {
-	color: goldenrod;
+	color: darkgoldenrod;
 }
 .card .number .golden i {
-	color: palegoldenrod;
+	/*color: palegoldenrod;*/
+	color: #ddd89d;
 }
 
 .card .wanteddecks {
