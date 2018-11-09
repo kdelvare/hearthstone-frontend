@@ -1,3 +1,8 @@
+body {
+	background-color: white;
+	color: black;
+}
+
 .navigation {
 	display: inline;
 	margin-bottom: 5px;
@@ -43,7 +48,7 @@ a:link, a:visited {
 	width: 150px;
 }
 .extrafilters .fa-stack {
-	margin-top: -18px;
+	vertical-align: bottom;
 }
 
 th.format img {
