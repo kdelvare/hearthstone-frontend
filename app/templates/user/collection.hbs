@@ -87,11 +87,13 @@
 						<span class="notwanted"><i class="fas fa-heart"></i></span>
 					{{/with}}
 				</div>
-				{{#if (gt collection.firstObject.number collection.firstObject.golden)}}
-					<i class="fas fa-minus-circle pointer" {{action 'removeFromCollection' card}}></i>
-					{{sub collection.firstObject.number collection.firstObject.golden}}
-				{{/if}}
-				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
+				<div class="normal">
+					{{#if (gt collection.firstObject.number collection.firstObject.golden)}}
+						<i class="fas fa-minus-circle pointer" {{action 'removeFromCollection' card}}></i>
+						{{sub collection.firstObject.number collection.firstObject.golden}}
+					{{/if}}
+					<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
+				</div>
 				<div class="golden">
 					{{#if (gt collection.firstObject.golden 0)}}
 						<i class="fas fa-minus-circle pointer" {{action 'removeFromCollection' card true}}></i>
@@ -128,7 +130,9 @@
 						<span class="notwanted"><i class="fas fa-heart"></i></span>
 					{{/with}}
 				</div>
-				<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
+				<div class="normal">
+					<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card}}></i>
+				</div>
 				<div class="golden">
 					<i class="fas fa-plus-circle pointer" {{action 'addToCollection' card true}}></i>
 				</div>

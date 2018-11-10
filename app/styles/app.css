@@ -73,6 +73,9 @@ th.format img {
 	position: relative;
 	z-index: 2;
 }
+.card .number .normal, .card .number .golden {
+	height: 28px;
+}
 .card .number i {
 	color: lightgray;
 	position: absolute;
