@@ -38,7 +38,7 @@
 						</td>
 						<td class="stat2">/</td>
 						<td class="stat3">
-							<span title="{{round (get (get (get (get completion.cardsets set.id) "rarities") rarity.id) "rate")}}%">
+							<span title="{{round (get (get (get (get completion.cardsets set.id) "rarities") rarity.id) "rate")}}&nbsp;%">
 								{{get (get (get (get completion.cardsets set.id) "rarities") rarity.id) "total"}}
 							</span>
 						</td>
@@ -87,7 +87,7 @@
 		{{#each model.cardsets as |set|}}
 			{{#if (or (not standard) set.standard)}}
 				<th colspan="3" class="percent">
-					{{round (get (get completion.cardsets set.id) "rate")}} %
+					{{round (get (get completion.cardsets set.id) "rate")}}&nbsp;%
 				</th>
 			{{/if}}
 		{{/each}}
@@ -159,7 +159,7 @@
 				</td>
 				<td class="stat2">/</td>
 				<td class="stat3">
-					<span title="{{round (get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) (if standard "rate_std" "rate"))}}%">
+					<span title="{{round (get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) (if standard "rate_std" "rate"))}}&nbsp;%">
 						{{get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}
 					</span>
 				</td>
@@ -201,7 +201,7 @@
 		<th>%</th>
 		{{#each model.cardclasses as |cardclass|}}
 			<th colspan="3" class="percent">
-				{{round (get (get completion.cardclasses cardclass.id) (if standard "rate_std" "rate"))}} %
+				{{round (get (get completion.cardclasses cardclass.id) (if standard "rate_std" "rate"))}}&nbsp;%
 			</th>
 		{{/each}}
 		<th colspan="3" class="percent">
@@ -250,7 +250,7 @@
 						</td>
 						<td class="stat2">/</td>
 						<td class="stat3">
-							<span title="{{round (get (get (get (get total.cardsets set.id) "rarities") rarity.id) "rate")}}%">
+							<span title="{{round (get (get (get (get total.cardsets set.id) "rarities") rarity.id) "rate")}}&nbsp;%">
 								{{get (get (get (get total.cardsets set.id) "rarities") rarity.id) "total"}}
 							</span>
 						</td>
@@ -299,7 +299,7 @@
 		{{#each model.cardsets as |set|}}
 			{{#if (or (not standard) set.standard)}}
 				<th colspan="3" class="percent">
-					{{round (get (get total.cardsets set.id) "rate")}} %
+					{{round (get (get total.cardsets set.id) "rate")}}&nbsp;%
 				</th>
 			{{/if}}
 		{{/each}}
@@ -336,7 +336,7 @@
 				</td>
 				<td class="stat2">/</td>
 				<td class="stat3">
-					<span title="{{round (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "rate_std" "rate"))}}%">
+					<span title="{{round (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "rate_std" "rate"))}}&nbsp;%">
 						{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}
 					</span>
 				</td>
@@ -378,7 +378,7 @@
 		<th>%</th>
 		{{#each model.cardclasses as |cardclass|}}
 			<th colspan="3" class="percent">
-				{{round (get (get total.cardclasses cardclass.id) (if standard "rate_std" "rate"))}} %
+				{{round (get (get total.cardclasses cardclass.id) (if standard "rate_std" "rate"))}}&nbsp;%
 			</th>
 		{{/each}}
 		<th colspan="3" class="percent">
