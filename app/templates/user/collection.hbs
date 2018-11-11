@@ -74,12 +74,7 @@
 						<ul class="wanteddecks">
 							{{#each wantedcards as |wantedcard|}}
 								<li>
-									{{wantedcard.number}} <i class="fas fa-heart"></i>
-									{{#if wantedcard.wanteddeck}}
-										{{wantedcard.wanteddeck.deck.cardclass.name_fr}} {{wantedcard.wanteddeck.deck.name}}
-									{{else}}
-										(hors decks)
-									{{/if}}
+									{{wantedcard.number}} <i class="fas fa-heart"></i> {{wantedcard.fulldeck}}
 								</li>
 							{{/each}}
 						</ul>
@@ -117,12 +112,7 @@
 						<ul class="wanteddecks">
 							{{#each wantedcards as |wantedcard|}}
 								<li>
-									{{wantedcard.number}} <i class="fas fa-heart"></i>
-									{{#if wantedcard.wanteddeck}}
-										{{wantedcard.wanteddeck.deck.cardclass.name_fr}} {{wantedcard.wanteddeck.deck.name}}
-									{{else}}
-										(hors decks)
-									{{/if}}
+									{{wantedcard.number}} <i class="fas fa-heart"></i> {{wantedcard.fulldeck}}
 								</li>
 							{{/each}}
 						</ul>

@@ -30,5 +30,9 @@ export default DS.Model.extend({
 
 	sortedDeckcards: computed('deckcards.@each.card', function() {
 		return this.get('deckcards').sortBy('card.cost', 'card.name_fr');
+	}),
+
+	fullname: computed('name', 'cardclass', function() {
+		return `${this.get('cardclass.name_fr')} ${this.get('name')} (${this.get('deckgroup.name')})`;
 	})
 });
