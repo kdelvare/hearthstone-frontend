@@ -54,6 +54,10 @@ export default Controller.extend({
 			return total + wantedcard.number;
 		},
 
+		maxWanted(max, wantedcard) {
+			return wantedcard.number > max ? wantedcard.number : max;
+		},
+
 		addToCollection(card, golden) {
 			const user = this.get('model.user');
 			const userCollections = card.collections.filter(collection => {

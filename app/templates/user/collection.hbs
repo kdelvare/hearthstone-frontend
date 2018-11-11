@@ -69,7 +69,12 @@
 				<div class="wanted pointer" {{action 'cycleWanted' card}}>
 					{{#with (filter (action "filterOwned") card.wantedcards) as |wantedcards|}}
 						<span>
-							{{reduce_number (action "sumWanted") 0 wantedcards}} <i class="fas fa-heart"></i>
+							{{reduce_number (action "sumWanted") 0 wantedcards}}
+							{{#if (eq (reduce_number (action "maxWanted") 0 wantedcards) 1)}}
+								<i class="far fa-heart"></i>
+							{{else}}
+								<i class="fas fa-heart"></i>
+							{{/if}}
 						</span>
 						<ul class="wanteddecks">
 							{{#each wantedcards as |wantedcard|}}
@@ -107,7 +112,12 @@
 				<div class="wanted pointer" {{action 'cycleWanted' card}}>
 					{{#with (filter (action "filterOwned") card.wantedcards) as |wantedcards|}}
 						<span>
-							{{reduce_number (action "sumWanted") 0 wantedcards}} <i class="fas fa-heart"></i>
+							{{reduce_number (action "sumWanted") 0 wantedcards}}
+							{{#if (eq (reduce_number (action "maxWanted") 0 wantedcards) 1)}}
+								<i class="far fa-heart"></i>
+							{{else}}
+								<i class="fas fa-heart"></i>
+							{{/if}}
 						</span>
 						<ul class="wanteddecks">
 							{{#each wantedcards as |wantedcard|}}
