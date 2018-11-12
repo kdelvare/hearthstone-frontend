@@ -2,6 +2,8 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
+	queryParams: ['fullStats, standard'],
+	fullStats: false,
 	standard: true,
 
 	ordered_rarities: computed('model.rarities', function() {
@@ -106,6 +108,10 @@ export default Controller.extend({
 	actions: {
 		toggleFormat() {
 			this.toggleProperty('standard');
+		},
+
+		showAllStats() {
+			this.set('fullStats', true);
 		}
 	}
 });

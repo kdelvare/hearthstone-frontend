@@ -134,6 +134,8 @@
 
 <br/>
 
+{{#if fullStats}}
+
 <table>
 	<tr>
 		<th class="format">
@@ -386,3 +388,7 @@
 		</th>
 	</tr>
 </table>
+
+{{else}}
+	<i class="far fa-plus-square fa-2x" {{action 'showAllStats'}}></i>
+{{/if}}
