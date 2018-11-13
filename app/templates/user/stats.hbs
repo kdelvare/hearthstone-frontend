@@ -49,13 +49,13 @@
 			{{/each}}
 			<th class="stat1">
 				{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='missing')}}
-					{{get (get completion.rarities rarity.id) (if standard "owned_std" "owned")}}
+					{{get (get completion.rarities rarity.id) "owned"}}
 				{{/link-to}}
 			</th>
 			<th class="stat2">/</th>
-			<th class="stat3">{{get (get completion.rarities rarity.id) (if standard "total_std" "total")}}</th>
+			<th class="stat3">{{get (get completion.rarities rarity.id) "total"}}</th>
 			<th class="percent">
-				{{round (get (get completion.rarities rarity.id) (if standard "rate_std" "rate"))}}&nbsp;%
+				{{round (get (get completion.rarities rarity.id) "rate")}}&nbsp;%
 			</th>
 		</tr>
 	{{/each}}
@@ -75,11 +75,11 @@
 		{{/each}}
 		<th class="stat1">
 			{{#link-to 'user.collection' model.user.id (query-params own='missing')}}
-				{{if standard completion.owned_std completion.owned}}
+				{{completion.owned}}
 			{{/link-to}}
 		</th>
 		<th class="stat2">/</th>
-		<th class="stat4">{{if standard completion.total_std completion.total}}</th>
+		<th class="stat4">{{completion.total}}</th>
 	</tr>
 
 	<tr>
@@ -92,7 +92,7 @@
 			{{/if}}
 		{{/each}}
 		<th colspan="3" class="percent">
-			{{round (if standard completion.rate_std completion.rate)}}&nbsp;%
+			{{round completion.rate}}&nbsp;%
 		</th>
 	</tr>
 
@@ -156,25 +156,25 @@
 			{{#each model.cardclasses as |cardclass|}}
 				<td class="stat1">
 					{{#link-to 'user.collection' model.user.id (query-params class=cardclass.id rarity=rarity.id own='missing')}}
-						{{get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) (if standard "owned_std" "owned")}}
+						{{get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) "owned"}}
 					{{/link-to}}
 				</td>
 				<td class="stat2">/</td>
 				<td class="stat3">
-					<span title="{{round (get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) (if standard "rate_std" "rate"))}}&nbsp;%">
-						{{get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}
+					<span title="{{round (get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) "rate")}}&nbsp;%">
+						{{get (get (get (get completion.cardclasses cardclass.id) "rarities") rarity.id) "total"}}
 					</span>
 				</td>
 			{{/each}}
 			<th class="stat1">
 				{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='missing')}}
-					{{get (get completion.rarities rarity.id) (if standard "owned_std" "owned")}}
+					{{get (get completion.rarities rarity.id) "owned"}}
 				{{/link-to}}
 			</th>
 			<th class="stat2">/</th>
-			<th class="stat3">{{get (get completion.rarities rarity.id) (if standard "total_std" "total")}}</th>
+			<th class="stat3">{{get (get completion.rarities rarity.id) "total"}}</th>
 			<th class="percent">
-				{{round (get (get completion.rarities rarity.id) (if standard "rate_std" "rate"))}}&nbsp;%
+				{{round (get (get completion.rarities rarity.id) "rate")}}&nbsp;%
 			</th>
 		</tr>
 	{{/each}}
@@ -184,30 +184,30 @@
 		{{#each model.cardclasses as |cardclass|}}
 			<th class="stat1">
 				{{#link-to 'user.collection' model.user.id (query-params class=cardclass.id own='missing')}}
-					{{get (get completion.cardclasses cardclass.id) (if standard "owned_std" "owned")}}
+					{{get (get completion.cardclasses cardclass.id) "owned"}}
 				{{/link-to}}
 			</th>
 			<th class="stat2">/</th>
-			<th class="stat3">{{get (get completion.cardclasses cardclass.id) (if standard "total_std" "total")}}</th>
+			<th class="stat3">{{get (get completion.cardclasses cardclass.id) "total"}}</th>
 		{{/each}}
 		<th class="stat1">
 			{{#link-to 'user.collection' model.user.id (query-params own='missing')}}
-				{{if standard completion.owned_std completion.owned}}
+				{{completion.owned}}
 			{{/link-to}}
 		</th>
 		<th class="stat2">/</th>
-		<th class="stat4">{{if standard completion.total_std completion.total}}</th>
+		<th class="stat4">{{completion.total}}</th>
 	</tr>
 
 	<tr>
 		<th>%</th>
 		{{#each model.cardclasses as |cardclass|}}
 			<th colspan="3" class="percent">
-				{{round (get (get completion.cardclasses cardclass.id) (if standard "rate_std" "rate"))}}&nbsp;%
+				{{round (get (get completion.cardclasses cardclass.id) "rate")}}&nbsp;%
 			</th>
 		{{/each}}
 		<th colspan="3" class="percent">
-			{{round (if standard completion.rate_std completion.rate)}}&nbsp;%
+			{{round completion.rate}}&nbsp;%
 		</th>
 	</tr>
 </table>
@@ -263,13 +263,13 @@
 			{{/each}}
 			<th class="stat1">
 				{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='missing')}}
-					{{get (get total.rarities rarity.id) (if standard "owned_std" "owned")}}
+					{{get (get total.rarities rarity.id) "owned"}}
 				{{/link-to}}
 			</th>
 			<th class="stat2">/</th>
-			<th class="stat3">{{get (get total.rarities rarity.id) (if standard "total_std" "total")}}</th>
+			<th class="stat3">{{get (get total.rarities rarity.id) "total"}}</th>
 			<th class="percent">
-				{{round (get (get total.rarities rarity.id) (if standard "rate_std" "rate"))}}&nbsp;%
+				{{round (get (get total.rarities rarity.id) "rate")}}&nbsp;%
 			</th>
 		</tr>
 	{{/each}}
@@ -289,11 +289,11 @@
 		{{/each}}
 		<th class="stat1">
 			{{#link-to 'user.collection' model.user.id own='missing'}}
-				{{if standard total.owned_std total.owned}}
+				{{total.owned}}
 			{{/link-to}}
 		</th>
 		<th class="stat2">/</th>
-		<th class="stat4">{{if standard total.total_std total.total}}</th>
+		<th class="stat4">{{total.total}}</th>
 	</tr>
 
 	<tr>
@@ -306,7 +306,7 @@
 			{{/if}}
 		{{/each}}
 		<th colspan="3" class="percent">
-			{{round (if standard total.rate_std total.rate)}}&nbsp;%
+			{{round total.rate}}&nbsp;%
 		</th>
 	</tr>
 </table>
@@ -333,25 +333,25 @@
 			{{#each model.cardclasses as |cardclass|}}
 				<td class="stat1">
 					{{#link-to 'user.collection' model.user.id (query-params class=cardclass.id rarity=rarity.id own='missing')}}
-						{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "owned_std" "owned")}}
+						{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) "owned"}}
 					{{/link-to}}
 				</td>
 				<td class="stat2">/</td>
 				<td class="stat3">
-					<span title="{{round (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "rate_std" "rate"))}}&nbsp;%">
-						{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) (if standard "total_std" "total")}}
+					<span title="{{round (get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) "rate")}}&nbsp;%">
+						{{get (get (get (get total.cardclasses cardclass.id) "rarities") rarity.id) "total"}}
 					</span>
 				</td>
 			{{/each}}
 			<th class="stat1">
 				{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='missing')}}
-					{{get (get total.rarities rarity.id) (if standard "owned_std" "owned")}}
+					{{get (get total.rarities rarity.id) "owned"}}
 				{{/link-to}}
 			</th>
 			<th class="stat2">/</th>
-			<th class="stat3">{{get (get total.rarities rarity.id) (if standard "total_std" "total")}}</th>
+			<th class="stat3">{{get (get total.rarities rarity.id) "total"}}</th>
 			<th class="percent">
-				{{round (get (get total.rarities rarity.id) (if standard "rate_std" "rate"))}}&nbsp;%
+				{{round (get (get total.rarities rarity.id) "rate")}}&nbsp;%
 			</th>
 		</tr>
 	{{/each}}
@@ -361,30 +361,30 @@
 		{{#each model.cardclasses as |cardclass|}}
 			<th class="stat1">
 				{{#link-to 'user.collection' model.user.id (query-params class=cardclass.id own='missing')}}
-					{{get (get total.cardclasses cardclass.id) (if standard "owned_std" "owned")}}
+					{{get (get total.cardclasses cardclass.id) "owned"}}
 				{{/link-to}}
 			</th>
 			<th class="stat2">/</th>
-			<th class="stat3">{{get (get total.cardclasses cardclass.id) (if standard "total_std" "total")}}</th>
+			<th class="stat3">{{get (get total.cardclasses cardclass.id) "total"}}</th>
 		{{/each}}
 		<th class="stat1">
 			{{#link-to 'user.collection' model.user.id (query-params own='missing')}}
-				{{if standard total.owned_std total.owned}}
+				{{total.owned}}
 			{{/link-to}}
 		</th>
 		<th class="stat2">/</th>
-		<th class="stat4">{{if standard total.total_std total.total}}</th>
+		<th class="stat4">{{total.total}}</th>
 	</tr>
 
 	<tr>
 		<th>%</th>
 		{{#each model.cardclasses as |cardclass|}}
 			<th colspan="3" class="percent">
-				{{round (get (get total.cardclasses cardclass.id) (if standard "rate_std" "rate"))}}&nbsp;%
+				{{round (get (get total.cardclasses cardclass.id) "rate")}}&nbsp;%
 			</th>
 		{{/each}}
 		<th colspan="3" class="percent">
-			{{round (if standard total.rate_std total.rate)}}&nbsp;%
+			{{round total.rate}}&nbsp;%
 		</th>
 	</tr>
 </table>
