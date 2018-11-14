@@ -1,3 +1,72 @@
+<h3>Recherchées</h3>
+
+<table>
+	<tr>
+		<th class="noborder" colspan={{if standard 3 9}}></th>
+		{{#unless standard}}
+			<th colspan="3">Année du Kraken</th>
+		{{/unless}}
+		<th colspan="3">Année du Mammouth</th>
+		<th colspan="2">Année du Corbeau</th>
+	</tr>
+
+	<tr>
+		<th class="format">
+			<img src={{concat "/assets/" (if standard "standard" "wild") ".png"}} class="pointer" {{action 'toggleFormat'}} />
+		</th>
+		{{#each model.cardsets as |set|}}
+			{{#if (or (not standard) set.standard)}}
+				<th>
+					<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"/>
+				</th>
+			{{/if}}
+		{{/each}}
+		<th>TOTAL</th>
+	</tr>
+
+	{{#each ordered_rarities as |rarity|}}
+		<tr>
+			<th>{{rarity.name_fr}}</th>
+			{{#each model.cardsets as |set|}}
+				{{#if (or (not standard) set.standard)}}
+					{{#if (get (get (get (get completion.cardsets set.id) "rarities") rarity.id) "total")}}
+						<td class="stat">
+							{{#link-to 'user.collection' model.user.id (query-params cardset=set.id rarity=rarity.id own='wanted')}}
+								{{get (get (get (get completion.cardsets set.id) "rarities") rarity.id) "wanted"}}
+							{{/link-to}}
+						</td>
+					{{else}}
+						<td></td>
+					{{/if}}
+				{{/if}}
+			{{/each}}
+			<th class="stat">
+				{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='wanted')}}
+					{{get (get completion.rarities rarity.id) "wanted"}}
+				{{/link-to}}
+			</th>
+		</tr>
+	{{/each}}
+
+	<tr>
+		<th>TOTAL</th>
+		{{#each model.cardsets as |set|}}
+			{{#if (or (not standard) set.standard)}}
+				<th class="stat">
+					{{#link-to 'user.collection' model.user.id (query-params cardset=set.id own='wanted')}}
+						{{get (get completion.cardsets set.id) "wanted"}}
+					{{/link-to}}
+				</th>
+			{{/if}}
+		{{/each}}
+		<th class="stat">
+			{{#link-to 'user.collection' model.user.id (query-params own='wanted')}}
+				{{completion.wanted}}
+			{{/link-to}}
+		</th>
+	</tr>
+</table>
+
 <h3>Complétion</h3>
 
 <table>

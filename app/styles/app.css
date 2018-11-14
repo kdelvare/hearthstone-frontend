@@ -172,6 +172,9 @@ th, td {
 .noborder {
 	border: none;
 }
+.stat {
+	text-align: right;
+}
 .stat1 {
 	border-right: none;
 	text-align: right;
