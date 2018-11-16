@@ -39,5 +39,19 @@ export default Route.extend({
 			})),
 			user: user
 		});
+	},
+
+	resetController(controller, isExiting) {
+		if (isExiting) {
+			controller.setProperties({
+				class: "",
+				cost: null,
+				rarity: null,
+				cardset: null,
+				standard: true,
+				own: null,
+				page: 1
+			});
+		}
 	}
 });
