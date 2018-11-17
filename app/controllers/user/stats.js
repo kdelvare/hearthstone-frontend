@@ -47,6 +47,24 @@ export default Controller.extend({
 			data.getnewsum[2] = data.getnewsum[3] + data.getnew[2];
 			data.getnewsum[1] = data.getnewsum[2] + data.getnew[1];
 			data.getnewsum[0] = data.getnewsum[1] + data.getnew[0];
+			// Pack with wanted cards
+			common = 1 -  data.rarities['1'].wanted / data.rarities['1'].total;
+			rare = 1 - data.rarities['3'].wanted / data.rarities['3'].total;
+			data.getwanted = [
+				100 * (common ** 4 * rare),
+				100 * (4 * (1 - common) * common ** 3 * rare + common ** 4 * (1 - rare)),
+				100 * (6 * (1 - common) ** 2 * common ** 2 * rare + 4 * (1 - common) * common ** 3 * (1 - rare)),
+				100 * (4 * (1 - common) ** 3 * common * rare + 6 * (1 - common) ** 2 * common ** 2 * (1 - rare)),
+				100 * ((1 - common) ** 4 * rare + 4 * (1 - common) ** 3 * common * (1 - rare)),
+				100 * ((1 - common) ** 4 * (1 - rare))
+			];
+			data.getwantedsum = [];
+			data.getwantedsum[5] = data.getwanted[5];
+			data.getwantedsum[4] = data.getwantedsum[5] + data.getwanted[4];
+			data.getwantedsum[3] = data.getwantedsum[4] + data.getwanted[3];
+			data.getwantedsum[2] = data.getwantedsum[3] + data.getwanted[2];
+			data.getwantedsum[1] = data.getwantedsum[2] + data.getwanted[1];
+			data.getwantedsum[0] = data.getwantedsum[1] + data.getwanted[0];
 		});
 		cardclasses.forEach(cardclass => {
 			data = completion.cardclasses[cardclass.id];

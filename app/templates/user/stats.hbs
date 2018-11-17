@@ -65,6 +65,41 @@
 			{{/link-to}}
 		</th>
 	</tr>
+
+	<tr>
+		<th>Paquet utile</th>
+		{{#each model.cardsets as |set|}}
+			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+				<td class="percent">
+					<div class="less">
+						{{round (get (get (get completion.cardsets set.id) "getwantedsum") 1)}}&nbsp;%
+						<div class="more">
+							<table>
+								<tr>
+									<th></th>
+									<th>Exactement</th>
+									<th>Au moins</th>
+								</tr>
+								{{#each (w "0 1 2 3 4 5") as |getwanted|}}
+									<tr>
+										<th>{{getwanted}} cartes recherchées dans un paquet</th>
+										<td class="percent">
+											{{round (get (get (get completion.cardsets set.id) "getwanted") getwanted)}}&nbsp;%
+										</td>
+										<td class="percent">
+											{{round (get (get (get completion.cardsets set.id) "getwantedsum") getwanted)}}&nbsp;%
+										</td>
+									</tr>
+								{{/each}}
+							</table>
+						</div>
+					</div>
+				</td>
+			{{else if (eq set.name_fr "Basique")}}
+				<td class="percent"/>
+			{{/if}}
+		{{/each}}
+	</tr>
 </table>
 
 <h3>Complétion</h3>
@@ -175,7 +210,7 @@
 						<div class="more">
 							<table>
 								<tr>
-									<th class="noborder"></th>
+									<th></th>
 									<th>Exactement</th>
 									<th>Au moins</th>
 								</tr>
