@@ -72,7 +72,9 @@
 			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
 				<td class="percent">
 					<div class="less">
-						{{round (get (get (get completion.cardsets set.id) "getwantedsum") 1)}}&nbsp;%
+						{{#with (get (get (get completion.cardsets set.id) "getwantedsum") 1) as |rate|}}
+							{{round rate decimals=(if (lt rate 10) 1 0)}}&nbsp;%
+						{{/with}}
 						<div class="more">
 							<table>
 								<tr>
@@ -84,10 +86,14 @@
 									<tr>
 										<th>{{getwanted}} cartes recherchées dans un paquet</th>
 										<td class="percent">
-											{{round (get (get (get completion.cardsets set.id) "getwanted") getwanted)}}&nbsp;%
+											{{#with (get (get (get completion.cardsets set.id) "getwanted") getwanted) as |rate|}}
+												{{round rate decimals=(if (lt rate 10) 1 0)}}&nbsp;%
+											{{/with}}
 										</td>
 										<td class="percent">
-											{{round (get (get (get completion.cardsets set.id) "getwantedsum") getwanted)}}&nbsp;%
+											{{#with (get (get (get completion.cardsets set.id) "getwantedsum") getwanted) as |rate|}}
+												{{round rate decimals=(if (lt rate 10) 1 0)}}&nbsp;%
+											{{/with}}
 										</td>
 									</tr>
 								{{/each}}
@@ -206,7 +212,9 @@
 			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
 				<td colspan="3" class="percent">
 					<div class="less">
-						{{round (get (get (get completion.cardsets set.id) "getnewsum") 1)}}&nbsp;%
+						{{#with (get (get (get completion.cardsets set.id) "getnewsum") 1) as |rate|}}
+							{{round rate decimals=(if (lt rate 10) 1 0)}}&nbsp;%
+						{{/with}}
 						<div class="more">
 							<table>
 								<tr>
@@ -218,10 +226,14 @@
 									<tr>
 										<th>{{getnew}} nouvelles cartes dans un paquet</th>
 										<td class="percent">
-											{{round (get (get (get completion.cardsets set.id) "getnew") getnew)}}&nbsp;%
+											{{#with (get (get (get completion.cardsets set.id) "getnew") getnew) as |rate|}}
+												{{round rate decimals=(if (lt rate 10) 1 0)}}&nbsp;%
+											{{/with}}
 										</td>
 										<td class="percent">
-											{{round (get (get (get completion.cardsets set.id) "getnewsum") getnew)}}&nbsp;%
+											{{#with (get (get (get completion.cardsets set.id) "getnewsum") getnew) as |rate|}}
+												{{round rate decimals=(if (lt rate 10) 1 0)}}&nbsp;%
+											{{/with}}
 										</td>
 									</tr>
 								{{/each}}
