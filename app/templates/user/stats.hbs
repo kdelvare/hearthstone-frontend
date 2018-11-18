@@ -505,6 +505,31 @@
 	</tr>
 </table>
 
+<h3>Surnuméraires</h3>
+
+<table>
+	<tr>
+		<th></th>
+		<th>Nombre</th>
+		<th>Poussière</th>
+	</tr>
+
+	{{#each ordered_rarities as |rarity|}}
+		<tr>
+			<th>{{rarity.name_fr}}</th>
+			<td class="stat">{{get model.stat.extra.rarities rarity.id}}</td>
+			<td class="stat">{{mult (get model.stat.extra.rarities rarity.id) rarity.dust}}</td>
+		</tr>
+	{{/each}}
+
+	<tr>
+		<th>TOTAL</th>
+		<th class="stat">{{model.stat.extra.total}}</th>
+		<th class="stat">{{reduce (action "sumDust") 0 model.stat.extra.rarities}}</th>
+	</tr>
+</table>
+{{log model.stat.extra}}
+
 {{else}}
 	<i class="far fa-plus-square fa-2x" {{action 'showAllStats'}}></i>
 {{/if}}

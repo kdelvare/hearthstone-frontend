@@ -26,18 +26,6 @@ export default DS.Model.extend({
 	}),
 
 	dust: computed('rarity', function() {
-		const rarity = this.get('rarity');
-		switch(rarity.get('name_fr')) {
-			case 'Commune':
-				return 40;
-			case 'Rare':
-				return 100;
-			case 'Epique':
-				return 400;
-			case 'Légendaire':
-				return 1600;
-			default:
-				return 0;
-		}
+		return this.get('rarity.dust');
 	})
 });

@@ -122,6 +122,12 @@ export default Controller.extend({
 
 		showAllStats() {
 			this.set('fullStats', true);
+		},
+
+		sumDust(total, extra, rarity_id) {
+			const rarity = this.get('model.rarities').findBy("id", String(rarity_id));
+			console.log(rarity_id, rarity);
+			return rarity ? total + extra * rarity.dust : 0;
 		}
 	}
 });
