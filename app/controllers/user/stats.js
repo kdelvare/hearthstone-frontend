@@ -126,8 +126,7 @@ export default Controller.extend({
 
 		sumDust(total, extra, rarity_id) {
 			const rarity = this.get('model.rarities').findBy("id", String(rarity_id));
-			console.log(rarity_id, rarity);
-			return rarity ? total + extra * rarity.dust : 0;
+			return rarity ? total + extra * rarity.destructionDust : 0;
 		}
 	}
 });

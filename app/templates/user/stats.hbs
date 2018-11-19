@@ -517,8 +517,12 @@
 	{{#each ordered_rarities as |rarity|}}
 		<tr>
 			<th>{{rarity.name_fr}}</th>
-			<td class="stat">{{get model.stat.extra.rarities rarity.id}}</td>
-			<td class="stat">{{mult (get model.stat.extra.rarities rarity.id) rarity.dust}}</td>
+			<td class="stat">
+				{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
+					{{get model.stat.extra.rarities rarity.id}}
+				{{/link-to}}
+			</td>
+			<td class="stat">{{mult (get model.stat.extra.rarities rarity.id) rarity.destructionDust}}</td>
 		</tr>
 	{{/each}}
 

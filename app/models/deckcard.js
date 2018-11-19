@@ -7,9 +7,9 @@ export default DS.Model.extend({
 	deck: DS.belongsTo(),
 	card: DS.belongsTo(),
 
-	dust: computed('card.dust', 'number', function() {
+	dust: computed('card', 'number', function() {
 		const card = this.get('card');
 		const number = this.get('number');
-		return number * card.get('dust');
+		return number * card.get('creationDust');
 	})
 });

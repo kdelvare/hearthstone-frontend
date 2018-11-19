@@ -25,7 +25,19 @@ export default DS.Model.extend({
 		return `https://art.hearthstonejson.com/v1/render/latest/${LOCALE}/${RESOLUTION}/${CARD_ID}.${EXT}`;
 	}),
 
-	dust: computed('rarity', function() {
-		return this.get('rarity.dust');
+	creationDust: computed('rarity', function() {
+		return this.get('rarity.creationDust');
+	}),
+
+	creationDustGolden: computed('rarity', function() {
+		return this.get('rarity.creationDustGolden');
+	}),
+
+	destructionDust: computed('rarity', function() {
+		return this.get('rarity.destructionDust');
+	}),
+
+	destructionDustGolden: computed('rarity', function() {
+		return this.get('rarity.destructionDustGolden');
 	})
 });
