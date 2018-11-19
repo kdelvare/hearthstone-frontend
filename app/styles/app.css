@@ -198,6 +198,9 @@ th, td {
 .percent {
 	text-align: right;
 }
+.dust {
+	background-color: lightblue;
+}
 .less {
 	position: relative;
 }

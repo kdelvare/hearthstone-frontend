@@ -509,10 +509,10 @@
 
 <table>
 	<tr>
-		<th></th>
+		<th class="noborder"></th>
 		<th>Normales</th>
 		<th>Dorées</th>
-		<th>Poussière</th>
+		<th class="dust">Poussière</th>
 	</tr>
 
 	{{#each ordered_rarities as |rarity|}}
@@ -528,7 +528,7 @@
 					{{get model.stat.extra.golden.rarities rarity.id}}
 				{{/link-to}}
 			</td>
-			<td class="stat">
+			<td class="stat dust">
 				{{add (mult (get model.stat.extra.normal.rarities rarity.id) rarity.destructionDust) (mult (get model.stat.extra.golden.rarities rarity.id) rarity.destructionDustGolden)}}
 			</td>
 		</tr>
@@ -538,7 +538,7 @@
 		<th>TOTAL</th>
 		<th class="stat">{{model.stat.extra.normal.total}}</th>
 		<th class="stat">{{model.stat.extra.golden.total}}</th>
-		<th class="stat">{{add (reduce (action "sumDust" false) 0 model.stat.extra.normal.rarities) (reduce (action "sumDust" true) 0 model.stat.extra.golden.rarities)}}</th>
+		<th class="stat dust">{{add (reduce (action "sumDust" false) 0 model.stat.extra.normal.rarities) (reduce (action "sumDust" true) 0 model.stat.extra.golden.rarities)}}</th>
 	</tr>
 </table>
 
