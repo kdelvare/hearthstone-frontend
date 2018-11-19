@@ -124,9 +124,9 @@ export default Controller.extend({
 			this.set('fullStats', true);
 		},
 
-		sumDust(total, extra, rarity_id) {
+		sumDust(golden, total, extra, rarity_id) {
 			const rarity = this.get('model.rarities').findBy("id", String(rarity_id));
-			return rarity ? total + extra * rarity.destructionDust : 0;
+			return rarity ? total + extra * (golden ? rarity.destructionDustGolden : rarity.destructionDust) : 0;
 		}
 	}
 });

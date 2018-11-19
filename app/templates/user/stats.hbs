@@ -510,7 +510,8 @@
 <table>
 	<tr>
 		<th></th>
-		<th>Nombre</th>
+		<th>Normales</th>
+		<th>Dorées</th>
 		<th>Poussière</th>
 	</tr>
 
@@ -519,20 +520,27 @@
 			<th>{{rarity.name_fr}}</th>
 			<td class="stat">
 				{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
-					{{get model.stat.extra.rarities rarity.id}}
+					{{get model.stat.extra.normal.rarities rarity.id}}
 				{{/link-to}}
 			</td>
-			<td class="stat">{{mult (get model.stat.extra.rarities rarity.id) rarity.destructionDust}}</td>
+			<td class="stat">
+				{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
+					{{get model.stat.extra.golden.rarities rarity.id}}
+				{{/link-to}}
+			</td>
+			<td class="stat">
+				{{add (mult (get model.stat.extra.normal.rarities rarity.id) rarity.destructionDust) (mult (get model.stat.extra.golden.rarities rarity.id) rarity.destructionDustGolden)}}
+			</td>
 		</tr>
 	{{/each}}
 
 	<tr>
 		<th>TOTAL</th>
-		<th class="stat">{{model.stat.extra.total}}</th>
-		<th class="stat">{{reduce (action "sumDust") 0 model.stat.extra.rarities}}</th>
+		<th class="stat">{{model.stat.extra.normal.total}}</th>
+		<th class="stat">{{model.stat.extra.golden.total}}</th>
+		<th class="stat">{{add (reduce (action "sumDust" false) 0 model.stat.extra.normal.rarities) (reduce (action "sumDust" true) 0 model.stat.extra.golden.rarities)}}</th>
 	</tr>
 </table>
-{{log model.stat.extra}}
 
 {{else}}
 	<i class="far fa-plus-square fa-2x" {{action 'showAllStats'}}></i>
