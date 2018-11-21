@@ -2,6 +2,9 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
+	queryParams: ['cardset'],
+	cardset: null,
+
 	deckstats: computed('model.decks', function() {
 		let deckstats = [];
 		this.get('model.deckgroups').forEach(deckgroup => {

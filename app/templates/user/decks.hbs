@@ -1,3 +1,9 @@
+<select onchange={{action (mut cardset) value="target.value"}}>
+	{{#each model.cardsets as |cardset2|}}
+		<option value={{cardset2.id}} selected={{eq cardset cardset2.id}}>{{cardset2.name_fr}}</option>
+	{{/each}}
+</select>
+
 <h3>Légende</h3>
 <table>
 	<tr class="decks">
