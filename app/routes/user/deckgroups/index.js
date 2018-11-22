@@ -12,8 +12,8 @@ export default Route.extend({
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
 			deckgroups: this.store.query('deckgroup', {
 				filter: params.cardset ? { cardset: params.cardset } : {},
-				include: 'decks,decks.cardclass,decks.deckcards,decks.deckcards.card,decks.deckcards.card.cardset,decks.deckcards.card.cardclass,decks.deckcards.card.rarity,decks.deckcards.card.collections,decks.deckcards.card.collections.user,decks.wanteddecks.user',
-				fields: { decks: 'name', deckcards: 'number', collections: 'number' }
+				include: 'decks,decks.cardclass,decks.deckcards,decks.deckcards.card,decks.deckcards.card.rarity,decks.deckcards.card.collections,decks.deckcards.card.collections.user,decks.wanteddecks.user',
+				fields: { decks: 'name,url,cardclass,deckcards,wanteddecks', deckcards: 'number,card', collections: 'number,user' }
 			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			user: user

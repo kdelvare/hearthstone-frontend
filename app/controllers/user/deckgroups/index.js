@@ -5,7 +5,7 @@ export default Controller.extend({
 	queryParams: ['cardset'],
 	cardset: null,
 
-	deckstats: computed('model.decks', function() {
+	deckstats: computed('model.deckgroups', function() {
 		let deckstats = [];
 		this.get('model.deckgroups').forEach(deckgroup => {
 			deckgroup.decks.forEach(deck => {
@@ -23,7 +23,7 @@ export default Controller.extend({
 						let userCollection = deckcard.card.get('collections').filter(collection => {
 							return collection.user.get('id') === this.get('model.user.id');
 						}).firstObject;
-						return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0) * deckcard.card.get('dust');
+						return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0) * deckcard.card.get('creationDust');
 					}, 0);
 				}
 				deckstats[deck.id] = {
