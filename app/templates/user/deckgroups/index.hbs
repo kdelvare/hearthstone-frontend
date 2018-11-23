@@ -26,7 +26,7 @@
 				{{/if}}
 			</th>
 			{{#each deckgroup.sortedDecks as |deck|}}
-				<td class={{if (and deck.dust (eq deck.dust (get (get deckstats deck.id) "dust"))) "complete"}}>
+				<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
 					{{deck.name}}
 					{{#if deck.url}}
 						<a href={{deck.url}} target="_blank">
