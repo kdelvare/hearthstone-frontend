@@ -18,7 +18,7 @@
 	{{#each model.deckgroups as |deckgroup|}}
 		<tr>
 			<th>
-				{{#link-to 'user.deckgroups.deckgroup' deckgroup.id}}
+				{{#link-to 'user.deckgroups.deckgroup' model.user.id deckgroup.id}}
 					{{deckgroup.name}}
 				{{/link-to}}
 				{{#if deckgroup.url}}
