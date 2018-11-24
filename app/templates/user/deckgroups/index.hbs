@@ -29,7 +29,9 @@
 			</th>
 			{{#each deckgroup.sortedDecks as |deck|}}
 				<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
-					{{deck.name}}
+					{{#link-to 'user.deck' model.user.id deck.id}}
+						{{deck.name}}
+					{{/link-to}}
 					{{#if deck.url}}
 						<a href={{deck.url}} target="_blank">
 							<i class="fas fa-external-link-alt"></i>

@@ -14,6 +14,7 @@ Router.map(function() {
 		this.route('deckgroups', function() {
 			this.route('deckgroup', { path: '/:deckgroup_id' });
 		});
+		this.route('deck', { path: '/decks/:deck_id' });
 		this.route('stats');
 	})
 });
