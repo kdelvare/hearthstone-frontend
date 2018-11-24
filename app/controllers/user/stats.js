@@ -21,24 +21,26 @@ export default Controller.extend({
 		const rarities = this.get('model.rarities');
 
 		let data = completion;
-		let subdata, common, rare;
-		data.rate = 100 * data.owned / data.total;
+		let subdata, multiple, missing, wanted, wantedmissing;
+		data.rate = data.owned / data.total;
 		cardsets.forEach(cardset => {
 			data = completion.cardsets[cardset.id];
-			data.rate = 100 * data.owned / data.total;
+			data.rate = data.owned / data.total;
 			rarities.forEach(rarity => {
 				subdata = data.rarities[rarity.id];
-				subdata.rate = 100 * subdata.owned / subdata.total;
+				subdata.rate = subdata.owned / subdata.total;
+				subdata.wantedrate = subdata.wanted / subdata.total;
 			});
-			common = data.rarities['1'].rate / 100;
-			rare = data.rarities['3'].rate / 100;
+			// 72% common, 23% rare, 4% epic, 1% legendary (with no double)
+			multiple = data.rarities['1'].rate * 0.72 + data.rarities['3'].rate * 0.23 + data.rarities['4'].rate * 0.04 + 0.01;
+			missing = 1 - multiple;
 			data.getnew = [
-				100 * (common ** 4 * rare),
-				100 * (4 * (1 - common) * common ** 3 * rare + common ** 4 * (1 - rare)),
-				100 * (6 * (1 - common) ** 2 * common ** 2 * rare + 4 * (1 - common) * common ** 3 * (1 - rare)),
-				100 * (4 * (1 - common) ** 3 * common * rare + 6 * (1 - common) ** 2 * common ** 2 * (1 - rare)),
-				100 * ((1 - common) ** 4 * rare + 4 * (1 - common) ** 3 * common * (1 - rare)),
-				100 * ((1 - common) ** 4 * (1 - rare))
+				multiple ** 5,
+				5 * missing * multiple ** 4,
+				10 * missing ** 2 * multiple ** 3,
+				10 * missing ** 3 * multiple ** 2,
+				5 * missing ** 4 * multiple,
+				missing ** 5
 			];
 			data.getnewsum = [];
 			data.getnewsum[5] = data.getnew[5];
@@ -48,15 +50,15 @@ export default Controller.extend({
 			data.getnewsum[1] = data.getnewsum[2] + data.getnew[1];
 			data.getnewsum[0] = data.getnewsum[1] + data.getnew[0];
 			// Pack with wanted cards
-			common = 1 -  data.rarities['1'].wanted / data.rarities['1'].total;
-			rare = 1 - data.rarities['3'].wanted / data.rarities['3'].total;
+			wanted = data.rarities['1'].wantedrate * 0.72 + data.rarities['3'].wantedrate * 0.23 + data.rarities['4'].wantedrate * 0.04 + 0.01;
+			wantedmissing = 1 - wanted;
 			data.getwanted = [
-				100 * (common ** 4 * rare),
-				100 * (4 * (1 - common) * common ** 3 * rare + common ** 4 * (1 - rare)),
-				100 * (6 * (1 - common) ** 2 * common ** 2 * rare + 4 * (1 - common) * common ** 3 * (1 - rare)),
-				100 * (4 * (1 - common) ** 3 * common * rare + 6 * (1 - common) ** 2 * common ** 2 * (1 - rare)),
-				100 * ((1 - common) ** 4 * rare + 4 * (1 - common) ** 3 * common * (1 - rare)),
-				100 * ((1 - common) ** 4 * (1 - rare))
+				wantedmissing ** 5,
+				5 * wanted * wantedmissing ** 4,
+				10 * wanted ** 2 * wantedmissing ** 3,
+				10 * wanted ** 3 * wantedmissing ** 2,
+				5 * wanted ** 4 * wantedmissing,
+				wanted ** 5
 			];
 			data.getwantedsum = [];
 			data.getwantedsum[5] = data.getwanted[5];
