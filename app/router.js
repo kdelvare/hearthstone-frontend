@@ -12,7 +12,7 @@ Router.map(function() {
 	this.route('user', { path: '/users/:id' }, function() {
 		this.route('collection');
 		this.route('deckgroups', function() {
-			this.route('deckgroup', { path: '/:deckgroup_id' });
+			this.route('deckgroup', { path: '/:id' });
 		});
 		this.route('stats');
 	})

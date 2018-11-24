@@ -18,7 +18,9 @@
 	{{#each model.deckgroups as |deckgroup|}}
 		<tr>
 			<th>
-				{{deckgroup.name}}
+				{{#link-to 'user.deckgroups.deckgroup' deckgroup.id}}
+					{{deckgroup.name}}
+				{{/link-to}}
 				{{#if deckgroup.url}}
 					<a href={{deckgroup.url}} target="_blank">
 						<i class="fas fa-external-link-alt"></i>
