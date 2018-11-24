@@ -14,6 +14,7 @@ export default DS.Model.extend({
 	cardset: DS.belongsTo(),
 	cardclass: DS.belongsTo(),
 	rarity: DS.belongsTo(),
+	type: DS.belongsTo(),
 	collections: DS.hasMany(),
 	wantedcards: DS.hasMany(),
 
