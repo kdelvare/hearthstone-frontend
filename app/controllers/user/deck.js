@@ -33,6 +33,41 @@ export default Controller.extend({
 		};
 	}),
 
+	deckTypes: computed('model.deck', function() {
+		const deckcards = this.get('model.deck.deckcards');
+		return deckcards.reduce((deckTypes, deckcard) => {
+			const type = deckcard.card.get('type.id');
+			if (!deckTypes[type]) { deckTypes[type] = { name: deckcard.card.get('type.name_fr'), number: 0 }; }
+			deckTypes[type].number += deckcard.number;
+			return deckTypes;
+		}, {});
+	}),
+
+	deckRarities: computed('model.deck', function() {
+		const deckcards = this.get('model.deck.deckcards');
+		const deckRarities = deckcards.reduce((deckRarities, deckcard) => {
+			const rarity = deckcard.card.get('rarity.id');
+			if (!deckRarities[rarity]) { deckRarities[rarity] = { name: deckcard.card.get('rarity.name_fr'), number: 0 }; }
+			deckRarities[rarity].number += deckcard.number;
+			return deckRarities;
+		}, {});
+		// Swich common/basic
+		let tmp = deckRarities[1];
+		deckRarities[1] = deckRarities[2];
+		deckRarities[2] = tmp;
+		return deckRarities;
+	}),
+
+	deckCardsets: computed('model.deck', function() {
+		const deckcards = this.get('model.deck.deckcards');
+		return deckcards.reduce((deckCardsets, deckcard) => {
+			const cardset = deckcard.card.get('cardset.id');
+			if (!deckCardsets[cardset]) { deckCardsets[cardset] = { name: deckcard.card.get('cardset.name_fr'), number: 0, class: deckcard.card.get('cardset.class') }; }
+			deckCardsets[cardset].number += deckcard.number;
+			return deckCardsets;
+		}, {});
+	}),
+
 	actions: {
 		filterOwned(collection) {
 			return collection.user.get('id') === this.get('model.user.id');

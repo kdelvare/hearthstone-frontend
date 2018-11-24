@@ -1,9 +1,9 @@
-<h4>
+<h3>
 	{{model.deck.deckgroup.name}}
 	({{model.deck.deckgroup.cardset.name_fr}})
-</h4>
+</h3>
 
-<h3>
+<h2>
 	{{model.deck.cardclass.name_fr}}
 	{{model.deck.name}}
 	{{#if model.deck.url}}
@@ -11,7 +11,7 @@
 			<i class="fas fa-external-link-alt"></i>
 		</a>
 	{{/if}}
-</h3>
+</h2>
 
 <br/>
 
@@ -66,9 +66,39 @@
 
 <br/>
 
+<h3>Répartition</h3>
+
+<table style="float: left; margin-right: 20px;">
+	{{#each-in deckTypes as |id type|}}
+		<tr>
+			<td>{{type.name}}</td>
+			<td>{{type.number}}</td>
+		</tr>
+	{{/each-in}}
+</table>
+
+<table style="float: left; margin-right: 20px;">
+	{{#each-in deckRarities as |id rarity|}}
+		<tr>
+			<td class="rarity-{{rarity.name}}">{{rarity.name}}</td>
+			<td>{{rarity.number}}</td>
+		</tr>
+	{{/each-in}}
+</table>
+
+<table>
+	{{#each-in deckCardsets as |id cardset|}}
+		<tr class="decks">
+			<td class={{if (eq id "2") "owned" (concat "cardset-" cardset.class)}}>{{cardset.name}}</td>
+			<td>{{cardset.number}}</td>
+		</tr>
+	{{/each-in}}
+</table>
+
 <h3>Légende</h3>
 <table>
 	<tr class="decks">
+		<td class='rarity-Gratuite'>Gratuite</td>
 		<td class='rarity-Commune'>Commune</td>
 		<td class='rarity-Rare'>Rare</td>
 		<td class='rarity-Epique'>Epique</td>
