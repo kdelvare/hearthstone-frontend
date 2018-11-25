@@ -45,7 +45,7 @@
 						{{/with}}
 					{{/if}}
 					<br/>
-					{{#if deck.dust}}
+					{{#if deck.size}}
 						{{get (get deckstats deck.id) "owned"}}/{{deck.size}}
 						({{get (get deckstats deck.id) "dust"}}/{{deck.dust}})
 						{{#with (sub deck.dust (get (get deckstats deck.id) "dust")) as |missing|}}

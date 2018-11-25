@@ -26,8 +26,8 @@ export default Controller.extend({
 					}).firstObject;
 					return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0) * deckcard.card.get('creationDust');
 				}, 0);
-				const missingDust = (deck.get('dust') - dust) / deck.get('dust');
-				color[0] = 80 + 60 * Math.log2(1 + 7 * missingDust); //120 - Math.log2(1 + missingDust * 9) * 80; //missingDust > 1600 ? 336 - missingDust / 100 : 120 - missingDust / 10;
+				const missingDust = deck.get('dust') ? (deck.get('dust') - dust) / deck.get('dust') : 0;
+				color[0] = 80 + 60 * Math.log2(1 + 7 * missingDust);
 			}
 			deckstats[deck.id] = {
 				owned: owned,
