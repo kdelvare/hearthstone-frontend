@@ -5,34 +5,6 @@ export default Controller.extend({
 	queryParams: ['cardset'],
 	cardset: null,
 
-	deckstats: computed('model.deck', function() {
-		const deck = this.get('model.deck');
-
-		let owned = 0;
-		let dust = 0;
-		const deckcards = deck.get('deckcards');
-		if (deckcards) {
-			owned = deckcards.reduce((total, deckcard) => {
-				let userCollection = deckcard.card.get('collections').filter(collection => {
-					return collection.user.get('id') === this.get('model.user.id');
-				}).firstObject;
-				return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0);
-			}, 0);
-			dust = deckcards.reduce((total, deckcard) => {
-				let userCollection = deckcard.card.get('collections').filter(collection => {
-					return collection.user.get('id') === this.get('model.user.id');
-				}).firstObject;
-				return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0) * deckcard.card.get('creationDust');
-			}, 0);
-			const missingDust = (deck.get('dust') - dust) / deck.get('dust');
-		}
-
-		return {
-			owned: owned,
-			dust: dust
-		};
-	}),
-
 	deckTypes: computed('model.deck', function() {
 		const deckcards = this.get('model.deck.deckcards');
 		return deckcards.reduce((deckTypes, deckcard) => {
@@ -52,9 +24,11 @@ export default Controller.extend({
 			return deckRarities;
 		}, {});
 		// Swich common/basic
-		let tmp = deckRarities[1];
-		deckRarities[1] = deckRarities[2];
-		deckRarities[2] = tmp;
+		if (deckRarities[1] && deckRarities[2]) {
+			let tmp = deckRarities[1];
+			deckRarities[1] = deckRarities[2];
+			deckRarities[2] = tmp;
+		}
 		return deckRarities;
 	}),
 
