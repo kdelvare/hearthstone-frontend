@@ -32,7 +32,8 @@ export default Controller.extend({
 				subdata.wantedrate = subdata.wanted / subdata.total;
 			});
 			// 72% common, 23% rare, 4% epic, 1% legendary (with no double)
-			multiple = data.rarities['1'].rate * 0.72 + data.rarities['3'].rate * 0.23 + data.rarities['4'].rate * 0.04 + 0.01;
+			const fullLegendaries = data.rarities['5'].owned == data.rarities['5'].total;
+			multiple = data.rarities['1'].rate * 0.72 + data.rarities['3'].rate * 0.23 + data.rarities['4'].rate * 0.04 + (fullLegendaries ? 0.01 : 0);
 			missing = 1 - multiple;
 			data.getnew = [
 				multiple ** 5,
@@ -50,7 +51,8 @@ export default Controller.extend({
 			data.getnewsum[1] = data.getnewsum[2] + data.getnew[1];
 			data.getnewsum[0] = data.getnewsum[1] + data.getnew[0];
 			// Pack with wanted cards
-			wanted = data.rarities['1'].wantedrate * 0.72 + data.rarities['3'].wantedrate * 0.23 + data.rarities['4'].wantedrate * 0.04 + 0.01;
+			const wantedLegendaries = data.rarities['5'].wanted / (data.rarities['5'].total - data.rarities['5'].owned);
+			wanted = data.rarities['1'].wantedrate * 0.72 + data.rarities['3'].wantedrate * 0.23 + data.rarities['4'].wantedrate * 0.04 + (fullLegendaries ? 0 : wantedLegendaries * 0.01);
 			wantedmissing = 1 - wanted;
 			data.getwanted = [
 				wantedmissing ** 5,
