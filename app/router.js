@@ -13,6 +13,7 @@ Router.map(function() {
 		this.route('collection');
 		this.route('deckgroups', function() {
 			this.route('deckgroup', { path: '/:deckgroup_id' });
+			this.route('classdecks');
 		});
 		this.route('deck', { path: '/decks/:deck_id' });
 		this.route('stats');

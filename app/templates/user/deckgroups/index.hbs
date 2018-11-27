@@ -11,7 +11,11 @@
 		<td class="noborder"></td>
 		{{#each model.cardclasses as |cardclass|}}
 			{{#if (lt cardclass.id 12)}}
-				<th class={{concat 'cardclass cardclass-' cardclass.name_fr}}>{{cardclass.name_fr}}</th>
+				<th class={{concat 'cardclass cardclass-' cardclass.name_fr}}>
+					{{#link-to 'user.deckgroups.classdecks' model.user.id (query-params cardset=cardset class=cardclass.id)}}
+						{{cardclass.name_fr}}
+					{{/link-to}}
+				</th>
 			{{/if}}
 		{{/each}}
 	</tr>

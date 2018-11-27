@@ -1,0 +1,96 @@
+<select onchange={{action (mut cardset) value="target.value"}}>
+	{{#each model.cardsets as |cardset2|}}
+		<option value={{cardset2.id}} selected={{eq cardset cardset2.id}}>{{cardset2.name_fr}}</option>
+	{{/each}}
+</select>
+
+<select onchange={{action (mut cardclass) value="target.value"}}>
+	{{#each model.cardclasses as |cardclass2|}}
+		<option value={{cardclass2.id}} selected={{eq cardclass cardclass2.id}}>{{cardclass2.name_fr}}</option>
+	{{/each}}
+</select>
+
+<p/>
+
+<table>
+	<tr>
+		{{#each model.decks as |deck|}}
+			<th>
+				{{#link-to 'user.deckgroups.deckgroup' model.user.id deck.deckgroup.id}}
+					{{deck.deckgroup.name}}
+				{{/link-to}}
+				{{#if deck.deckgroup.url}}
+					<a href={{deck.deckgroup.url}} target="_blank">
+						<i class="fas fa-external-link-alt"></i>
+					</a>
+				{{/if}}
+			</th>
+		{{/each}}
+	</tr>
+	<tr>
+		{{#each model.decks as |deck|}}
+			<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
+				{{#link-to 'user.deck' model.user.id deck.id}}
+					{{deck.name}}
+				{{/link-to}}
+				{{#if deck.url}}
+					<a href={{deck.url}} target="_blank">
+						<i class="fas fa-external-link-alt"></i>
+					</a>
+				{{/if}}
+				{{#if (gt (sub deck.dust (get (get deckstats deck.id) "dust")) 0)}}
+					{{#with (filter (action "filterOwned") deck.wanteddecks) as |wanteddecks|}}
+						<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
+					{{else}}
+						<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" deck}}></i>
+					{{/with}}
+				{{/if}}
+				<br/>
+				{{#if deck.size}}
+					{{get (get deckstats deck.id) "owned"}}/{{deck.size}}
+					({{get (get deckstats deck.id) "dust"}}/{{deck.dust}})
+					{{#with (sub deck.dust (get (get deckstats deck.id) "dust")) as |missing|}}
+						<span class={{if (gt missing 0) "missing"}}>
+							{{missing}}
+						</span>
+					{{/with}}
+				{{/if}}
+			</td>
+		{{/each}}
+	</tr>
+	<tr class="decks">
+		{{#each model.decks as |deck|}}
+			<td>
+				<table class="decks">
+					{{#each deck.sortedDeckcards as |deckcard|}}
+						{{#with deckcard.card as |card|}}
+							{{#with (filter (action "filterOwned") card.collections) as |collections|}}
+								<tr><td class={{if (gte collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' card.cardset.class)}}>
+									<div class="deckcard">
+										{{min collections.firstObject.number deckcard.number}}/{{deckcard.number}}
+										<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+										<div class="cardinfo">
+											<img src={{card.image}} />
+											<div class="cardset">{{card.cardset.name_fr}}</div>
+										</div>
+									</div>
+								</td></tr>
+							{{else}}
+								<tr><td class={{concat 'cardset-' card.cardset.class}}>
+									<div class="deckcard">
+										0/{{deckcard.number}}
+										<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+										<div class="cardinfo">
+											<img src={{card.image}} />
+											<div class="cardset">{{card.cardset.name_fr}}</div>
+										</div>
+									</div>
+								</td></tr>
+							{{/with}}
+						{{/with}}
+					{{/each}}
+				</table>
+			</td>
+		{{/each}}
+	</tr>
+</table>
