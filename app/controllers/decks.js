@@ -2,6 +2,24 @@ import Controller from '@ember/controller';
 import { decode } from 'deckstrings';
 
 export default Controller.extend({
+	deckgroup: {
+		name: '',
+		url: '',
+		cardset: null
+	},
+
+	saveDeck() {
+		this.get('deck').save().then(deck => {
+			this.get('deck').deckcards.forEach((deckcard) => {
+				deckcard.set('deck', deck);
+				deckcard.save();
+				this.set('importString', '');
+				this.set('deck', null);
+				this.set('showDeck', false);
+			});
+		});
+	},
+
 	actions: {
 		import() {
 			const importString = this.get('importString');
@@ -36,17 +54,22 @@ export default Controller.extend({
 			});
 		},
 
-		save() {
-			const importedDeck = this.get('deck');
-			importedDeck.save().then(deck => {
-				importedDeck.deckcards.forEach((deckcard) => {
-					deckcard.set('deck', deck);
-					deckcard.save();
-					this.set('importString', '');
-					this.set('deck', null);
-					this.set('showDeck', false);
-				});
+		setCardset(cardset) {
+			this.get('store').findRecord('cardset', cardset).then(cardset => {
+				this.get('deckgroup').cardset = cardset;
 			});
+		},
+
+		save() {
+			if (this.get('deckgroup').name) {
+				const deckgroup = this.get('store').createRecord('deckgroup', this.get('deckgroup'));
+				deckgroup.save().then(deckgroup => {
+					this.get('deck').set('deckgroup', deckgroup);
+					this.saveDeck();
+				})
+			} else {
+				this.saveDeck();
+			}
 		}
 	}
 });

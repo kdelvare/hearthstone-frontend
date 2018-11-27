@@ -18,12 +18,25 @@ Importer un deck
 	Nom : {{input value=deck.name}}
 	<br/>
 	URL : {{input value=deck.url}}
-	<br/>
+	<br/><br/>
+
 	Groupe : <select onchange={{action "setDeckgroup" value="target.value"}}>
 		{{#each model.deckgroups as |deckgroup|}}
 			<option value={{deckgroup.id}}>{{deckgroup.name}}</option>
 		{{/each}}
 	</select>
+	<br/>
+	ou créer un groupe : {{input value=deckgroup.name}}
+	<br/>
+	URL : {{input value=deckgroup.url}}
+	<br/>
+	Extension : <select onchange={{action "setCardset" value="target.value"}}>
+		{{#each model.cardsets as |cardset|}}
+			<option value={{cardset.id}}>{{cardset.name_fr}}</option>
+		{{/each}}
+	</select>
+	<br/><br/>
+
 	<button {{action "save"}}>Enregistrer</button>
 
 	<hr/>
