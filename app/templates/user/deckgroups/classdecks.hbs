@@ -4,9 +4,9 @@
 	{{/each}}
 </select>
 
-<select onchange={{action (mut cardclass) value="target.value"}}>
-	{{#each model.cardclasses as |cardclass2|}}
-		<option value={{cardclass2.id}} selected={{eq cardclass cardclass2.id}}>{{cardclass2.name_fr}}</option>
+<select onchange={{action (mut class) value="target.value"}}>
+	{{#each model.cardclasses as |cardclass|}}
+		<option value={{cardclass.id}} selected={{eq class cardclass.id}}>{{cardclass.name_fr}}</option>
 	{{/each}}
 </select>
 
