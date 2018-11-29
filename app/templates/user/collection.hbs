@@ -4,6 +4,9 @@
 	<i class="fas fa-square pointer fa-2x {{if (and own (not-eq own 'owned')) "faded"}}"
 		title="Possédées" {{action 'toggleParam' 'own' 'owned'}}
 	/>
+	<i class="fas fa-square pointer fa-2x {{if (and own (not-eq own 'golden')) "faded"}}" style="color: darkgoldenrod;"
+		title="Dorées" {{action 'toggleParam' 'own' 'golden'}}
+	/>
 	<span class="fa-stack fa-1x pointer {{if (and own (not-eq own 'missing')) "faded"}}"
 		title="Manquantes" {{action 'toggleParam' 'own' 'missing'}}>
 		<i class="fas fa-square fa-stack-2x"></i>
