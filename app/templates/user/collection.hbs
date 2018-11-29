@@ -162,4 +162,7 @@
 			<i class="fas fa-angle-double-right fa-2x pointer" title={{pageNumber}} alt={{pageNumber}} {{action 'toggleParam' 'page' pageNumber}}></i>
 		{{/with}}
 	</div>
+	{{#if (eq own null)}}
+		{{model.cards.meta.record-count}} cartes différentes
+	{{/if}}
 </div>

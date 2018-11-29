@@ -140,6 +140,7 @@ th.format img {
 .pagination {
 	clear: left;
 	width: 100%;
+	text-align: center;
 }
 
 .pagination i, .pagination span {
