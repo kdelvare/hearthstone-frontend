@@ -195,6 +195,13 @@ th, td {
 .stat4 {
 	width: 20px;
 }
+.statextra {
+	float: left;
+	margin-right: 20px;
+}
+.statextra p {
+	margin-top: 0;
+}
 .percent {
 	text-align: right;
 }
