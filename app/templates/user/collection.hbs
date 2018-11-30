@@ -164,5 +164,9 @@
 	</div>
 	{{#if (eq own null)}}
 		{{model.cards.meta.record-count}} cartes différentes
+	{{else if (eq own "owned")}}
+		{{model.cards.meta.record-count}} cartes possédées
+	{{else if (eq own "golden")}}
+		{{model.cards.meta.record-count}} cartes dorées possédées
 	{{/if}}
 </div>
