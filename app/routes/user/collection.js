@@ -32,8 +32,8 @@ export default Route.extend({
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
 			cards: this.store.query('card', assign(params, {
 				filter: cardFilters,
-				include: 'collections,collections.user,wantedcards,wantedcards.user,wantedcards.wanteddeck,wantedcards.wanteddeck.deck,wantedcards.wanteddeck.deck.cardclass,wantedcards.wanteddeck.deck.deckgroup',
-				fields: { collections: 'user,number,completion,golden', wantedcards: 'user,number,wanteddeck', wanteddecks: 'deck', decks: 'name,cardclass,deckgroup' },
+				include: 'collections,collections.user',
+				fields: { collections: 'user,number,completion,golden' },
 				sort: 'cost,name_fr',
 				page: paginator
 			})),
