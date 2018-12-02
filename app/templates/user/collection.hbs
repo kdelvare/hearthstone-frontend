@@ -168,5 +168,11 @@
 		{{model.cards.meta.record-count}} cartes possédées
 	{{else if (eq own "golden")}}
 		{{model.cards.meta.record-count}} cartes dorées possédées
+	{{else if (eq own "missing")}}
+		{{model.cards.meta.record-count}} cartes manquantes
+	{{else if (eq own "wanted")}}
+		{{model.cards.meta.record-count}} cartes recherchées
+	{{else if (eq own "extra")}}
+		{{model.cards.meta.record-count}} cartes surnuméraires
 	{{/if}}
 </div>
