@@ -126,6 +126,9 @@ export default Controller.extend({
 
 		cycleWanted(card) {
 			const user = this.get('model.user');
+			const userCollections = card.collections.filter(collection => {
+				return collection.user.get('id') === user.id;
+			});
 			const userWantedcards = card.wantedcards.filter(wantedcard => {
 				return (wantedcard.user.get('id') === user.id) && !wantedcard.wanteddeck.get('id');
 			});
@@ -134,7 +137,7 @@ export default Controller.extend({
 			if (userWantedcards.length) {
 				userWantedcard = userWantedcards.firstObject;
 				const number = userWantedcard.number;
-				if (number === 1) {
+				if (number === 1 && card.belongsTo("rarity").id() !== "5" && userCollections.length === 0) {
 					userWantedcard.incrementProperty('number');
 				} else {
 					userWantedcard.deleteRecord();

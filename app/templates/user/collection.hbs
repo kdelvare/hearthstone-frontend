@@ -69,27 +69,29 @@
 				<img src={{card.image}} class="pointer" title={{card.cardset.name_fr}} {{action 'addToCollection' card}} />
 			</div>
 			<div class="number">
-				<div class="wanted pointer" {{action 'cycleWanted' card}}>
-					{{#with (filter (action "filterOwned") card.wantedcards) as |wantedcards|}}
-						<span>
-							{{reduce_number (action "sumWanted") 0 wantedcards}}
-							{{#if (eq (reduce_number (action "maxWanted") 0 wantedcards) 1)}}
-								<i class="far fa-heart"></i>
-							{{else}}
-								<i class="fas fa-heart"></i>
-							{{/if}}
-						</span>
-						<ul class="wanteddecks">
-							{{#each wantedcards as |wantedcard|}}
-								<li>
-									{{wantedcard.number}} <i class="fas fa-heart"></i> {{wantedcard.fulldeck}}
-								</li>
-							{{/each}}
-						</ul>
-					{{else}}
-						<span class="notwanted"><i class="fas fa-heart"></i></span>
-					{{/with}}
-				</div>
+				{{#if (and (not-eq card.rarity.name_fr "Légendaire") (lt collection.firstObject.number 2))}}
+					<div class="wanted pointer" {{action 'cycleWanted' card}}>
+						{{#with (filter (action "filterOwned") card.wantedcards) as |wantedcards|}}
+							<span>
+								{{reduce_number (action "sumWanted") 0 wantedcards}}
+								{{#if (eq (reduce_number (action "maxWanted") 0 wantedcards) 1)}}
+									<i class="far fa-heart"></i>
+								{{else}}
+									<i class="fas fa-heart"></i>
+								{{/if}}
+							</span>
+							<ul class="wanteddecks">
+								{{#each wantedcards as |wantedcard|}}
+									<li>
+										{{wantedcard.number}} <i class="fas fa-heart"></i> {{wantedcard.fulldeck}}
+									</li>
+								{{/each}}
+							</ul>
+						{{else}}
+							<span class="notwanted"><i class="fas fa-heart"></i></span>
+						{{/with}}
+					</div>
+				{{/if}}
 				<div class="normal">
 					{{#if (gt collection.firstObject.number collection.firstObject.golden)}}
 						<i class="fas fa-minus-circle pointer" {{action 'removeFromCollection' card}}></i>

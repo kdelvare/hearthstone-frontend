@@ -32,7 +32,7 @@ export default Route.extend({
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
 			cards: this.store.query('card', assign(params, {
 				filter: cardFilters,
-				include: 'collections,collections.user',
+				include: 'rarity,collections,collections.user',
 				fields: { collections: 'user,number,completion,golden' },
 				sort: 'cost,name_fr',
 				page: paginator
