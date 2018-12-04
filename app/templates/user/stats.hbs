@@ -3,11 +3,9 @@
 <table>
 	<tr>
 		<th class="noborder" colspan={{if standard 3 9}}></th>
-		{{#unless standard}}
-			<th colspan="3">Année du Kraken</th>
-		{{/unless}}
-		<th colspan="3">Année du Mammouth</th>
-		<th colspan="3">Année du Corbeau</th>
+		{{#each model.years as |year|}}
+			<th colspan={{year.size}}>{{year.name_fr}}</th>
+		{{/each}}
 	</tr>
 
 	<tr>
@@ -113,11 +111,9 @@
 <table>
 	<tr>
 		<th class="noborder" colspan={{if standard 7 25}}></th>
-		{{#unless standard}}
-			<th colspan="9">Année du Kraken</th>
-		{{/unless}}
-		<th colspan="9">Année du Mammouth</th>
-		<th colspan="9">Année du Corbeau</th>
+		{{#each model.years as |year|}}
+			<th colspan={{mult year.size 3}}>{{year.name_fr}}</th>
+		{{/each}}
 	</tr>
 
 	<tr>
@@ -333,11 +329,9 @@
 <table>
 	<tr>
 		<th class="noborder" colspan={{if standard 7 25}}></th>
-		{{#unless standard}}
-			<th colspan="9">Année du Kraken</th>
-		{{/unless}}
-		<th colspan="9">Année du Mammouth</th>
-		<th colspan="9">Année du Corbeau</th>
+		{{#each model.years as |year|}}
+			<th colspan={{mult year.size 3}}>{{year.name_fr}}</th>
+		{{/each}}
 	</tr>
 
 	<tr>

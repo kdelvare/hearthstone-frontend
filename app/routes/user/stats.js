@@ -11,6 +11,7 @@ export default Route.extend({
 	model(params) {
 		const user = this.modelFor('user');
 		return RSVP.hash({
+			years: this.store.query('year', { filter: params.standard ? { standard: params.standard } : {}, include: 'cardsets' }),
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			rarities: this.store.query('rarity', { filter: { collectible: true } }),
