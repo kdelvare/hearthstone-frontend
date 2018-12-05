@@ -31,34 +31,42 @@
 					</a>
 				{{/if}}
 			</th>
-			{{#each deckgroup.sortedDecks as |deck|}}
-				<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
-					{{#link-to 'user.deck' model.user.id deck.id}}
-						{{deck.name}}
-					{{/link-to}}
-					{{#if deck.url}}
-						<a href={{deck.url}} target="_blank">
-							<i class="fas fa-external-link-alt"></i>
-						</a>
-					{{/if}}
-					{{#if (gt (sub deck.dust (get (get deckstats deck.id) "dust")) 0)}}
-						{{#with (filter (action "filterOwned") deck.wanteddecks) as |wanteddecks|}}
-							<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
-						{{else}}
-							<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" deck}}></i>
+			{{#each model.cardclasses as |cardclass|}}
+				{{#if (lt cardclass.id 12)}}
+					{{#with (filter (action "filterCardclass" cardclass) deckgroup.decks) as |decks|}}
+						{{#with decks.firstObject as |deck|}}
+							<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
+								{{#link-to 'user.deck' model.user.id deck.id}}
+									{{deck.name}}
+								{{/link-to}}
+								{{#if deck.url}}
+									<a href={{deck.url}} target="_blank">
+										<i class="fas fa-external-link-alt"></i>
+									</a>
+								{{/if}}
+								{{#if (gt (sub deck.dust (get (get deckstats deck.id) "dust")) 0)}}
+									{{#with (filter (action "filterOwned") deck.wanteddecks) as |wanteddecks|}}
+										<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
+									{{else}}
+										<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" deck}}></i>
+									{{/with}}
+								{{/if}}
+								<br/>
+								{{#if deck.size}}
+									{{get (get deckstats deck.id) "owned"}}/{{deck.size}}
+									({{get (get deckstats deck.id) "dust"}}/{{deck.dust}})
+									{{#with (sub deck.dust (get (get deckstats deck.id) "dust")) as |missing|}}
+										<span class={{if (gt missing 0) "missing"}}>
+											{{missing}}
+										</span>
+									{{/with}}
+								{{/if}}
+							</td>
 						{{/with}}
-					{{/if}}
-					<br/>
-					{{#if deck.size}}
-						{{get (get deckstats deck.id) "owned"}}/{{deck.size}}
-						({{get (get deckstats deck.id) "dust"}}/{{deck.dust}})
-						{{#with (sub deck.dust (get (get deckstats deck.id) "dust")) as |missing|}}
-							<span class={{if (gt missing 0) "missing"}}>
-								{{missing}}
-							</span>
-						{{/with}}
-					{{/if}}
-				</td>
+					{{else}}
+						<td></td>
+					{{/with}}
+				{{/if}}
 			{{/each}}
 		</tr>
 	{{/each}}

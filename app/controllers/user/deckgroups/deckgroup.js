@@ -43,6 +43,10 @@ export default Controller.extend({
 			return collection.user.get('id') === this.get('model.user.id');
 		},
 
+		filterCardclass(cardclass, deck) {
+			return deck.cardclass.get('id') === cardclass.id;
+		},
+
 		addWanteddeck(deck) {
 			const wanteddeck = this.get('store').createRecord('wanteddeck', {
 				user: this.get('model.user'),
