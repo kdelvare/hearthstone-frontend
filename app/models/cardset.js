@@ -7,21 +7,21 @@ export default DS.Model.extend({
 	collectible: DS.attr('boolean'),
 	standard: DS.attr('boolean'),
 
+	year: DS.belongsTo(),
+
 	image: computed('id', function() {
 		return `/assets/cardset_${this.get('id')}.png`;
 	}),
 
-	class: computed('id', function() {
-		const id = this.get('id');
-		switch (id) {
-			case '3': //Classique
-				return 'Classique';
-			case '1125': //Bois maudit
-				return 'year';
-			case '1127': //Armageboum
-				return 'current';
-			default:
-				return '';
+	class: computed('id', 'year', function() {
+		if (this.get('id') === '1129') { // Rastakhan
+			return 'current';
+		} else if (this.get('year.id') === '3') { // Year of the Raven
+			return 'year';
+		} else if (this.get('id') === '3') { // Classic
+			return 'Classique';
+		} else {
+			return '';
 		}
 	})
 });
