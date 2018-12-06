@@ -93,6 +93,7 @@ export default Controller.extend({
 				if (number > 1) {
 					wantedcard.decrementProperty('number');
 				} else {
+					card.wantedcards.removeObject(wantedcard);
 					wantedcard.deleteRecord();
 				}
 				wantedcard.save();
