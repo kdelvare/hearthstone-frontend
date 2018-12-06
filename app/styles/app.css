@@ -247,7 +247,7 @@ tr.decks {
 .cardclass {
 	font-weight: bold;
 }
-th.cardclass {
+th.cardclass, th.cardclass a {
 	color: white;
 }
 .cardclass-Druide {
