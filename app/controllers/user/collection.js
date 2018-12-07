@@ -35,10 +35,16 @@ export default Controller.extend({
 					values = [value];
 				}
 				this.set(name, values.join(','));
-			} else if (param === value) {
+			} else if (param === value || name === "own" && value === "golden" && param === "goldenb") {
 				this.set(name, null);
 			} else {
 				this.set(name, value);
+			}
+			// Special cases for golden basics
+			if (this.get("cardset") && this.get("own") === "golden") {
+				this.set("own", "goldenb");
+			} else if (!this.get("cardset") && this.get("own") === "goldenb") {
+				this.set("own", "golden");
 			}
 			// Reset pagination
 			if (name !== "page") {
