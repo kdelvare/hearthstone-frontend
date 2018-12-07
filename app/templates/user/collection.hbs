@@ -53,7 +53,7 @@
 	{{#each model.cardsets as |set|}}
 		{{#if (or (not standard) set.standard)}}
 			<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"
-				class={{concat "pointer" (if (and cardset (not-eq cardset set.id)) " faded")}}
+				class={{concat "pointer" (if (or (and cardset (not-eq cardset set.id)) (and (eq set.id '2') (eq own 'golden'))) " faded")}}
 				{{action 'toggleParam' 'cardset' set.id}}
 			/>
 		{{/if}}
