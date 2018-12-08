@@ -11,5 +11,9 @@ export default DS.Model.extend({
 		const card = this.get('card');
 		const number = this.get('number');
 		return number * card.get('creationDust');
+	}),
+
+	fulldeck: computed('deck', function() {
+		return this.get('deck.fullname');
 	})
 });

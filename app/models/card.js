@@ -17,6 +17,7 @@ export default DS.Model.extend({
 	type: DS.belongsTo(),
 	collections: DS.hasMany(),
 	wantedcards: DS.hasMany(),
+	deckcards: DS.hasMany(),
 
 	image: computed('hs_card_id', function() {
 		const LOCALE = 'frFR';

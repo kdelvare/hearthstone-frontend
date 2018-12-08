@@ -32,7 +32,7 @@ export default DS.Model.extend({
 		return this.get('deckcards').sortBy('card.cost', 'card.name_fr');
 	}),
 
-	fullname: computed('name', 'cardclass', function() {
-		return `${this.get('cardclass.name_fr')} ${this.get('name')} (${this.get('deckgroup.name')})`;
+	fullname: computed('name', 'cardclass.name_fr', 'deckgroup.name', function() {
+		return `${this.get('cardclass.name_fr')} : ${this.get('name')} (${this.get('deckgroup.name')})`;
 	})
 });

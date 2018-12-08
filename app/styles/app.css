@@ -87,18 +87,22 @@ th.format img {
 	right: 80px;
 }
 
-.card .number .wanted {
-	color: red;
+.card .number .wanted-decks {
 	position: absolute;
 	right: 5px;
 }
-.card .number .wanted i {
-	color: red;
+.card .number .wanted-decks i {
 	position: relative;
 	margin: 0 15px 0 3px;
 }
+.card .number .wanted, .card .number .wanted i {
+	color: red;
+}
 .card .number .wanted .notwanted i {
 	color: lightgray;
+}
+.card .number .decks, .card .number .decks i {
+	color: darkgray;
 }
 
 .card .number .golden {
@@ -130,6 +134,9 @@ th.format img {
 }
 
 .card .wanted:hover .wanteddecks {
+	visibility: visible;
+}
+.card .decks:hover .wanteddecks {
 	visibility: visible;
 }
 
