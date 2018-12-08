@@ -2,11 +2,7 @@ import Controller from '@ember/controller';
 import { decode } from 'deckstrings';
 
 export default Controller.extend({
-	deckgroup: {
-		name: '',
-		url: '',
-		cardset: null
-	},
+	deckgroup: {},
 
 	saveDeck() {
 		this.get('deck').save().then(deck => {
@@ -65,6 +61,7 @@ export default Controller.extend({
 				const deckgroup = this.get('store').createRecord('deckgroup', this.get('deckgroup'));
 				deckgroup.save().then(deckgroup => {
 					this.get('deck').set('deckgroup', deckgroup);
+					this.set('deckgroup', {});
 					this.saveDeck();
 				})
 			} else {
