@@ -17,7 +17,13 @@ export default Route.extend({
 		const user = this.modelFor('user');
 		let cardFilters = { collectible: true };
 		if (params.class) { cardFilters.cardclass = params.class }
-		if (params.cost) { cardFilters.cost = params.cost }
+		if (params.cost) {
+			if (params.cost === '10') {
+				cardFilters.tenplus = true
+			} else {
+				cardFilters.cost = params.cost
+			}
+		}
 		if (params.rarity) { cardFilters.rarity = params.rarity }
 		if (params.cardset) { cardFilters.cardset = params.cardset }
 		if (params.standard) { cardFilters.standard = true }
