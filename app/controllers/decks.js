@@ -2,8 +2,6 @@ import Controller from '@ember/controller';
 import { decode } from 'deckstrings';
 
 export default Controller.extend({
-	deckgroup: {},
-
 	saveDeck() {
 		this.get('deck').save().then(deck => {
 			this.get('deck').deckcards.forEach((deckcard) => {
@@ -51,6 +49,9 @@ export default Controller.extend({
 		},
 
 		setCardset(cardset) {
+			if (!this.get('deckgroup')) {
+				this.set('deckgroup', {});
+			}
 			this.get('store').findRecord('cardset', cardset).then(cardset => {
 				this.get('deckgroup').cardset = cardset;
 			});
