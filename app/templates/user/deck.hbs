@@ -4,13 +4,31 @@
 </h3>
 
 <h2>
-	{{model.deck.cardclass.name_fr}}
-	{{model.deck.name}}
-	{{#if model.deck.url}}
-		<a href={{model.deck.url}} target="_blank">
-			<i class="fas fa-external-link-alt"></i>
-		</a>
+	{{#if isEditing}}
+		{{model.deck.cardclass.name_fr}} {{input value=model.deck.name}}
+		<br/>
+		<i class="fas fa-external-link-alt"></i> {{input value=model.deck.url}}
+	{{else}}
+		{{model.deck.cardclass.name_fr}}
+		{{model.deck.name}}
+		{{#if model.deck.url}}
+			<a href={{model.deck.url}} target="_blank">
+				<i class="fas fa-external-link-alt"></i>
+			</a>
+		{{/if}}
 	{{/if}}
+	<br/>
+	{{#if isEditing}}
+		<i class="fas fa-save pointer" title="Enregistrer" {{action "save"}}></i>
+	{{else}}
+		<i class="fas fa-edit pointer" title="Modifier" {{action "edit"}}></i>
+	{{/if}}
+	<i class="fas fa-clone pointer" title="Dupliquer" {{action "clone"}}></i>
+	{{#with (filter (action "filterOwned") model.deck.wanteddecks) as |wanteddecks|}}
+		<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
+	{{else}}
+		<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" model.deck}}></i>
+	{{/with}}
 </h2>
 
 <br/>

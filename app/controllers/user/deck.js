@@ -47,6 +47,20 @@ export default Controller.extend({
 			return collection.user.get('id') === this.get('model.user.id');
 		},
 
+		edit() {
+			this.toggleProperty('isEditing');
+		},
+
+		save() {
+			this.get('model.deck').save().then(deck => {
+				this.toggleProperty('isEditing');
+			});
+		},
+
+		clone() {
+
+		},
+
 		addWanteddeck(deck) {
 			const wanteddeck = this.get('store').createRecord('wanteddeck', {
 				user: this.get('model.user'),
