@@ -5,7 +5,7 @@ export default Controller.extend({
 	queryParams: ['cardset'],
 	cardset: null,
 
-	deckstats: computed('model.deckgroups', function() {
+	deckstats: computed('model.deckgroups', 'model.decks', function() {
 		let deckstats = [];
 		this.get('model.deckgroups').forEach(deckgroup => {
 			deckgroup.decks.forEach(deck => {
@@ -36,6 +36,34 @@ export default Controller.extend({
 					color: deck.name ? `${color[0]}, ${color[1]}%, ${color[2]}%` : '180, 100%, 100%'
 				};
 			})
+		});
+		this.get('model.decks').forEach(deck => {
+			let owned = 0;
+			let dust = 0;
+			let color = [180, 50, 80];
+			const deckcards = deck.get('deckcards');
+			if (deckcards) {
+				owned = deckcards.reduce((total, deckcard) => {
+					let userCollection = deckcard.card.get('collections').filter(collection => {
+						return collection.user.get('id') === this.get('model.user.id');
+					}).firstObject;
+					return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0);
+				}, 0);
+				//color[1] = 3 * owned;
+				dust = deckcards.reduce((total, deckcard) => {
+					let userCollection = deckcard.card.get('collections').filter(collection => {
+						return collection.user.get('id') === this.get('model.user.id');
+					}).firstObject;
+					return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0) * deckcard.card.get('creationDust');
+				}, 0);
+				const missingDust = deck.get('dust') ? (deck.get('dust') - dust) / deck.get('dust') : 0;
+				color[0] = 80 + 60 * Math.log2(1 + 7 * missingDust);
+			}
+			deckstats[deck.id] = {
+				owned: owned,
+				dust: dust,
+				color: deck.name ? `${color[0]}, ${color[1]}%, ${color[2]}%` : '180, 100%, 100%'
+			};
 		});
 		return deckstats;
 	}),

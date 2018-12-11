@@ -71,3 +71,48 @@
 		</tr>
 	{{/each}}
 </table>
+
+<h3>Decks personnels</h3>
+
+<table>
+	{{#each model.cardclasses as |cardclass|}}
+		{{#if (lt cardclass.id 12)}}
+			<tr>
+				<th class={{concat 'cardclass cardclass-' cardclass.name_fr}}>
+					{{cardclass.name_fr}}
+				</th>
+				{{#with (filter (action "filterCardclass" cardclass) model.decks) as |decks|}}
+					{{#each decks as |deck|}}
+						<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
+							{{#link-to 'user.deck' model.user.id deck.id}}
+								{{deck.name}}
+							{{/link-to}}
+							{{#if deck.url}}
+								<a href={{deck.url}} target="_blank">
+									<i class="fas fa-external-link-alt"></i>
+								</a>
+							{{/if}}
+							{{#if (gt (sub deck.dust (get (get deckstats deck.id) "dust")) 0)}}
+								{{#with (filter (action "filterOwned") deck.wanteddecks) as |wanteddecks|}}
+									<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
+								{{else}}
+									<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" deck}}></i>
+								{{/with}}
+							{{/if}}
+							<br/>
+							{{#if deck.size}}
+								{{get (get deckstats deck.id) "owned"}}/{{deck.size}}
+								({{get (get deckstats deck.id) "dust"}}/{{deck.dust}})
+								{{#with (sub deck.dust (get (get deckstats deck.id) "dust")) as |missing|}}
+									<span class={{if (gt missing 0) "missing"}}>
+										{{missing}}
+									</span>
+								{{/with}}
+							{{/if}}
+						</td>
+					{{/each}}
+				{{/with}}
+			</tr>
+		{{/if}}
+	{{/each}}
+</table>

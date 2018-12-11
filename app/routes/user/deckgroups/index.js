@@ -15,6 +15,11 @@ export default Route.extend({
 				include: 'decks,decks.cardclass,decks.deckcards,decks.deckcards.card,decks.deckcards.card.rarity,decks.deckcards.card.collections,decks.deckcards.card.collections.user,decks.wanteddecks.user',
 				fields: { decks: 'name,url,cardclass,deckcards,wanteddecks', deckcards: 'number,card', collections: 'number,user' }
 			}),
+			decks: this.store.query('deck', {
+				filter: { user: user.id },
+				include: 'cardclass,deckcards,deckcards.card,deckcards.card.rarity,deckcards.card.collections,deckcards.card.collections.user,wanteddecks.user',
+				fields: { deckcards: 'number,card', collections: 'number,user' }
+			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			user: user
 		});
