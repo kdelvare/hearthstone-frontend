@@ -58,7 +58,27 @@ export default Controller.extend({
 		},
 
 		clone() {
+			const deck = this.get('store').createRecord('deck', {
+				name: this.get('model.deck.name'),
+				cardclass: this.get('model.deck.cardclass'),
+				user: this.get('model.user')
+			});
+			let deckcard;
+			this.get('model.deck.deckcards').forEach(originalDeckcard => {
+				deckcard = this.get('store').createRecord('deckcard', {
+					card: originalDeckcard.card,
+					number: originalDeckcard.number
+				});
+				deck.deckcards.pushObject(deckcard);
+			});
 
+			deck.save().then(savedDeck => {
+				deck.deckcards.forEach((deckcard) => {
+					deckcard.set('deck', savedDeck);
+					deckcard.save();
+				});
+				this.transitionToRoute('user.deck', this.get('model.user.id'), savedDeck.id);
+			});
 		},
 
 		addWanteddeck(deck) {

@@ -1,6 +1,10 @@
 <h3>
-	{{model.deck.deckgroup.name}}
-	({{model.deck.deckgroup.cardset.name_fr}})
+	{{#if model.deck.deckgroup}}
+		{{model.deck.deckgroup.name}}
+		({{model.deck.deckgroup.cardset.name_fr}})
+	{{else}}
+		Deck de {{model.deck.user.name}}
+	{{/if}}
 </h3>
 
 <h2>
