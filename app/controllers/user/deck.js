@@ -47,13 +47,28 @@ export default Controller.extend({
 			return collection.user.get('id') === this.get('model.user.id');
 		},
 
+		sumNumber(total, deckcard) {
+			return total + deckcard.number;
+		},
+
 		edit() {
-			this.toggleProperty('isEditing');
+			const cardclass = this.get('model.deck.cardclass.id');
+			let cardFilters = { cardclass: '12,' + cardclass, collectible: true };
+			if (this.get('cost')) { cardFilters.cost = this.get('cost'); }
+			if (this.get('rarity')) { cardFilters.rarity = this.get('rarity'); }
+			this.store.query('card', {
+				filter: cardFilters,
+				include: 'cardset',
+				sort: 'cost,name_fr'
+			}).then(cards => {
+				this.set('cards', cards);
+				this.set('isEditing', true);
+			});
 		},
 
 		save() {
 			this.get('model.deck').save().then(deck => {
-				this.toggleProperty('isEditing');
+				this.set('isEditing', false);
 			});
 		},
 
@@ -121,6 +136,55 @@ export default Controller.extend({
 			});
 			wanteddeck.deleteRecord();
 			wanteddeck.save();
-		}
+		},
+
+		incNumber(deckcard) {
+			deckcard.set('number', deckcard.get('number') + 1);
+			deckcard.save();
+		},
+
+		decNumber(deckcard) {
+			deckcard.set('number', deckcard.get('number') - 1);
+			deckcard.save();
+		},
+
+		addDeckcard(card) {
+			this.get('store').query('deckcard', { filter: { deck: this.get('model.deck.id'), card: card.id } }).then(deckcards => {
+				if (deckcards.length > 0) {
+					const deckcard = deckcards.firstObject;
+					if (card.rarity.get('name_fr') !== "Légendaire" && deckcard.number < 2) {
+						deckcard.set('number', deckcard.number + 1);
+						deckcard.save();
+					}
+				} else {
+					const deckcard = this.get('store').createRecord('deckcard', {
+						card: card,
+						number: 1
+					});
+					const deckcards = this.get('model.deck.deckcards');
+					deckcards.pushObject(deckcard);
+					deckcard.save();
+				}
+			});
+		},
+
+		removeDeckcard(deckcard) {
+			const deckcards = this.get('model.deck.deckcards');
+			deckcards.removeObject(deckcard);
+			deckcard.deleteRecord();
+			deckcard.save();
+		},
+
+		toggleParam(name, value) {
+			const param = this.get(name);
+			if (param == value) {
+				this.set(name, null);
+			} else {
+				this.set(name, value);
+			}
+			this.send('edit');
+		},
+
+
 	}
 });

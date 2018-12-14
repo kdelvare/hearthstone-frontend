@@ -335,3 +335,16 @@ th.cardclass, th.cardclass a {
 .deckcard:hover .cardinfo {
 	visibility: visible;
 }
+
+.leftPanel {
+	float: left;
+}
+.pickCards img.filter {
+	width: 50px;
+}
+.pickCards img.card {
+	width: 150px;
+}
+.clear {
+	clear: both;
+}

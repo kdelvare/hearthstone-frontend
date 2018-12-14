@@ -11,6 +11,7 @@ export default Route.extend({
 				fields: { users: 'name', cardsets: 'name_fr,year', deckcards: 'number,card', cards: 'cost,atk,health', collections: 'number,user' }
 			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
+			rarities: this.store.query('rarity', { filter: { collectible: true } }),
 			user: user
 		});
 	}

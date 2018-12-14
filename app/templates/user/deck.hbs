@@ -1,92 +1,146 @@
-<h3>
-	{{#if model.deck.deckgroup}}
-		{{model.deck.deckgroup.name}}
-		({{model.deck.deckgroup.cardset.name_fr}})
-	{{else}}
-		Deck de {{model.deck.user.name}}
-	{{/if}}
-</h3>
+<div class="panel">
+	<div class="leftPanel">
 
-<h2>
-	{{#if isEditing}}
-		{{model.deck.cardclass.name_fr}} {{input value=model.deck.name}}
-		<br/>
-		<i class="fas fa-external-link-alt"></i> {{input value=model.deck.url}}
-	{{else}}
-		{{model.deck.cardclass.name_fr}}
-		{{model.deck.name}}
-		{{#if model.deck.url}}
-			<a href={{model.deck.url}} target="_blank">
-				<i class="fas fa-external-link-alt"></i>
-			</a>
-		{{/if}}
-	{{/if}}
-	<br/>
-	{{#if isEditing}}
-		<i class="fas fa-save pointer" title="Enregistrer" {{action "save"}}></i>
-	{{else}}
-		<i class="fas fa-edit pointer" title="Modifier" {{action "edit"}}></i>
-	{{/if}}
-	<i class="fas fa-clone pointer" title="Dupliquer" {{action "clone"}}></i>
-	{{#with (filter (action "filterOwned") model.deck.wanteddecks) as |wanteddecks|}}
-		<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
-	{{else}}
-		<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" model.deck}}></i>
-	{{/with}}
-</h2>
-
-<br/>
-
-<table class="decks">
-	<tr>
-		<th class="noborder"></th>
-		<th>Type</th>
-		<th>Coût</th>
-		<th>Attaque</th>
-		<th>Défense</th>
-	</tr>
-	{{#each model.deck.sortedDeckcards as |deckcard|}}
-		{{#with deckcard.card as |card|}}
-			{{#with (filter (action "filterOwned") card.collections) as |collections|}}
-				<tr>
-					<td class={{if (gte collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' card.cardset.class)}}>
-						<div class="deckcard">
-							{{min collections.firstObject.number deckcard.number}}/{{deckcard.number}}
-							<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
-							<div class="cardinfo">
-								<img src={{card.image}} />
-								<div class="cardset">{{card.cardset.name_fr}}</div>
-							</div>
-						</div>
-					</td>
-					<td>{{card.type.name_fr}}</td>
-					<td class="stat">{{card.cost}}</td>
-					<td class="stat">{{card.atk}}</td>
-					<td class="stat">{{card.health}}</td>
-				</tr>
+		<h3>
+			{{#if model.deck.deckgroup}}
+				{{model.deck.deckgroup.name}}
+				({{model.deck.deckgroup.cardset.name_fr}})
 			{{else}}
-				<tr>
-					<td class={{concat 'cardset-' card.cardset.class}}>
-						<div class="deckcard">
-							0/{{deckcard.number}}
-							<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
-							<div class="cardinfo">
-								<img src={{card.image}} />
-								<div class="cardset">{{card.cardset.name_fr}}</div>
-							</div>
-						</div>
-					</td>
-					<td>{{card.type.name_fr}}</td>
-					<td class="stat">{{card.cost}}</td>
-					<td class="stat">{{card.atk}}</td>
-					<td class="stat">{{card.health}}</td>
-				</tr>
-			{{/with}}
-		{{/with}}
-	{{/each}}
-</table>
+				Deck de {{model.deck.user.name}}
+			{{/if}}
+		</h3>
 
-<br/>
+		<h2>
+			{{#if isEditing}}
+				{{model.deck.cardclass.name_fr}} {{input value=model.deck.name}}
+				<br/>
+				<i class="fas fa-external-link-alt"></i> {{input value=model.deck.url}}
+			{{else}}
+				{{model.deck.cardclass.name_fr}}
+				{{model.deck.name}}
+				{{#if model.deck.url}}
+					<a href={{model.deck.url}} target="_blank">
+						<i class="fas fa-external-link-alt"></i>
+					</a>
+				{{/if}}
+			{{/if}}
+			<br/>
+			{{#if isEditing}}
+				<i class="fas fa-save pointer" title="Enregistrer" {{action "save"}}></i>
+			{{else}}
+				<i class="fas fa-edit pointer" title="Modifier" {{action "edit"}}></i>
+			{{/if}}
+			<i class="fas fa-clone pointer" title="Dupliquer" {{action "clone"}}></i>
+			{{#with (filter (action "filterOwned") model.deck.wanteddecks) as |wanteddecks|}}
+				<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
+			{{else}}
+				<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" model.deck}}></i>
+			{{/with}}
+		</h2>
+
+		<br/>
+
+		<table class="decks">
+			<tr>
+				<th class="noborder">
+					{{model.deck.size}} cartes
+				</th>
+				<th>Type</th>
+				<th>Coût</th>
+				<th>Attaque</th>
+				<th>Défense</th>
+			</tr>
+			{{#each model.deck.sortedDeckcards as |deckcard|}}
+				{{#with deckcard.card as |card|}}
+					{{#with (filter (action "filterOwned") card.collections) as |collections|}}
+						<tr>
+							<td class={{if (gte collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' card.cardset.class)}}>
+								<div class="deckcard">
+									{{min collections.firstObject.number deckcard.number}}/{{deckcard.number}}
+									<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+									<div class="cardinfo">
+										<img src={{card.image}} />
+										<div class="cardset">{{card.cardset.name_fr}}</div>
+									</div>
+								</div>
+							</td>
+							<td>{{card.type.name_fr}}</td>
+							<td class="stat">{{card.cost}}</td>
+							<td class="stat">{{card.atk}}</td>
+							<td class="stat">{{card.health}}</td>
+							{{#if isEditing}}
+								<td>
+									<i class="fas fa-trash pointer" title="Supprimer" {{action "removeDeckcard" deckcard}}></i>
+									{{#unless (eq card.rarity.name_fr "Légendaire")}}
+										{{#if (eq deckcard.number 1)}}
+											<i class="fas fa-plus pointer" title="+1" {{action "incNumber" deckcard}}></i>
+										{{else}}
+											<i class="fas fa-minus pointer" title="-1" {{action "decNumber" deckcard}}></i>
+										{{/if}}
+									{{/unless}}
+								</td>
+							{{/if}}
+						</tr>
+					{{else}}
+						<tr>
+							<td class={{concat 'cardset-' card.cardset.class}}>
+								<div class="deckcard">
+									0/{{deckcard.number}}
+									<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+									<div class="cardinfo">
+										<img src={{card.image}} />
+										<div class="cardset">{{card.cardset.name_fr}}</div>
+									</div>
+								</div>
+							</td>
+							<td>{{card.type.name_fr}}</td>
+							<td class="stat">{{card.cost}}</td>
+							<td class="stat">{{card.atk}}</td>
+							<td class="stat">{{card.health}}</td>
+							{{#if isEditing}}
+							<td>
+								<i class="fas fa-trash pointer" title="Supprimer" {{action "removeDeckcard" deckcard}}></i>
+								{{#unless (eq card.rarity.name_fr "Légendaire")}}
+									{{#if (eq deckcard.number 1)}}
+										<i class="fas fa-plus pointer" title="+1" {{action "incNumber" deckcard}}></i>
+									{{else}}
+										<i class="fas fa-minus pointer" title="-1" {{action "decNumber" deckcard}}></i>
+									{{/if}}
+								{{/unless}}
+							</td>
+							{{/if}}
+						</tr>
+					{{/with}}
+				{{/with}}
+			{{/each}}
+		</table>
+	</div>
+
+	<div class="pickCards">
+		{{#if isEditing}}
+			{{#each (array '0' '1' '2' '3' '4' '5' '6' '7' '8' '9' '10') as |mana|}}
+				<img src={{concat "/assets/mana_" mana ".png"}} alt={{mana}}
+					class={{concat "filter pointer" (if (and cost (not-eq cost mana)) " faded")}}
+					{{action 'toggleParam' 'cost' mana}}
+				/>
+			{{/each}}
+			{{#each model.rarities as |cardrarity|}}
+				{{#if (not-eq cardrarity.id '2')}}
+					<img src={{cardrarity.image}} title={{cardrarity.name_fr}} alt={{cardrarity.name_fr}}
+						class={{concat "pointer" (if (and rarity (not-eq rarity cardrarity.id)) " faded")}}
+						{{action 'toggleParam' 'rarity' cardrarity.id}}
+					/>
+				{{/if}}
+			{{/each}}
+			<br/>
+			{{#each cards as |card|}}
+				<img src={{card.image}} class="card pointer" title={{card.cardset.name_fr}} {{action 'addDeckcard' card}} />
+			{{/each}}
+		{{/if}}
+	</div>
+</div>
+
+<br class="clear"/>
 
 <h3>Répartition</h3>
 
