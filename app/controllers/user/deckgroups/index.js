@@ -117,6 +117,17 @@ export default Controller.extend({
 			});
 			wanteddeck.deleteRecord();
 			wanteddeck.save();
+		},
+
+		createDeck(cardclass) {
+			const deck = this.get('store').createRecord('deck', {
+				name: 'Nouveau',
+				cardclass: cardclass,
+				user: this.get('model.user')
+			});
+			deck.save().then(savedDeck => {
+				this.transitionToRoute('user.deck', this.get('model.user.id'), savedDeck.id);
+			});
 		}
 	}
 });

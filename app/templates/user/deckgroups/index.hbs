@@ -78,7 +78,7 @@
 	{{#each model.cardclasses as |cardclass|}}
 		{{#if (lt cardclass.id 12)}}
 			<tr>
-				<th class={{concat 'cardclass cardclass-' cardclass.name_fr}}>
+				<th class={{concat 'pointer cardclass cardclass-' cardclass.name_fr}} {{action 'createDeck' cardclass}}>
 					{{cardclass.name_fr}}
 				</th>
 				{{#with (filter (action "filterCardclass" cardclass) model.decks) as |decks|}}
