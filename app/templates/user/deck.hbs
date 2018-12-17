@@ -31,6 +31,9 @@
 				<i class="fas fa-edit pointer" title="Modifier" {{action "edit"}}></i>
 			{{/if}}
 			<i class="fas fa-clone pointer" title="Dupliquer" {{action "clone"}}></i>
+			{{#if (eq model.user.id model.deck.user.id)}}
+				<i class="fas fa-trash pointer" title="Supprimer" {{action "delete"}}></i>
+			{{/if}}
 			{{#with (filter (action "filterOwned") model.deck.wanteddecks) as |wanteddecks|}}
 				<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
 			{{else}}

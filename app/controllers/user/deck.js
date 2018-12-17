@@ -67,7 +67,7 @@ export default Controller.extend({
 		},
 
 		save() {
-			this.get('model.deck').save().then(deck => {
+			this.get('model.deck').save().then(() => {
 				this.set('isEditing', false);
 			});
 		},
@@ -93,6 +93,13 @@ export default Controller.extend({
 					deckcard.save();
 				});
 				this.transitionToRoute('user.deck', this.get('model.user.id'), savedDeck.id);
+			});
+		},
+
+		delete() {
+			this.get('model.deck').deleteRecord();
+			this.get('model.deck').save().then(() => {
+				this.transitionToRoute('user.deckgroups', this.get('model.user.id'), { queryParams: { cardset: 1129 } });
 			});
 		},
 
