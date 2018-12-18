@@ -39,6 +39,12 @@
 			{{else}}
 				<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" model.deck}}></i>
 			{{/with}}
+			<br/>
+			{{#with (filter (action "filterOwned") model.deck.deckstats) as |deckstats|}}
+				{{deckstats.firstObject.win}} <span class="pointer" {{action "addWin"}}>victoires</span>, {{deckstats.firstObject.loose}} <span class="pointer" {{action "addLoose"}}>défaites</span>
+			{{else}}
+				0 <span class="pointer" {{action "addWin"}}>victoires</span>, 0 <span class="pointer" {{action "addLoose"}}>défaites</span>
+			{{/with}}
 		</h2>
 
 		<br/>

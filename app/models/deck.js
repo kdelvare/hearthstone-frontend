@@ -10,6 +10,7 @@ export default DS.Model.extend({
 	deckgroup: DS.belongsTo(),
 	user: DS.belongsTo(),
 	wanteddecks: DS.hasMany(),
+	deckstats: DS.hasMany(),
 
 	id_int: computed('id', function() {
 		return parseInt(this.get('id'));

@@ -192,6 +192,40 @@ export default Controller.extend({
 			this.send('edit');
 		},
 
+		addWin() {
+			let deckstat = this.get('model.deck.deckstats').filter(deckstat => {
+				return deckstat.user.get('id') === this.get('model.user.id');
+			}).firstObject;
+			if (deckstat) {
+				deckstat.set('win', deckstat.win + 1);
+				deckstat.save();
+			} else {
+				deckstat = this.get('store').createRecord('deckstat', {
+					deck: this.get('model.deck'),
+					user: this.get('model.user'),
+					win: 1,
+					loose: 0
+				});
+				deckstat.save();
+			}
+		},
 
+		addLoose() {
+			let deckstat = this.get('model.deck.deckstats').filter(deckstat => {
+				return deckstat.user.get('id') === this.get('model.user.id');
+			}).firstObject;
+			if (deckstat) {
+				deckstat.set('loose', deckstat.loose + 1);
+				deckstat.save();
+			} else {
+				deckstat = this.get('store').createRecord('deckstat', {
+					deck: this.get('model.deck'),
+					user: this.get('model.user'),
+					win: 0,
+					loose: 1
+				});
+				deckstat.save();
+			}
+		}
 	}
 });
