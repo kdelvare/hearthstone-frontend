@@ -51,9 +51,15 @@
 
 		<table class="decks">
 			<tr>
-				<th class="noborder">
-					{{model.deck.size}} cartes
-				</th>
+				<td class="noborder">
+					{{owned}}/{{model.deck.size}}
+					({{dust}}/{{model.deck.dust}})
+					{{#with (sub model.deck.dust dust) as |missing|}}
+						<span class={{if (gt missing 0) "missing"}}>
+							{{missing}}
+						</span>
+					{{/with}}
+				</td>
 				<th>Type</th>
 				<th>Coût</th>
 				<th>Attaque</th>

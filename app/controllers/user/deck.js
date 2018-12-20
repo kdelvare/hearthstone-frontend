@@ -42,13 +42,27 @@ export default Controller.extend({
 		}, {});
 	}),
 
+	owned: computed('model.deck.deckcards', function() {
+		return this.get('model.deck.deckcards').reduce((total, deckcard) => {
+			let userCollection = deckcard.card.get('collections').filter(collection => {
+				return collection.user.get('id') === this.get('model.user.id');
+			}).firstObject;
+			return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0);
+		}, 0);
+	}),
+
+	dust: computed('model.deck.deckcards', function() {
+		return this.get('model.deck.deckcards').reduce((total, deckcard) => {
+			let userCollection = deckcard.card.get('collections').filter(collection => {
+				return collection.user.get('id') === this.get('model.user.id');
+			}).firstObject;
+			return total + (userCollection ? Math.min(userCollection.number, deckcard.number) : 0) * deckcard.card.get('creationDust');
+		}, 0);
+	}),
+
 	actions: {
 		filterOwned(collection) {
 			return collection.user.get('id') === this.get('model.user.id');
-		},
-
-		sumNumber(total, deckcard) {
-			return total + deckcard.number;
 		},
 
 		edit() {
