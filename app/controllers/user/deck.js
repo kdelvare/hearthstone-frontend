@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 export default Controller.extend({
 	queryParams: ['cardset'],
 	cardset: null,
+	page: 1,
 
 	deckTypes: computed('model.deck', function() {
 		const deckcards = this.get('model.deck.deckcards');
@@ -67,13 +68,14 @@ export default Controller.extend({
 
 		edit() {
 			const cardclass = this.get('model.deck.cardclass.id');
-			let cardFilters = { cardclass: '12,' + cardclass, collectible: true };
+			let cardFilters = { cardclass: '12,' + cardclass, collectible: true, standard: true };
 			if (this.get('cost')) { cardFilters.cost = this.get('cost'); }
 			if (this.get('rarity')) { cardFilters.rarity = this.get('rarity'); }
 			this.store.query('card', {
 				filter: cardFilters,
 				include: 'cardset',
-				sort: 'cost,name_fr'
+				sort: 'cost,name_fr',
+				page: { number: this.get('page'), size: 28 }
 			}).then(cards => {
 				this.set('cards', cards);
 				this.set('isEditing', true);
@@ -202,6 +204,9 @@ export default Controller.extend({
 				this.set(name, null);
 			} else {
 				this.set(name, value);
+			}
+			if (name !== "page") {
+				this.set("page", 1);
 			}
 			this.send('edit');
 		},

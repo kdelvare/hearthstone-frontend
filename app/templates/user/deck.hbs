@@ -147,6 +147,21 @@
 					/>
 				{{/if}}
 			{{/each}}
+			{{#with cards.meta.pagination.first.number as |pageNumber|}}
+				<i class="fas fa-angle-double-left fa-2x pointer" title={{pageNumber}} alt={{pageNumber}} {{action 'toggleParam' 'page' pageNumber}}></i>
+			{{/with}}
+			{{#with cards.meta.pagination.prev.number as |pageNumber|}}
+				<i class="fas fa-angle-left fa-2x pointer" title={{pageNumber}} alt={{pageNumber}} {{action 'toggleParam' 'page' pageNumber}}></i>
+			{{/with}}
+			<span>
+				{{page}} / {{cards.meta.pagination.last.number}}
+			</span>
+			{{#with cards.meta.pagination.next.number as |pageNumber|}}
+				<i class="fas fa-angle-right fa-2x pointer" title={{pageNumber}} alt={{pageNumber}} {{action 'toggleParam' 'page' pageNumber}}></i>
+			{{/with}}
+			{{#with cards.meta.pagination.last.number as |pageNumber|}}
+				<i class="fas fa-angle-double-right fa-2x pointer" title={{pageNumber}} alt={{pageNumber}} {{action 'toggleParam' 'page' pageNumber}}></i>
+			{{/with}}
 			<br/>
 			{{#each cards as |card|}}
 				<img src={{card.image}} class="card pointer" title={{card.cardset.name_fr}} {{action 'addDeckcard' card}} />
