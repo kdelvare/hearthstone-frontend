@@ -255,19 +255,6 @@
 			{{/if}}
 		{{/each}}
 	</tr>
-
-	<tr>
-		<th>Valeur</th>
-		{{#each model.cardsets as |set|}}
-			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
-				<td colspan="3" class="stat">
-					{{round (get (get completion.cardsets set.id) "newValue")}}
-				</td>
-			{{else if (eq set.name_fr "Basique")}}
-				<td colspan="3" class="stat"/>
-			{{/if}}
-		{{/each}}
-	</tr>
 </table>
 
 <br/>
