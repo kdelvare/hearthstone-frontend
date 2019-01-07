@@ -22,10 +22,11 @@ Importer un deck
 
 	Groupe : <select onchange={{action "setDeckgroup" value="target.value"}}>
 		{{#each model.deckgroups as |deckgroup|}}
-			<option value={{deckgroup.id}}>{{deckgroup.name}}</option>
+			<option value={{deckgroup.id}}>{{deckgroup.name}} ({{deckgroup.cardset.name_fr}})</option>
 		{{/each}}
 	</select>
-	<br/>
+	<br/><br/>
+
 	ou créer un groupe : {{input value=deckgroup.name}}
 	<br/>
 	URL : {{input value=deckgroup.url}}
