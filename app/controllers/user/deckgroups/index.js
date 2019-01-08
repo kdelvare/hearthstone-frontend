@@ -5,7 +5,7 @@ export default Controller.extend({
 	queryParams: ['cardset'],
 	cardset: null,
 
-	deckstats: computed('model.deckgroups', 'model.decks', function() {
+	deckstats: computed('model.{deckgroups,decks}', function() {
 		let deckstats = [];
 		this.get('model.deckgroups').forEach(deckgroup => {
 			deckgroup.decks.forEach(deck => {
