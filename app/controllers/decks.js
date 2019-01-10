@@ -42,6 +42,12 @@ export default Controller.extend({
 			});
 		},
 
+		setUser(user) {
+			this.get('store').findRecord('user', user).then(user => {
+				this.get('deck').set('user', user);
+			});
+		},
+
 		setDeckgroup(deckgroup) {
 			this.get('store').findRecord('deckgroup', deckgroup).then(deckgroup => {
 				this.get('deck').set('deckgroup', deckgroup);
@@ -58,8 +64,9 @@ export default Controller.extend({
 		},
 
 		save() {
-			if (this.get('deckgroup').name) {
-				const deckgroup = this.get('store').createRecord('deckgroup', this.get('deckgroup'));
+			const deckgroup = this.get('deckgroup');
+			if (deckgroup && deckgroup.name) {
+				const deckgroup = this.get('store').createRecord('deckgroup', deckgroup);
 				deckgroup.save().then(deckgroup => {
 					this.get('deck').set('deckgroup', deckgroup);
 					this.set('deckgroup', {});
