@@ -11,6 +11,9 @@ export default Controller.extend({
 				this.set('deck', null);
 				this.set('showDeck', false);
 			});
+			if (deck.user.id) {
+				this.transitionToRoute('user.deck', deck.user.id, deck.id);
+			}
 		});
 	},
 
