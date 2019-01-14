@@ -7,9 +7,6 @@ export default Route.extend({
 
 	setupController(controller, model) {
 		this._super(controller, model);
-		if (!controller.get('newUser')) {
-			controller.set('newUser', this.get('store').createRecord('user'));
-		}
 		controller.set('initCollection', 'empty');
 	}
 });

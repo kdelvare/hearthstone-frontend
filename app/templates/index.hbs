@@ -2,21 +2,13 @@
 
 <div id="users">
 	{{#each model as |user|}}
-		{{#if user.id}}
-			{{#link-to 'user.collection' user.id}}
-				<div class="user">
-					<img src={{concat "https://robohash.org/" user.name ".png?size=100x100"}}/>
-					<br/>
-					{{user.name}}
-				</div>
-			{{/link-to}}
-		{{else}}
+		{{#link-to 'user.collection' user.id}}
 			<div class="user">
 				<img src={{concat "https://robohash.org/" user.name ".png?size=100x100"}}/>
 				<br/>
 				{{user.name}}
 			</div>
-		{{/if}}
+		{{/link-to}}
 	{{/each}}
 </div>
 

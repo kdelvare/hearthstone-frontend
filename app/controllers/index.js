@@ -14,7 +14,8 @@ export default Controller.extend({
 				940, 28, 636, 1023, 304 // Warrior
 			];
 
-			this.get('newUser').save().then(newUser => {
+			const newUser = this.get('store').createRecord('user', this.get('newUser'));
+			newUser.save().then(newUser => {
 				const initCollection = this.get('initCollection');
 				if (initCollection !== 'empty') {
 					this.get('store').query('card', { filter: { collectible: true, cardset: 2 } }).then(basicCards => {
@@ -31,7 +32,7 @@ export default Controller.extend({
 						});
 					});
 				}
-				this.set('newUser', this.get('store').createRecord('user'));
+				this.set('newUser', {});
 			});
 		}
 	}
