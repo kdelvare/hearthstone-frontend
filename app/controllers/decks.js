@@ -3,7 +3,11 @@ import { decode } from 'deckstrings';
 
 export default Controller.extend({
 	saveDeck() {
-		this.get('deck').save().then(deck => {
+		const deck = this.get('deck');
+		if (deck.name === undefined) {
+			deck.set('name', '?');
+		}
+		deck.save().then(deck => {
 			this.get('deck').deckcards.forEach((deckcard) => {
 				deckcard.set('deck', deck);
 				deckcard.save();
@@ -11,8 +15,8 @@ export default Controller.extend({
 				this.set('deck', null);
 				this.set('showDeck', false);
 			});
-			if (deck.user.id) {
-				this.transitionToRoute('user.deck', deck.user.id, deck.id);
+			if (deck.user.get('id')) {
+				this.transitionToRoute('user.deck', deck.user.get('id'), deck.id);
 			}
 		});
 	},
@@ -21,7 +25,6 @@ export default Controller.extend({
 		import() {
 			const importString = this.get('importString');
 			const decoded = decode(importString);
-			//console.log('decoded', decoded);
 
 			this.get('store').findRecord('card', decoded.heroes[0], { include : 'cardclass' }).then(card => {
 				const cardclass = card.cardclass;
