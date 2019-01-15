@@ -3,10 +3,26 @@
 
 		<h3>
 			{{#if model.deck.deckgroup}}
-				{{model.deck.deckgroup.name}}
-				({{model.deck.deckgroup.cardset.name_fr}})
+				{{#if isEditing}}
+					<select onchange={{action "setDeckgroup" value="target.value"}}>
+						{{#each model.deckgroups as |deckgroup|}}
+							<option value={{deckgroup.id}} selected={{eq model.deck.deckgroup.id deckgroup.id}}>{{deckgroup.name}} ({{deckgroup.cardset.name_fr}})</option>
+						{{/each}}
+					</select>
+				{{else}}
+					{{model.deck.deckgroup.name}}
+					({{model.deck.deckgroup.cardset.name_fr}})
+				{{/if}}
 			{{else}}
-				Deck de {{model.deck.user.name}}
+				{{#if isEditing}}
+					Deck de <select onchange={{action "setUser" value="target.value"}}>
+						{{#each model.users as |user|}}
+							<option value={{user.id}} selected={{eq model.deck.user.id user.id}}>{{user.name}}</option>
+						{{/each}}
+					</select>
+				{{else}}
+					Deck de {{model.deck.user.name}}
+				{{/if}}
 			{{/if}}
 		</h3>
 

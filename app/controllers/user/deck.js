@@ -82,6 +82,18 @@ export default Controller.extend({
 			});
 		},
 
+		setUser(user) {
+			this.get('store').findRecord('user', user).then(user => {
+				this.get('model.deck').set('user', user);
+			});
+		},
+
+		setDeckgroup(deckgroup) {
+			this.get('store').findRecord('deckgroup', deckgroup).then(deckgroup => {
+				this.get('model.deck').set('deckgroup', deckgroup);
+			});
+		},
+
 		save() {
 			this.get('model.deck').save().then(() => {
 				this.set('isEditing', false);

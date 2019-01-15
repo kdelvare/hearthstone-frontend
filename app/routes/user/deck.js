@@ -12,7 +12,9 @@ export default Route.extend({
 			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			rarities: this.store.query('rarity', { filter: { collectible: true } }),
-			user: user
+			user: user,
+			users: this.store.findAll('user'),
+			deckgroups: this.store.findAll('deckgroup'),
 		});
 	}
 });
