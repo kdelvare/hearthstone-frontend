@@ -525,28 +525,38 @@
 		</tr>
 
 		{{#each ordered_rarities as |rarity|}}
-			<tr>
-				<th>{{rarity.name_fr}}</th>
-				<td class="stat">
-					{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
-						{{get model.stat.extrahs.normal.rarities rarity.id}}
-					{{/link-to}}
-				</td>
-				<td class="stat">
-					{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
-						{{get model.stat.extrahs.golden.rarities rarity.id}}
-					{{/link-to}}
-				</td>
-				<td class="stat dust">
-					{{add (mult (get model.stat.extrahs.normal.rarities rarity.id) rarity.destructionDust) (mult (get model.stat.extrahs.golden.rarities rarity.id) rarity.destructionDustGolden)}}
-				</td>
-			</tr>
+			{{#if (not-eq rarity.name_fr "Gratuite")}}
+				<tr>
+					<th>{{rarity.name_fr}}</th>
+					<td class="stat">
+						{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
+							{{get model.stat.extrahs.normal.rarities rarity.id}}
+						{{/link-to}}
+					</td>
+					<td class="stat">
+						{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
+							{{get model.stat.extrahs.golden.rarities rarity.id}}
+						{{/link-to}}
+					</td>
+					<td class="stat dust">
+						{{add (mult (get model.stat.extrahs.normal.rarities rarity.id) rarity.destructionDust) (mult (get model.stat.extrahs.golden.rarities rarity.id) rarity.destructionDustGolden)}}
+					</td>
+				</tr>
+			{{/if}}
 		{{/each}}
 
 		<tr>
 			<th>TOTAL</th>
-			<th class="stat">{{model.stat.extrahs.normal.total}}</th>
-			<th class="stat">{{model.stat.extrahs.golden.total}}</th>
+			<th class="stat">
+				{{#link-to 'user.collection' model.user.id (query-params own='extra')}}
+					{{model.stat.extrahs.normal.total}}
+				{{/link-to}}
+			</th>
+			<th class="stat">
+				{{#link-to 'user.collection' model.user.id (query-params own='extra')}}
+					{{model.stat.extrahs.golden.total}}
+				{{/link-to}}
+			</th>
 			<th class="stat dust">{{add (reduce (action "sumDust" false) 0 model.stat.extrahs.normal.rarities) (reduce (action "sumDust" true) 0 model.stat.extrahs.golden.rarities)}}</th>
 		</tr>
 	</table>
@@ -563,28 +573,38 @@
 		</tr>
 
 		{{#each ordered_rarities as |rarity|}}
-			<tr>
-				<th>{{rarity.name_fr}}</th>
-				<td class="stat">
-					{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
-						{{get model.stat.extra.normal.rarities rarity.id}}
-					{{/link-to}}
-				</td>
-				<td class="stat">
-					{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
-						{{get model.stat.extra.golden.rarities rarity.id}}
-					{{/link-to}}
-				</td>
-				<td class="stat dust">
-					{{add (mult (get model.stat.extra.normal.rarities rarity.id) rarity.destructionDust) (mult (get model.stat.extra.golden.rarities rarity.id) rarity.destructionDustGolden)}}
-				</td>
-			</tr>
+			{{#if (not-eq rarity.name_fr "Gratuite")}}
+				<tr>
+					<th>{{rarity.name_fr}}</th>
+					<td class="stat">
+						{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
+							{{get model.stat.extra.normal.rarities rarity.id}}
+						{{/link-to}}
+					</td>
+					<td class="stat">
+						{{#link-to 'user.collection' model.user.id (query-params rarity=rarity.id own='extra')}}
+							{{get model.stat.extra.golden.rarities rarity.id}}
+						{{/link-to}}
+					</td>
+					<td class="stat dust">
+						{{add (mult (get model.stat.extra.normal.rarities rarity.id) rarity.destructionDust) (mult (get model.stat.extra.golden.rarities rarity.id) rarity.destructionDustGolden)}}
+					</td>
+				</tr>
+			{{/if}}
 		{{/each}}
 
 		<tr>
 			<th>TOTAL</th>
-			<th class="stat">{{model.stat.extra.normal.total}}</th>
-			<th class="stat">{{model.stat.extra.golden.total}}</th>
+			<th class="stat">
+				{{#link-to 'user.collection' model.user.id (query-params own='extra')}}
+					{{model.stat.extra.normal.total}}
+				{{/link-to}}
+			</th>
+			<th class="stat">
+				{{#link-to 'user.collection' model.user.id (query-params own='extra')}}
+					{{model.stat.extra.golden.total}}
+				{{/link-to}}
+			</th>
 			<th class="stat dust">{{add (reduce (action "sumDust" false) 0 model.stat.extra.normal.rarities) (reduce (action "sumDust" true) 0 model.stat.extra.golden.rarities)}}</th>
 		</tr>
 	</table>
