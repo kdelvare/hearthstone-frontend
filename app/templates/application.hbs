@@ -1,4 +1,12 @@
 <div class="navigation">
+	<div class="session">
+		{{#if session.isAuthenticated}}
+			<a {{action 'invalidateSession'}}>Déconnexion</a>
+		{{else}}
+			{{#link-to 'login'}}Connexion{{/link-to}}
+		{{/if}}
+	</div>
+
 	{{#link-to 'index' title="Accueil"}}
 		<i class="fas fa-home pointer fa-2x"></i>
 	{{/link-to}}
