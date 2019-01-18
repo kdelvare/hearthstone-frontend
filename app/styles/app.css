@@ -45,7 +45,7 @@ a:link, a:visited {
 
 .extrafilters {
 	float: right;
-	align: right;
+	text-align: center;
 }
 .extrafilters img.format {
 	width: 150px;

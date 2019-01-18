@@ -12,8 +12,12 @@
 		<i class="fas fa-square fa-stack-2x"></i>
 		<i class="fas fa-times fa-stack-2x" style="color: darkred;"></i>
 	</span>
+	<br/>
 	<i class="fas fa-heart pointer fa-2x {{if (and own (not-eq own 'wanted')) "faded"}}"
 		title="Recherchées" {{action 'toggleParam' 'own' 'wanted'}}
+	/>
+	<i class="far fa-heart pointer fa-2x {{if (and own (not-eq own 'mywanted')) "faded"}}"
+		title="Recherchées hors decks" {{action 'toggleParam' 'own' 'mywanted'}}
 	/>
 	<i class="fas fa-flask pointer fa-2x {{if (and own (not-eq own 'extra')) "faded"}}"
 		title="Surnuméraires" {{action 'toggleParam' 'own' 'extra'}}
@@ -204,6 +208,8 @@
 		{{model.cards.meta.record-count}} cartes manquantes
 	{{else if (eq own "wanted")}}
 		{{model.cards.meta.record-count}} cartes recherchées
+	{{else if (eq own "mywanted")}}
+		{{model.cards.meta.record-count}} cartes recherchées hors decks
 	{{else if (eq own "extra")}}
 		{{model.cards.meta.record-count}} cartes surnuméraires
 	{{/if}}
