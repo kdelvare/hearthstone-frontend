@@ -6,8 +6,8 @@ export default Controller.extend({
 
 	actions: {
 		authenticate() {
-			const { identification, password } = this.getProperties('identification', 'password');
-			this.get('session').authenticate('authenticator:oauth2', identification, password).catch((reason) => {
+			const { login, password } = this.getProperties('login', 'password');
+			this.get('session').authenticate('authenticator:oauth2', login, password).catch((reason) => {
 				this.set('errorMessage', reason.error || reason);
 			});
 		}
