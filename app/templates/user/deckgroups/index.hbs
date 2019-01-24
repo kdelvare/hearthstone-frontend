@@ -12,7 +12,7 @@
 		{{#each model.cardclasses as |cardclass|}}
 			{{#if (lt cardclass.id 12)}}
 				<th class={{concat 'cardclass cardclass-' cardclass.name_fr}}>
-					{{#link-to 'user.deckgroups.classdecks' model.user.id (query-params cardset=cardset class=cardclass.id)}}
+					{{#link-to 'user.deckgroups.classdecks' (query-params cardset=cardset class=cardclass.id)}}
 						{{cardclass.name_fr}}
 					{{/link-to}}
 				</th>
@@ -22,7 +22,7 @@
 	{{#each model.deckgroups as |deckgroup|}}
 		<tr>
 			<th>
-				{{#link-to 'user.deckgroups.deckgroup' model.user.id deckgroup.id}}
+				{{#link-to 'user.deckgroups.deckgroup' deckgroup.id}}
 					{{deckgroup.name}}
 				{{/link-to}}
 				{{#if deckgroup.url}}
@@ -36,7 +36,7 @@
 					{{#with (filter (action "filterCardclass" cardclass) deckgroup.decks) as |decks|}}
 						{{#with decks.firstObject as |deck|}}
 							<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
-								{{#link-to 'user.deck' model.user.id deck.id}}
+								{{#link-to 'user.deck' deck.id}}
 									{{deck.name}}
 								{{/link-to}}
 								{{#if deck.url}}
@@ -84,7 +84,7 @@
 				{{#with (filter (action "filterCardclass" cardclass) model.decks) as |decks|}}
 					{{#each decks as |deck|}}
 						<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
-							{{#link-to 'user.deck' model.user.id deck.id}}
+							{{#link-to 'user.deck' deck.id}}
 								{{deck.name}}
 							{{/link-to}}
 							{{#if deck.url}}

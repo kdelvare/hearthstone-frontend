@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
 	queryParams: {
@@ -7,8 +8,10 @@ export default Route.extend({
 		class: { refreshModel: true }
 	},
 
+	currentUser: service(),
+
 	model(params) {
-		const user = this.modelFor('user');
+		const user = this.get('currentUser.user');
 		let deckFilters = {};
 		if (params.cardset) { deckFilters.cardset = params.cardset }
 		if (params.class) { deckFilters.cardclass = params.class }

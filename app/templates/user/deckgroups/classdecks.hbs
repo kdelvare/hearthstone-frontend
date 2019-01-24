@@ -16,7 +16,7 @@
 	<tr>
 		{{#each model.decks as |deck|}}
 			<th>
-				{{#link-to 'user.deckgroups.deckgroup' model.user.id deck.deckgroup.id}}
+				{{#link-to 'user.deckgroups.deckgroup' deck.deckgroup.id}}
 					{{deck.deckgroup.name}}
 				{{/link-to}}
 				{{#if deck.deckgroup.url}}
@@ -30,7 +30,7 @@
 	<tr>
 		{{#each model.decks as |deck|}}
 			<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
-				{{#link-to 'user.deck' model.user.id deck.id}}
+				{{#link-to 'user.deck' deck.id}}
 					{{deck.name}}
 				{{/link-to}}
 				{{#if deck.url}}

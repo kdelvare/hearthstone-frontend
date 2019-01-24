@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { assign } from '@ember/polyfills';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
 	queryParams: {
@@ -13,8 +14,10 @@ export default Route.extend({
 		page: { refreshModel: true }
 	},
 
+	currentUser: service(),
+
 	model(params) {
-		const user = this.modelFor('user');
+		const user = this.get('currentUser.user');
 		let cardFilters = { collectible: true };
 		if (params.class) { cardFilters.cardclass = params.class }
 		if (params.cost) {

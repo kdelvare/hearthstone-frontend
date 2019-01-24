@@ -1,9 +1,12 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
+	currentUser: service(),
+
 	model(params) {
-		const user = this.modelFor('user');
+		const user = this.get('currentUser.user');
 		return RSVP.hash({
 			deck: this.store.findRecord('deck', params.deck_id, {
 				reload: true,

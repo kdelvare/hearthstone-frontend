@@ -11,7 +11,7 @@ Router.map(function() {
 
 	this.route('decks');
 	this.route('deck', { path: '/decks/:id' });
-	this.route('user', { path: '/users/:id' }, function() {
+	this.route('user', function() {
 		this.route('collection');
 		this.route('deckgroups', function() {
 			this.route('deckgroup', { path: '/:deckgroup_id' });

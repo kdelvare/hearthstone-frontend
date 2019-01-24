@@ -7,7 +7,9 @@ export default Controller.extend({
 	actions: {
 		authenticate() {
 			const { login, password } = this.getProperties('login', 'password');
-			this.get('session').authenticate('authenticator:oauth2', login, password).catch((reason) => {
+			this.get('session').authenticate('authenticator:oauth2', login, password).then(() => {
+				this.transitionToRoute('user');
+			}).catch((reason) => {
 				this.set('errorMessage', reason.error || reason);
 			});
 		}

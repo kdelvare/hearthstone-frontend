@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { assign } from '@ember/polyfills';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
 	queryParams: {
@@ -8,8 +9,10 @@ export default Route.extend({
 		standard: { refreshModel: true }
 	},
 
+	currentUser: service(),
+
 	model(params) {
-		const user = this.modelFor('user');
+		const user = this.get('currentUser.user');
 		return RSVP.hash({
 			years: this.store.query('year', { filter: params.standard ? { standard: params.standard } : {}, include: 'cardsets' }),
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),

@@ -1,13 +1,16 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
 	queryParams: {
 		cardset: { refreshModel: true }
 	},
 
+	currentUser: service(),
+
 	model(params) {
-		const user = this.modelFor('user');
+		const user = this.get('currentUser.user');
 		return RSVP.hash({
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
 			deckgroups: this.store.query('deckgroup', {
