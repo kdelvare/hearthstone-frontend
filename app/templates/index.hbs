@@ -1,6 +1,15 @@
-<!--hr/>
+<hr/>
 
-<div id="users">
+<form {{action 'authenticate' on='submit'}}>
+	{{input id='login' placeholder='Login' value=login}}
+	{{input id='password' placeholder='Mot de passe' type='password' value=password}}
+	<button type="submit">Connexion</button>
+	{{#if errorMessage}}
+		<p>{{errorMessage}}</p>
+	{{/if}}
+</form>
+
+<!--div id="users">
 	{{#each model as |user|}}
 		{{#link-to 'user.collection' user.id}}
 			<div class="user">

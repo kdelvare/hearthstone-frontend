@@ -2,8 +2,6 @@
 	<div class="session">
 		{{#if session.isAuthenticated}}
 			<a {{action 'invalidateSession'}}>Déconnexion</a>
-		{{else}}
-			{{#link-to 'login'}}Connexion{{/link-to}}
 		{{/if}}
 	</div>
 
