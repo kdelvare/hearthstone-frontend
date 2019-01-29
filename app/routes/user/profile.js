@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 export default Route.extend({
 	currentUser: service(),
 
-	model(params) {
+	model() {
 		return this.get('currentUser.user');
 	}
 });
