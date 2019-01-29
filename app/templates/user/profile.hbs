@@ -1,3 +1,9 @@
+Changer de nom :
+{{input value=model.name}}
+<i class="fas fa-save pointer" title="Enregistrer" {{action "saveName"}}></i>
+
+<br/><br/>
+
 {{#if session.isAuthenticated}}
 	<a class="pointer" {{action 'invalidateSession'}}>Déconnexion</a>
 {{/if}}

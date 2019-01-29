@@ -5,6 +5,10 @@ export default Controller.extend({
 	session: service(),
 
 	actions: {
+		saveName() {
+			this.get('model').save();
+		},
+
 		invalidateSession() {
 			this.get('session').invalidate();
 		}
