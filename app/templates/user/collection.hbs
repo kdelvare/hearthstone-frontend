@@ -64,6 +64,26 @@
 	{{/each}}
 </div>
 
+{{#if cardset}}
+	{{#if (eq pitycounters.length 0)}}
+		<div>
+			Initialiser les pity counters pour cette extension ?
+			<button {{action "initPitycounters"}}>Oui</button>
+		</div>
+	{{else}}
+		<div>
+			Nouveau paquet ouvert
+			<button {{action "incrementPitycounters"}}>+1</button>
+		</div>
+		{{#each pitycounters as |pitycounter|}}
+			<div>
+				Nombre de paquets depuis la dernière {{pitycounter.rarity.name_fr}} : {{pitycounter.number}}
+				<button {{action "resetPitycounter" pitycounter}}>{{pitycounter.rarity.name_fr}} obtenue</button>
+			</div>
+		{{/each}}
+	{{/if}}
+{{/if}}
+
 <hr>
 
 {{#each model.cards as |card|}}

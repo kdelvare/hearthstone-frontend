@@ -16,6 +16,14 @@ export default Controller.extend({
 		return this.get('class').replace(",", " ");
 	}),
 
+	pity_rarities: computed('model.rarities', function() {
+		return this.get('model.rarities').filter(rarity => rarity.name_fr === 'Epique' || rarity.name_fr === 'Légendaire');
+	}),
+
+	pitycounters: computed('model.pitycounters', function() {
+		return this.get('model.pitycounters').toArray();
+	}),
+
 	actions: {
 		toggleFormat() {
 			this.toggleProperty('standard');
@@ -157,6 +165,32 @@ export default Controller.extend({
 				});
 			}
 			userWantedcard.save();
+		},
+
+		initPitycounters() {
+			const cardset = this.get('model.cardsets').findBy('id', this.get('cardset'));
+			this.get('pity_rarities').forEach(pity_rarity => {
+				this.get('store').createRecord('pitycounter', {
+					user: this.get('model.user'),
+					cardset: cardset,
+					rarity: pity_rarity,
+					number: 0
+				}).save().then(pitycounter => {
+					this.get('pitycounters').pushObject(pitycounter);
+				});
+			});
+		},
+
+		incrementPitycounters() {
+			this.get('pitycounters').forEach(pitycounter => {
+				pitycounter.incrementProperty('number');
+				pitycounter.save()
+			});
+		},
+
+		resetPitycounter(pitycounter) {
+			pitycounter.set('number', 0);
+			pitycounter.save();
 		}
 	}
 });

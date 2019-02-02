@@ -46,6 +46,11 @@ export default Route.extend({
 				sort: 'cost,name_fr',
 				page: paginator
 			})),
+			pitycounters: this.store.query('pitycounter', {
+				filter: params.cardset ? { cardset: params.cardset } : {},
+				include: 'rarity',
+				sort: 'rarity_id'
+			}),
 			user: user
 		});
 	},
