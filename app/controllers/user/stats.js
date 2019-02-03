@@ -74,6 +74,11 @@ export default Controller.extend({
 				+ data.rarities['3'].rate * rarities.findBy('id', '3').destructionDust * 0.23
 				+ data.rarities['4'].rate * rarities.findBy('id', '4').destructionDust * 0.04
 				+ (fullLegendaries ? rarities.findBy('id', '5').destructionDust * 0.01 : 0));
+			// ... and avoid crafting missing cards
+			data.completionValue = data.newValue + 5 * ((1 - data.rarities['1'].rate) * rarities.findBy('id', '1').creationDust * 0.72
+				+ (1 - data.rarities['3'].rate) * rarities.findBy('id', '3').creationDust * 0.23
+				+ (1 - data.rarities['4'].rate) * rarities.findBy('id', '4').creationDust * 0.04
+				+ (fullLegendaries ? 0 : (1 - data.rarities['5'].rate) * rarities.findBy('id', '5').creationDust * 0.01));
 			// ... and avoid crafting wanted cards
 			data.wantedValue = data.newValue + 5 * (data.rarities['1'].wantedrate * rarities.findBy('id', '1').creationDust * 0.72
 				+ data.rarities['3'].wantedrate * rarities.findBy('id', '3').creationDust * 0.23
