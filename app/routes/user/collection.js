@@ -31,6 +31,8 @@ export default Route.extend({
 		if (params.cardset) { cardFilters.cardset = params.cardset }
 		if (params.standard) { cardFilters.standard = true }
 		if (params.own) { cardFilters.own = [ params.own, user.id ] }
+		let pityFilters = { user: user.id };
+		if (params.cardset) { pityFilters.cardset = params.cardset }
 		let paginator = {
 			number: params.page || 1,
 			size: 28
@@ -47,7 +49,7 @@ export default Route.extend({
 				page: paginator
 			})),
 			pitycounters: this.store.query('pitycounter', {
-				filter: params.cardset ? { cardset: params.cardset } : {},
+				filter: pityFilters,
 				include: 'rarity',
 				sort: 'rarity_id'
 			}),
