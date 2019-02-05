@@ -268,6 +268,23 @@
 			{{/if}}
 		{{/each}}
 	</tr>
+
+	{{#if model.pitycounters.length}}
+		<tr>
+			<th>Pity</th>
+			{{#each model.cardsets as |set|}}
+				{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+					<td colspan="3" class="stat">
+						{{#each (filter (action "filterPityBySet" set) model.pitycounters) as |pitycounter|}}
+							<div>{{pitycounter.rarity.name_fr}} : {{pitycounter.number}}</div>
+						{{/each}}
+					</td>
+				{{else if (eq set.name_fr "Basique")}}
+					<td colspan="3" class="stat"/>
+				{{/if}}
+			{{/each}}
+		</tr>
+	{{/if}}
 </table>
 
 <br/>

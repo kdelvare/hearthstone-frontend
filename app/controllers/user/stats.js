@@ -146,6 +146,10 @@ export default Controller.extend({
 		sumDust(golden, total, extra, rarity_id) {
 			const rarity = this.get('model.rarities').findBy("id", String(rarity_id));
 			return rarity ? total + extra * (golden ? rarity.destructionDustGolden : rarity.destructionDust) : 0;
+		},
+
+		filterPityBySet(cardset, pitycounter) {
+			return pitycounter.cardset.get('id') === cardset.id;
 		}
 	}
 });
