@@ -48,6 +48,9 @@ export default Route.extend({
 				sort: 'cost,name_fr',
 				page: paginator
 			})),
+			packs: this.store.query('pack', {
+				filter: pityFilters
+			}),
 			pitycounters: this.store.query('pitycounter', {
 				filter: pityFilters,
 				include: 'rarity',

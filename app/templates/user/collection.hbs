@@ -72,7 +72,7 @@
 		</div>
 	{{else}}
 		<div>
-			Nouveau paquet ouvert
+			{{model.packs.firstObject.number}} paquets ouverts
 			<button {{action "incrementPitycounters"}}>+1</button>
 		</div>
 		{{#each pitycounters as |pitycounter|}}

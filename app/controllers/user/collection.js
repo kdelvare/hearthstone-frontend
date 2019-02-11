@@ -186,6 +186,10 @@ export default Controller.extend({
 				pitycounter.incrementProperty('number');
 				pitycounter.save()
 			});
+			this.get('model.packs').forEach(pack => {
+				pack.incrementProperty('number');
+				pack.save()
+			});
 		},
 
 		resetPitycounter(pitycounter) {
