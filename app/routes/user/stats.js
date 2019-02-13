@@ -19,7 +19,8 @@ export default Route.extend({
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			rarities: this.store.query('rarity', { filter: { collectible: true } }),
 			stat: this.store.queryRecord('stat', assign(params, { user: user.id })),
-			pitycounters: this.store.query('pitycounter', { filter: { user: user.id }, include: 'rarity,cardset', sort: 'rarity_id'	}),
+			pitycounters: this.store.query('pitycounter', { filter: { user: user.id }, include: 'rarity,cardset', sort: 'rarity_id' }),
+			packs: this.store.query('pack', { filter: { user: user.id }}),
 			user: user
 		});
 	}

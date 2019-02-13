@@ -285,6 +285,23 @@
 			{{/each}}
 		</tr>
 	{{/if}}
+
+	{{#if model.packs.length}}
+		<tr>
+			<th>Paquets</th>
+			{{#each model.cardsets as |set|}}
+				{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+					<td colspan="3" class="stat">
+						{{#with (find-by "cardset.id" set.id model.packs) as |pack|}}
+							{{pack.number}}
+						{{/with}}
+					</td>
+				{{else if (eq set.name_fr "Basique")}}
+					<td colspan="3" class="stat"/>
+				{{/if}}
+			{{/each}}
+		</tr>
+	{{/if}}
 </table>
 
 <br/>
