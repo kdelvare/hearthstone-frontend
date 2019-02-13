@@ -64,7 +64,7 @@
 	{{/each}}
 </div>
 
-{{#if cardset}}
+{{#if (and cardset (not-eq cardset '2'))}}
 	{{#if (eq pitycounters.length 0)}}
 		<div>
 			Initialiser les pity counters pour cette extension ?
