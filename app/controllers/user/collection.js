@@ -190,6 +190,7 @@ export default Controller.extend({
 				pack.incrementProperty('number');
 				pack.save()
 			});
+			this.set('showPitycounters', true);
 		},
 
 		resetPitycounter(pitycounter) {

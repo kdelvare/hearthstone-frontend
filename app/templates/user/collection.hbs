@@ -75,12 +75,14 @@
 			{{model.packs.firstObject.number}} paquets ouverts
 			<button {{action "incrementPitycounters"}}>+1</button>
 		</div>
-		{{#each pitycounters as |pitycounter|}}
-			<div>
-				Nombre de paquets depuis la dernière {{pitycounter.rarity.name_fr}} : {{pitycounter.number}}
-				<button {{action "resetPitycounter" pitycounter}}>{{pitycounter.rarity.name_fr}} obtenue</button>
-			</div>
-		{{/each}}
+		{{#if showPitycounters}}
+			{{#each pitycounters as |pitycounter|}}
+				<div>
+					Nombre de paquets depuis la dernière {{pitycounter.rarity.name_fr}} : {{pitycounter.number}}
+					<button {{action "resetPitycounter" pitycounter}}>{{pitycounter.rarity.name_fr}} obtenue</button>
+				</div>
+			{{/each}}
+		{{/if}}
 	{{/if}}
 {{/if}}
 
