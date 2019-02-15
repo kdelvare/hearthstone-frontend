@@ -1,0 +1,22 @@
+<table>
+	<tr>
+		<td></td>
+		<td>Paquets ouverts</td>
+		{{#each pity_rarities as |rarity|}}
+			<td>{{rarity.name_fr}}</td>
+		{{/each}}
+	</tr>
+	{{#each model.cardsets as |cardset|}}
+		{{#with (find-by "cardset.id" cardset.id model.packs) as |pack|}}
+			<tr>
+				<td>{{cardset.name_fr}}</td>
+				<td>{{input value=pack.number}}</td>
+				{{#each (filter (action "filterPityBySet" cardset) model.pitycounters) as |pitycounter|}}
+					<td>{{input value=pitycounter.number}}</td>
+				{{/each}}
+			</tr>
+		{{/with}}
+	{{/each}}
+</table>
+
+<i class="fas fa-save pointer" title="Enregistrer" {{action "save"}}></i>

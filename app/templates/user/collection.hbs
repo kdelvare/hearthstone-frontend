@@ -68,18 +68,21 @@
 	{{#if (eq pitycounters.length 0)}}
 		<div>
 			Initialiser les pity counters pour cette extension ?
-			<button {{action "initPitycounters"}}>Oui</button>
+			<i class="fas fa-check pointer" {{action 'initPitycounters'}} title="Initialiser"></i>
 		</div>
 	{{else}}
 		<div>
 			{{model.packs.firstObject.number}} paquets ouverts
-			<button {{action "incrementPitycounters"}}>+1</button>
+			<i class="fas fa-plus pointer" {{action 'incrementPitycounters'}} title="Nouveau paquet ouvert"></i>
+			{{#link-to 'user.packs' title="Modifier"}}
+				<i class="fas fa-edit pointer"></i>
+			{{/link-to}}
 		</div>
 		{{#if showPitycounters}}
 			{{#each pitycounters as |pitycounter|}}
 				<div>
 					Nombre de paquets depuis la dernière {{pitycounter.rarity.name_fr}} : {{pitycounter.number}}
-					<button {{action "resetPitycounter" pitycounter}}>{{pitycounter.rarity.name_fr}} obtenue</button>
+					<i class="fas fa-redo pointer" {{action 'resetPitycounter' pitycounter}} title={{concat pitycounter.rarity.name_fr " obtenue"}}></i>
 				</div>
 			{{/each}}
 		{{/if}}

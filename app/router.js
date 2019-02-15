@@ -20,6 +20,7 @@ Router.map(function() {
 		this.route('deck', { path: '/decks/:deck_id' });
 		this.route('stats');
 		this.route('profile');
+		this.route('packs');
 	})
 });
 
