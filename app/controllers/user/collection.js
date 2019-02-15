@@ -58,6 +58,10 @@ export default Controller.extend({
 			if (name !== "page") {
 				this.set("page", 1);
 			}
+			// Hide pity counters
+			if (name === "cardset") {
+				this.set('showPitycounters', false);
+			}
 		},
 
 		filterOwned(collection) {
