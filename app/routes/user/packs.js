@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 export default Route.extend({
 	currentUser: service(),
 
-	model(params) {
+	model() {
 		const user = this.get('currentUser.user');
 		return RSVP.hash({
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),

@@ -6,7 +6,7 @@ export default Controller.extend({
 	cardset: null,
 	page: 1,
 
-	deckTypes: computed('model.deck', function() {
+	deckTypes: computed('model.deck.deckcards.@each.{number,card}', function() {
 		const deckcards = this.get('model.deck.deckcards');
 		return deckcards.reduce((deckTypes, deckcard) => {
 			const type = deckcard.card.get('type.id');
@@ -16,7 +16,7 @@ export default Controller.extend({
 		}, {});
 	}),
 
-	deckRarities: computed('model.deck', function() {
+	deckRarities: computed('model.deck.deckcards.@each.{number,card}', function() {
 		const deckcards = this.get('model.deck.deckcards');
 		const deckRarities = deckcards.reduce((deckRarities, deckcard) => {
 			const rarity = deckcard.card.get('rarity.id');
@@ -33,7 +33,7 @@ export default Controller.extend({
 		return deckRarities;
 	}),
 
-	deckCardsets: computed('model.deck', function() {
+	deckCardsets: computed('model.deck.deckcards.@each.number', function() {
 		const deckcards = this.get('model.deck.deckcards');
 		return deckcards.reduce((deckCardsets, deckcard) => {
 			const cardset = deckcard.card.get('cardset.id');
@@ -43,7 +43,7 @@ export default Controller.extend({
 		}, {});
 	}),
 
-	owned: computed('model.deck.deckcards', function() {
+	owned: computed('model.deck.deckcards.@each.number', function() {
 		return this.get('model.deck.deckcards').reduce((total, deckcard) => {
 			let userCollection = deckcard.card.get('collections').filter(collection => {
 				return collection.user.get('id') === this.get('model.user.id');
@@ -52,7 +52,7 @@ export default Controller.extend({
 		}, 0);
 	}),
 
-	dust: computed('model.deck.deckcards', function() {
+	dust: computed('model.deck.deckcards.@each.number', function() {
 		return this.get('model.deck.deckcards').reduce((total, deckcard) => {
 			let userCollection = deckcard.card.get('collections').filter(collection => {
 				return collection.user.get('id') === this.get('model.user.id');
@@ -73,7 +73,7 @@ export default Controller.extend({
 			if (this.get('rarity')) { cardFilters.rarity = this.get('rarity'); }
 			this.store.query('card', {
 				filter: cardFilters,
-				include: 'cardset',
+				include: 'type,rarity,cardset',
 				sort: 'cost,name_fr',
 				page: { number: this.get('page'), size: 28 }
 			}).then(cards => {
