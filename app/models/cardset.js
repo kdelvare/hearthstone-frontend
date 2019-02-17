@@ -20,6 +20,8 @@ export default DS.Model.extend({
 			return 'year';
 		} else if (this.get('id') === '3') { // Classic
 			return 'Classique';
+		} else if (this.get('id') === '2') { // Basic
+			return 'Basique';
 		} else {
 			return '';
 		}

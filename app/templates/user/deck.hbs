@@ -67,7 +67,7 @@
 
 		<table class="decks">
 			<tr>
-				<td class="noborder">
+				<td class="noborder" colspan="2">
 					{{owned}}/{{model.deck.size}}
 					({{dust}}/{{model.deck.dust}})
 					{{#with (sub model.deck.dust dust) as |missing|}}
@@ -85,14 +85,14 @@
 				{{#with deckcard.card as |card|}}
 					{{#with (filter (action "filterOwned") card.collections) as |collections|}}
 						<tr>
-							<td class={{if (gte collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' card.cardset.class)}}>
-								<div class="deckcard">
-									{{min collections.firstObject.number deckcard.number}}/{{deckcard.number}}
-									<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
-									<div class="cardinfo">
-										<img src={{card.image}} />
-										<div class="cardset">{{card.cardset.name_fr}}</div>
-									</div>
+							<td class={{if (gte collections.firstObject.number deckcard.number) 'owned'}}>
+								{{min collections.firstObject.number deckcard.number}}/{{deckcard.number}}
+							</td>
+							<td class={{concat "deckcard cardset-" card.cardset.class}}>
+								<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+								<div class="cardinfo">
+									<img src={{card.image}} />
+									<div class="cardset">{{card.cardset.name_fr}}</div>
 								</div>
 							</td>
 							<td>{{card.type.name_fr}}</td>
@@ -114,14 +114,14 @@
 						</tr>
 					{{else}}
 						<tr>
-							<td class={{concat 'cardset-' card.cardset.class}}>
-								<div class="deckcard">
-									0/{{deckcard.number}}
-									<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
-									<div class="cardinfo">
-										<img src={{card.image}} />
-										<div class="cardset">{{card.cardset.name_fr}}</div>
-									</div>
+							<td>
+								0/{{deckcard.number}}
+							</td>
+							<td class={{concat "deckcard cardset-" card.cardset.class}}>
+								<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
+								<div class="cardinfo">
+									<img src={{card.image}} />
+									<div class="cardset">{{card.cardset.name_fr}}</div>
 								</div>
 							</td>
 							<td>{{card.type.name_fr}}</td>
@@ -210,8 +210,8 @@
 
 <table>
 	{{#each-in deckCardsets as |id cardset|}}
-		<tr class="decks">
-			<td class={{if (eq id "2") "owned" (concat "cardset-" cardset.class)}}>{{cardset.name}}</td>
+		<tr class={{concat "decks hover-" cardset.id}}>
+			<td class={{concat "cardset-" cardset.class}}>{{cardset.name}}</td>
 			<td>{{cardset.number}}</td>
 		</tr>
 	{{/each-in}}
