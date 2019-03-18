@@ -73,7 +73,7 @@ export default Controller.extend({
 			if (this.get('rarity')) { cardFilters.rarity = this.get('rarity'); }
 			this.store.query('card', {
 				filter: cardFilters,
-				include: 'type,rarity,cardset',
+				include: 'type,rarity,cardset,collections,collections.user',
 				sort: 'cost,name_fr',
 				page: { number: this.get('page'), size: 28 }
 			}).then(cards => {
@@ -120,14 +120,14 @@ export default Controller.extend({
 					deckcard.set('deck', savedDeck);
 					deckcard.save();
 				});
-				this.transitionToRoute('user.deck', this.get('model.user.id'), savedDeck.id);
+				this.transitionToRoute('user.deck', savedDeck.id);
 			});
 		},
 
 		delete() {
 			this.get('model.deck').deleteRecord();
 			this.get('model.deck').save().then(() => {
-				this.transitionToRoute('user.deckgroups', this.get('model.user.id'), { queryParams: { cardset: 1129 } });
+				this.transitionToRoute('user.deckgroups', { queryParams: { cardset: 1129 } });
 			});
 		},
 
