@@ -28,8 +28,8 @@ export default Controller.extend({
 			data.rate = data.owned / data.total;
 			rarities.forEach(rarity => {
 				subdata = data.rarities[rarity.id];
-				subdata.rate = subdata.owned / subdata.total;
-				subdata.wantedrate = subdata.wanted / subdata.total;
+				subdata.rate = subdata.owned / subdata.total || 0;
+				subdata.wantedrate = subdata.wanted / subdata.total || 0;
 			});
 			// 72% common, 23% rare, 4% epic, 1% legendary (with no double)
 			const fullLegendaries = data.rarities['5'].owned == data.rarities['5'].total;
@@ -115,7 +115,7 @@ export default Controller.extend({
 			data.rate = 100 * data.owned / data.total;
 			rarities.forEach(rarity => {
 				subdata = data.rarities[rarity.id];
-				subdata.rate = 100 * subdata.owned / subdata.total;
+				subdata.rate = 100 * subdata.owned / subdata.total || 0;
 			});
 		});
 		cardclasses.forEach(cardclass => {

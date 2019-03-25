@@ -67,7 +67,9 @@
 	<tr>
 		<th>Paquet utile</th>
 		{{#each model.cardsets as |set|}}
-			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+			{{#if (eq set.name_fr "Basique")}}
+				<td class="percent"/>
+			{{else if (or (not standard) set.standard)}}
 				<td class="percent">
 					<div class="less">
 						{{#with (mult 100 (get (get (get completion.cardsets set.id) "getwantedsum") 1)) as |rate|}}
@@ -99,8 +101,6 @@
 						</div>
 					</div>
 				</td>
-			{{else if (eq set.name_fr "Basique")}}
-				<td class="percent"/>
 			{{/if}}
 		{{/each}}
 	</tr>
@@ -108,12 +108,12 @@
 	<tr>
 		<th>Valeur</th>
 		{{#each model.cardsets as |set|}}
-			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+			{{#if (eq set.name_fr "Basique")}}
+				<td class="stat"/>
+			{{else if (or (not standard) set.standard)}}
 				<td class="stat">
 					{{round (get (get completion.cardsets set.id) "wantedValue")}}
 				</td>
-			{{else if (eq set.name_fr "Basique")}}
-				<td class="stat"/>
 			{{/if}}
 		{{/each}}
 	</tr>
@@ -218,7 +218,9 @@
 	<tr>
 		<th>Paquet utile</th>
 		{{#each model.cardsets as |set|}}
-			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+			{{#if (eq set.name_fr "Basique")}}
+				<td colspan="3" class="percent"/>
+			{{else if (or (not standard) set.standard)}}
 				<td colspan="3" class="percent">
 					<div class="less">
 						{{#with (mult 100 (get (get (get completion.cardsets set.id) "getnewsum") 1)) as |rate|}}
@@ -250,8 +252,6 @@
 						</div>
 					</div>
 				</td>
-			{{else if (eq set.name_fr "Basique")}}
-				<td colspan="3" class="percent"/>
 			{{/if}}
 		{{/each}}
 	</tr>
@@ -259,12 +259,12 @@
 	<tr>
 		<th>Valeur</th>
 		{{#each model.cardsets as |set|}}
-			{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+			{{#if (eq set.name_fr "Basique")}}
+				<td colspan="3" class="stat"/>
+			{{else if (or (not standard) set.standard)}}
 				<td colspan="3" class="stat">
 					{{round (get (get completion.cardsets set.id) "completionValue")}}
 				</td>
-			{{else if (eq set.name_fr "Basique")}}
-				<td colspan="3" class="stat"/>
 			{{/if}}
 		{{/each}}
 	</tr>
@@ -273,28 +273,28 @@
 		<tr>
 			<th>Paquets</th>
 			{{#each model.cardsets as |set|}}
-				{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+				{{#if (eq set.name_fr "Basique")}}
+					<td colspan="3" class="stat"/>
+				{{else if (or (not standard) set.standard)}}
 					<td colspan="3" class="stat">
 						{{#with (find-by "cardset.id" set.id model.packs) as |pack|}}
 							{{pack.number}}
 						{{/with}}
 					</td>
-				{{else if (eq set.name_fr "Basique")}}
-					<td colspan="3" class="stat"/>
 				{{/if}}
 			{{/each}}
 		</tr>
 		<tr>
 			<th>Epique<br/>Légendaire</th>
 			{{#each model.cardsets as |set|}}
-				{{#if (or (not standard) (and set.standard (not-eq set.name_fr "Basique")))}}
+				{{#if (eq set.name_fr "Basique")}}
+					<td colspan="3" class="stat"/>
+				{{else if (or (not standard) set.standard)}}
 					<td colspan="3" class="stat">
 						{{#each (filter (action "filterPityBySet" set) model.pitycounters) as |pitycounter|}}
 							<div>{{pitycounter.number}}</div>
 						{{/each}}
 					</td>
-				{{else if (eq set.name_fr "Basique")}}
-					<td colspan="3" class="stat"/>
 				{{/if}}
 			{{/each}}
 		</tr>
