@@ -65,14 +65,14 @@
 </div>
 
 {{#if (and cardset (not-eq cardset '2'))}}
-	{{#if (eq pitycounters.length 0)}}
+	{{#if (eq packs.length 0)}}
 		<div>
 			Initialiser les pity counters pour cette extension ?
 			<i class="fas fa-check pointer" {{action 'initPitycounters'}} title="Initialiser"></i>
 		</div>
 	{{else}}
 		<div>
-			{{model.packs.firstObject.number}} paquets ouverts
+			{{packs.firstObject.number}} paquets ouverts
 			<i class="fas fa-plus pointer" {{action 'incrementPitycounters'}} title="Nouveau paquet ouvert"></i>
 			{{#link-to 'user.packs' title="Modifier"}}
 				<i class="fas fa-edit pointer"></i>
