@@ -79,6 +79,15 @@ export default Controller.extend({
 		},
 
 		removeWanteddeck(wanteddeck) {
+			wanteddeck.get('wantedcards').then(wantedcards => {
+				wantedcards.forEach(wantedcard => {
+					wantedcard.get('card').then(card => {
+						card.wantedcards.removeObject(wantedcard);
+					});
+					wantedcard.deleteRecord();
+					wantedcard.save();
+				});
+			});
 			wanteddeck.get('deck').then(deck => {
 				deck.wanteddecks.removeObject(wanteddeck);
 			});
