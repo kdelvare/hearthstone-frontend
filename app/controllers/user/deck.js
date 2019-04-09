@@ -266,6 +266,16 @@ export default Controller.extend({
 				});
 				deckstat.save();
 			}
+		},
+
+		resetWinrate() {
+			let deckstat = this.get('model.deck.deckstats').filter(deckstat => {
+				return deckstat.user.get('id') === this.get('model.user.id');
+			}).firstObject;
+			if (deckstat) {
+				deckstat.deleteRecord();
+				deckstat.save();
+			}
 		}
 	}
 });

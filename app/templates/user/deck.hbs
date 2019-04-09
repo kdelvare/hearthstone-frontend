@@ -57,7 +57,10 @@
 			{{/with}}
 			<br/>
 			{{#with (filter (action "filterOwned") model.deck.deckstats) as |deckstats|}}
-				{{deckstats.firstObject.win}} <span class="pointer" {{action "addWin"}}>victoire{{if (gt deckstats.firstObject.win 1) "s"}}</span>, {{deckstats.firstObject.loose}} <span class="pointer" {{action "addLoose"}}>défaite{{if (gt deckstats.firstObject.win 1) "s"}}</span>
+				{{deckstats.firstObject.win}} <span class="pointer" {{action 'addWin'}}>victoire{{if (not-eq deckstats.firstObject.win 1) "s"}}</span>,
+				{{deckstats.firstObject.loose}} <span class="pointer" {{action 'addLoose'}}>défaite{{if (not-eq deckstats.firstObject.loose 1) "s"}}</span> :
+				{{round (div (mult 100 deckstats.firstObject.win) (add deckstats.firstObject.win deckstats.firstObject.loose))}} %
+				<i class="fas fa-redo pointer" {{action 'resetWinrate' pitycounter}} title={{"Effacer les victoires et les défaites"}}></i>
 			{{else}}
 				0 <span class="pointer" {{action "addWin"}}>victoires</span>, 0 <span class="pointer" {{action "addLoose"}}>défaites</span>
 			{{/with}}
