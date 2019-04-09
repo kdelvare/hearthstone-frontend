@@ -22,9 +22,7 @@ Importer un deck
 
 	Utilisateur : <select onchange={{action "setUser" value="target.value"}}>
 		<option value=-1></option>
-		{{#each model.users as |user|}}
-			<option value={{user.id}}>{{user.name}}</option>
-		{{/each}}
+		<option value={{model.user.id}}>{{model.user.name}}</option>
 	</select>
 	<br/><br/>
 

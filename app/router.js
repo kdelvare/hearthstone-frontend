@@ -9,8 +9,6 @@ const Router = EmberRouter.extend({
 Router.map(function() {
 	this.route('login');
 
-	this.route('decks');
-	this.route('deck', { path: '/decks/:id' });
 	this.route('user', function() {
 		this.route('collection');
 		this.route('deckgroups', function() {
@@ -18,6 +16,7 @@ Router.map(function() {
 			this.route('classdecks');
 		});
 		this.route('deck', { path: '/decks/:deck_id' });
+		this.route('import');
 		this.route('stats');
 		this.route('profile');
 		this.route('packs');

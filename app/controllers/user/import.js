@@ -15,9 +15,7 @@ export default Controller.extend({
 				this.set('deck', null);
 				this.set('showDeck', false);
 			});
-			if (deck.user.get('id')) {
-				this.transitionToRoute('user.deck', deck.user.get('id'), deck.id);
-			}
+			this.transitionToRoute('user.deck', deck.id);
 		});
 	},
 
@@ -43,27 +41,31 @@ export default Controller.extend({
 					})
 				});
 				this.set('deck', deck);
+				this.set('deckgroup', {});
 
 				this.set('showDeck', true);
 			});
 		},
 
 		setUser(user) {
-			this.get('store').findRecord('user', user).then(user => {
-				this.get('deck').set('user', user);
-			});
+			if (user) {
+				this.get('deck').set('user', this.get('model.user'));
+			} else {
+				this.get('deck').set('user', undefined);
+			}
 		},
 
 		setDeckgroup(deckgroup) {
-			this.get('store').findRecord('deckgroup', deckgroup).then(deckgroup => {
-				this.get('deck').set('deckgroup', deckgroup);
-			});
+			if (deckgroup) {
+				this.get('store').findRecord('deckgroup', deckgroup).then(deckgroup => {
+					this.get('deck').set('deckgroup', deckgroup);
+				});
+			} else {
+				this.get('deck').set('deckgroup', undefined);
+			}
 		},
 
 		setCardset(cardset) {
-			if (!this.get('deckgroup')) {
-				this.set('deckgroup', {});
-			}
 			this.get('store').findRecord('cardset', cardset).then(cardset => {
 				this.get('deckgroup').cardset = cardset;
 			});
@@ -72,8 +74,8 @@ export default Controller.extend({
 		save() {
 			const deckgroup = this.get('deckgroup');
 			if (deckgroup && deckgroup.name) {
-				const deckgroup = this.get('store').createRecord('deckgroup', deckgroup);
-				deckgroup.save().then(deckgroup => {
+				const newDeckgroup = this.get('store').createRecord('deckgroup', deckgroup);
+				newDeckgroup.save().then(deckgroup => {
 					this.get('deck').set('deckgroup', deckgroup);
 					this.set('deckgroup', {});
 					this.saveDeck();

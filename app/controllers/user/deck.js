@@ -127,7 +127,7 @@ export default Controller.extend({
 		delete() {
 			this.get('model.deck').deleteRecord();
 			this.get('model.deck').save().then(() => {
-				this.transitionToRoute('user.deckgroups', { queryParams: { cardset: 1129 } });
+				this.transitionToRoute('user.deckgroups', { queryParams: { cardset: 1130 } });
 			});
 		},
 
