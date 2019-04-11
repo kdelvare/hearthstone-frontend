@@ -21,13 +21,24 @@ export default Controller.extend({
 
 	actions: {
 		import() {
-			const importString = this.get('importString');
+			let importString = this.get('importString');
+			const lines = importString.split(/\r?\n/g);
+			let name = '';
+			lines.forEach(line => {
+				if (line.substr(0, 3) === "###") {
+					name = line.substr(4);
+				}
+				if (line.substr(0, 1) !== "#" && line.length) {
+					importString = line;
+				}
+			});
 			const decoded = decode(importString);
 
 			this.get('store').findRecord('card', decoded.heroes[0], { include : 'cardclass' }).then(card => {
 				const cardclass = card.cardclass;
 				const deck = this.get('store').createRecord('deck', {
-					cardclass: cardclass
+					cardclass: cardclass,
+					name: name
 				});
 
 				let deckcard;
