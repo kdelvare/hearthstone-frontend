@@ -1,10 +1,30 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
+import { encode } from 'deckstrings';
 
 export default Controller.extend({
 	queryParams: ['cardset'],
 	cardset: null,
 	page: 1,
+
+	exportString: computed('model.deck.cardclass', 'model.deck.deckcards.@each.{number,card}', function() {
+		const heroes = [0, 0, 274, 31, 637, 671, 813, 930, 1066, 893, 7];
+		const cardclass = this.get('model.deck.cardclass');
+		const hero = heroes[cardclass.get('id')];
+
+		const deckcards = this.get('model.deck.deckcards');
+		const cards = [];
+		deckcards.forEach(deckcard => {
+			cards.push([parseInt(deckcard.card.get('id')), deckcard.number]);
+		});
+
+		const deckStructure = {
+			format: 2, // 1 pour Libre
+			heroes: [hero],
+			cards: cards
+		}
+		return encode(deckStructure);
+	}),
 
 	deckTypes: computed('model.deck.deckcards.@each.{number,card}', function() {
 		const deckcards = this.get('model.deck.deckcards');
@@ -180,6 +200,10 @@ export default Controller.extend({
 			});
 			wanteddeck.deleteRecord();
 			wanteddeck.save();
+		},
+
+		showExportString() {
+			this.set('showExportString', true);
 		},
 
 		incNumber(deckcard) {

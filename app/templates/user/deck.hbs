@@ -55,6 +55,11 @@
 			{{else}}
 				<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" model.deck}}></i>
 			{{/with}}
+			{{#if showExportString}}
+				{{exportString}}
+			{{else}}
+				<i class="fas fa-file-export pointer" title="Exporter" {{action "showExportString"}}></i>
+			{{/if}}
 			<br/>
 			{{#with (filter (action "filterOwned") model.deck.deckstats) as |deckstats|}}
 				{{deckstats.firstObject.win}} <span class="pointer" {{action 'addWin'}}>victoire{{if (not-eq deckstats.firstObject.win 1) "s"}}</span>,
