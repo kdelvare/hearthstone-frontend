@@ -7,6 +7,8 @@ export default Controller.extend({
 	cardset: null,
 	page: 1,
 
+	showExportString: false,
+
 	exportString: computed('model.deck.cardclass', 'model.deck.deckcards.@each.{number,card}', function() {
 		const heroes = [0, 0, 274, 31, 637, 671, 813, 930, 1066, 893, 7];
 		const cardclass = this.get('model.deck.cardclass');
@@ -203,7 +205,7 @@ export default Controller.extend({
 		},
 
 		showExportString() {
-			this.set('showExportString', true);
+			this.toggleProperty('showExportString');
 		},
 
 		incNumber(deckcard) {
