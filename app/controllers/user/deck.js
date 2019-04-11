@@ -270,7 +270,9 @@ export default Controller.extend({
 					deck: this.get('model.deck'),
 					user: this.get('model.user'),
 					win: 1,
-					loose: 0
+					loose: 0,
+					win_casual: 0,
+					loose_casual: 0
 				});
 				deckstat.save();
 			}
@@ -288,7 +290,9 @@ export default Controller.extend({
 					deck: this.get('model.deck'),
 					user: this.get('model.user'),
 					win: 0,
-					loose: 1
+					loose: 1,
+					win_casual: 0,
+					loose_casual: 0
 				});
 				deckstat.save();
 			}
@@ -300,6 +304,46 @@ export default Controller.extend({
 			}).firstObject;
 			if (deckstat) {
 				deckstat.deleteRecord();
+				deckstat.save();
+			}
+		},
+
+		addWinCasual() {
+			let deckstat = this.get('model.deck.deckstats').filter(deckstat => {
+				return deckstat.user.get('id') === this.get('model.user.id');
+			}).firstObject;
+			if (deckstat) {
+				deckstat.set('win_casual', deckstat.win_casual + 1);
+				deckstat.save();
+			} else {
+				deckstat = this.get('store').createRecord('deckstat', {
+					deck: this.get('model.deck'),
+					user: this.get('model.user'),
+					win: 0,
+					loose: 0,
+					win_casual: 1,
+					loose_casual: 0
+				});
+				deckstat.save();
+			}
+		},
+
+		addLooseCasual() {
+			let deckstat = this.get('model.deck.deckstats').filter(deckstat => {
+				return deckstat.user.get('id') === this.get('model.user.id');
+			}).firstObject;
+			if (deckstat) {
+				deckstat.set('loose_casual', deckstat.loose_casual + 1);
+				deckstat.save();
+			} else {
+				deckstat = this.get('store').createRecord('deckstat', {
+					deck: this.get('model.deck'),
+					user: this.get('model.user'),
+					win: 0,
+					loose: 0,
+					win_casual: 0,
+					loose_casual: 1
+				});
 				deckstat.save();
 			}
 		}
