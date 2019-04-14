@@ -271,8 +271,8 @@ export default Controller.extend({
 					user: this.get('model.user'),
 					win: 1,
 					loose: 0,
-					win_casual: 0,
-					loose_casual: 0
+					wincasual: 0,
+					loosecasual: 0
 				});
 				deckstat.save();
 			}
@@ -291,8 +291,8 @@ export default Controller.extend({
 					user: this.get('model.user'),
 					win: 0,
 					loose: 1,
-					win_casual: 0,
-					loose_casual: 0
+					wincasual: 0,
+					loosecasual: 0
 				});
 				deckstat.save();
 			}
@@ -313,7 +313,7 @@ export default Controller.extend({
 				return deckstat.user.get('id') === this.get('model.user.id');
 			}).firstObject;
 			if (deckstat) {
-				deckstat.set('win_casual', deckstat.win_casual + 1);
+				deckstat.set('wincasual', deckstat.wincasual + 1);
 				deckstat.save();
 			} else {
 				deckstat = this.get('store').createRecord('deckstat', {
@@ -321,8 +321,8 @@ export default Controller.extend({
 					user: this.get('model.user'),
 					win: 0,
 					loose: 0,
-					win_casual: 1,
-					loose_casual: 0
+					wincasual: 1,
+					loosecasual: 0
 				});
 				deckstat.save();
 			}
@@ -333,7 +333,7 @@ export default Controller.extend({
 				return deckstat.user.get('id') === this.get('model.user.id');
 			}).firstObject;
 			if (deckstat) {
-				deckstat.set('loose_casual', deckstat.loose_casual + 1);
+				deckstat.set('loosecasual', deckstat.loosecasual + 1);
 				deckstat.save();
 			} else {
 				deckstat = this.get('store').createRecord('deckstat', {
@@ -341,8 +341,8 @@ export default Controller.extend({
 					user: this.get('model.user'),
 					win: 0,
 					loose: 0,
-					win_casual: 0,
-					loose_casual: 1
+					wincasual: 0,
+					loosecasual: 1
 				});
 				deckstat.save();
 			}

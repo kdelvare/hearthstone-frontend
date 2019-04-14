@@ -51,6 +51,14 @@
 										<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" deck}}></i>
 									{{/with}}
 								{{/if}}
+								{{#with (filter (action "filterOwned") deck.deckstats) as |deckstats|}}
+									{{#if (gt (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual) 0)}}
+										{{round (div (mult 100 deckstats.firstObject.wincasual) (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual))}} %
+									{{/if}}
+									{{#if (gt (add deckstats.firstObject.win deckstats.firstObject.loose) 0)}}
+										, {{round (div (mult 100 deckstats.firstObject.win) (add deckstats.firstObject.win deckstats.firstObject.loose))}} %
+									{{/if}}
+								{{/with}}
 								<br/>
 								{{#if deck.size}}
 									{{get (get deckstats deck.id) "owned"}}/{{deck.size}}
@@ -99,6 +107,14 @@
 									<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" deck}}></i>
 								{{/with}}
 							{{/if}}
+							{{#with (filter (action "filterOwned") deck.deckstats) as |deckstats|}}
+								{{#if (gt (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual) 0)}}
+									{{round (div (mult 100 deckstats.firstObject.wincasual) (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual))}} %
+								{{/if}}
+								{{#if (gt (add deckstats.firstObject.win deckstats.firstObject.loose) 0)}}
+									, {{round (div (mult 100 deckstats.firstObject.win) (add deckstats.firstObject.win deckstats.firstObject.loose))}} %
+								{{/if}}
+							{{/with}}
 							<br/>
 							{{#if deck.size}}
 								{{get (get deckstats deck.id) "owned"}}/{{deck.size}}

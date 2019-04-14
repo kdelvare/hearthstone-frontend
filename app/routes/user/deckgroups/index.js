@@ -20,8 +20,8 @@ export default Route.extend({
 			}),
 			decks: this.store.query('deck', {
 				filter: { user: user.id },
-				include: 'cardclass,deckcards,deckcards.card,deckcards.card.rarity,deckcards.card.collections,deckcards.card.collections.user,wanteddecks.user',
-				fields: { deckcards: 'number,card', collections: 'number,user' }
+				include: 'cardclass,deckcards,deckcards.card,deckcards.card.rarity,deckcards.card.collections,deckcards.card.collections.user,wanteddecks.user,deckstats,deckstats.user',
+				fields: { deckcards: 'number,card', collections: 'number,user', deckstats: 'win,loose,wincasual,loosecasual,user' }
 			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			user: user
