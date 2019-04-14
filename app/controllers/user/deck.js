@@ -89,6 +89,7 @@ export default Controller.extend({
 		},
 
 		edit() {
+			this.set('showExportString', false);
 			const cardclass = this.get('model.deck.cardclass.id');
 			let cardFilters = { cardclass: '12,' + cardclass, collectible: true, standard: true };
 			if (this.get('cost')) { cardFilters.cost = this.get('cost'); }

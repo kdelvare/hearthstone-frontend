@@ -7,6 +7,7 @@ export default Controller.extend({
 
 	actions: {
 		authenticate() {
+			console.log('login-authenticate');
 			const { login, password } = this.getProperties('login', 'password');
 			this.get('session').authenticate('authenticator:oauth2', login, password).then(() => {
 				this.get('currentUser').load().then(() => {
