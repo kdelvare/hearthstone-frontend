@@ -15,6 +15,7 @@ export default Route.extend({
 			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
 			deckgroups: this.store.query('deckgroup', {
 				filter: params.cardset ? { cardset: params.cardset } : {},
+				sort: 'name',
 				include: 'decks,decks.cardclass,decks.deckcards,decks.deckcards.card,decks.deckcards.card.rarity,decks.deckcards.card.collections,decks.deckcards.card.collections.user,decks.wanteddecks.user',
 				fields: { decks: 'name,url,cardclass,deckcards,wanteddecks', deckcards: 'number,card', collections: 'number,user' }
 			}),
