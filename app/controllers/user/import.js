@@ -24,9 +24,14 @@ export default Controller.extend({
 			let importString = this.get('importString');
 			const lines = importString.split(/\r?\n/g);
 			let name = '';
+			let url = '';
 			lines.forEach(line => {
 				if (line.substr(0, 3) === "###") {
 					name = line.substr(4);
+				}
+				let httpIndex = line.indexOf('http')
+				if (httpIndex > -1) {
+					url = line.substr(httpIndex);
 				}
 				if (line.substr(0, 1) !== "#" && line.length) {
 					importString = line;
@@ -38,7 +43,8 @@ export default Controller.extend({
 				const cardclass = card.cardclass;
 				const deck = this.get('store').createRecord('deck', {
 					cardclass: cardclass,
-					name: name
+					name: name,
+					url: url
 				});
 
 				let deckcard;
