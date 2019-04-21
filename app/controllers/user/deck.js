@@ -7,7 +7,7 @@ export default Controller.extend({
 	cardset: null,
 	page: 1,
 
-	showExportString: false,
+	showDeckstring: false,
 
 	exportString: computed('model.deck.cardclass', 'model.deck.deckcards.@each.{number,card}', function() {
 		const heroes = [0, 0, 274, 31, 637, 671, 813, 930, 1066, 893, 7];
@@ -83,13 +83,19 @@ export default Controller.extend({
 		}, 0);
 	}),
 
+	_updateDeckstring() {
+		const deck = this.get('model.deck');
+		deck.set('deckstring', deck.exportString);
+		deck.save();
+	},
+
 	actions: {
 		filterOwned(collection) {
 			return collection.user.get('id') === this.get('model.user.id');
 		},
 
 		edit() {
-			this.set('showExportString', false);
+			this.set('showDeckstring', false);
 			const cardclass = this.get('model.deck.cardclass.id');
 			let cardFilters = { cardclass: '12,' + cardclass, collectible: true, standard: true };
 			if (this.get('cost')) { cardFilters.cost = this.get('cost'); }
@@ -205,18 +211,22 @@ export default Controller.extend({
 			wanteddeck.save();
 		},
 
-		showExportString() {
-			this.toggleProperty('showExportString');
+		showDeckstring() {
+			this.toggleProperty('showDeckstring');
 		},
 
 		incNumber(deckcard) {
 			deckcard.set('number', deckcard.get('number') + 1);
-			deckcard.save();
+			deckcard.save().then(() => {
+				const deck = this.get('model.deck');
+				deck.set('deckstring', deck.exportString);
+				deck.save();
+			});
 		},
 
 		decNumber(deckcard) {
 			deckcard.set('number', deckcard.get('number') - 1);
-			deckcard.save();
+			deckcard.save().then(() => this._updateDeckstring());
 		},
 
 		addDeckcard(card) {
@@ -225,7 +235,7 @@ export default Controller.extend({
 					const deckcard = deckcards.firstObject;
 					if (card.rarity.get('name_fr') !== "Légendaire" && deckcard.number < 2) {
 						deckcard.set('number', deckcard.number + 1);
-						deckcard.save();
+						deckcard.save().then(() => this._updateDeckstring());
 					}
 				} else {
 					const deckcard = this.get('store').createRecord('deckcard', {
@@ -234,7 +244,7 @@ export default Controller.extend({
 					});
 					const deckcards = this.get('model.deck.deckcards');
 					deckcards.pushObject(deckcard);
-					deckcard.save();
+					deckcard.save().then(() => this._updateDeckstring());
 				}
 			});
 		},
@@ -243,7 +253,7 @@ export default Controller.extend({
 			const deckcards = this.get('model.deck.deckcards');
 			deckcards.removeObject(deckcard);
 			deckcard.deleteRecord();
-			deckcard.save();
+			deckcard.save().then(() => this._updateDeckstring());
 		},
 
 		toggleParam(name, value) {

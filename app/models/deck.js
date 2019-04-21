@@ -1,9 +1,11 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
+import { encode } from 'deckstrings';
 
 export default DS.Model.extend({
 	name: DS.attr('string'),
 	url: DS.attr('string'),
+	deckstring: DS.attr('string'),
 
 	cardclass: DS.belongsTo(),
 	deckcards: DS.hasMany(),
@@ -40,5 +42,24 @@ export default DS.Model.extend({
 		} else {
 			return `${this.get('cardclass.name_fr')} : ${this.get('name')} (${this.get('user.name')})`;
 		}
-	})
+	}),
+
+	exportString: computed('cardclass', 'deckcards.@each.{number,card}', function() {
+		const heroes = [0, 0, 274, 31, 637, 671, 813, 930, 1066, 893, 7];
+		const cardclass = this.get('cardclass');
+		const hero = heroes[cardclass.get('id')];
+
+		const deckcards = this.get('deckcards');
+		const cards = [];
+		deckcards.forEach(deckcard => {
+			cards.push([parseInt(deckcard.card.get('id')), deckcard.number]);
+		});
+
+		const deckStructure = {
+			format: 2, // 1 pour Libre
+			heroes: [hero],
+			cards: cards
+		}
+		return encode(deckStructure);
+	}),
 });

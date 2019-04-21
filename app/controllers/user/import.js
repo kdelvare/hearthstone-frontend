@@ -1,12 +1,16 @@
 import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 import { decode } from 'deckstrings';
 
 export default Controller.extend({
+	deckstring: computed.alias('deck.exportString'),
+
 	saveDeck() {
 		const deck = this.get('deck');
 		if (deck.name === undefined) {
 			deck.set('name', '?');
 		}
+		deck.set('deckstring', this.get('deckstring'));
 		deck.save().then(deck => {
 			this.get('deck').deckcards.forEach((deckcard) => {
 				deckcard.set('deck', deck);
@@ -62,6 +66,10 @@ export default Controller.extend({
 
 				this.set('showDeck', true);
 			});
+		},
+
+		filterDeckstring(deck) {
+			return (deck.deckstring === this.get('deckstring'));
 		},
 
 		setUser(user) {
