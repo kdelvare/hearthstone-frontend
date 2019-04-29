@@ -38,12 +38,11 @@
 							<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
 								{{#with (filter (action "filterOwned") deck.deckstats) as |deckstats|}}
 									<div style="float: right;">
-										{{#if (gt (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual) 0)}}
-											{{round (div (mult 100 deckstats.firstObject.wincasual) (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual))}} %
-										{{/if}}
-										{{#if (gt (add deckstats.firstObject.win deckstats.firstObject.loose) 0)}}
-											, {{round (div (mult 100 deckstats.firstObject.win) (add deckstats.firstObject.win deckstats.firstObject.loose))}} %
-										{{/if}}
+										{{#with (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual deckstats.firstObject.win deckstats.firstObject.loose) as |totalstats|}}
+											{{#if (gt totalstats 0)}}
+												{{round (div (mult 100 (add deckstats.firstObject.wincasual deckstats.firstObject.win)) totalstats)}} %
+											{{/if}}
+										{{/with}}
 									</div>
 								{{/with}}
 								{{#link-to 'user.deck' deck.id}}
@@ -96,12 +95,11 @@
 						<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
 							{{#with (filter (action "filterOwned") deck.deckstats) as |deckstats|}}
 								<div style="float: right;">
-									{{#if (gt (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual) 0)}}
-										{{round (div (mult 100 deckstats.firstObject.wincasual) (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual))}} %
-									{{/if}}
-									{{#if (gt (add deckstats.firstObject.win deckstats.firstObject.loose) 0)}}
-										, {{round (div (mult 100 deckstats.firstObject.win) (add deckstats.firstObject.win deckstats.firstObject.loose))}} %
-									{{/if}}
+									{{#with (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual deckstats.firstObject.win deckstats.firstObject.loose) as |totalstats|}}
+										{{#if (gt totalstats 0)}}
+											{{round (div (mult 100 (add deckstats.firstObject.wincasual deckstats.firstObject.win)) totalstats)}} %
+										{{/if}}
+									{{/with}}
 								</div>
 							{{/with}}
 							{{#link-to 'user.deck' deck.id}}
