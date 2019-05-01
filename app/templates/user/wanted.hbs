@@ -1,0 +1,43 @@
+{{#each groups as |group|}}
+	<div class="card">
+		<div class="image">
+			<img src={{group.card.image}} title={{group.card.cardset.name_fr}} />
+		</div>
+		<div class="number">
+			<div class="wanted-decks">
+				<div class="decks">
+					{{#with group.card.deckcards as |deckcards|}}
+						<span>{{deckcards.length}} <i class="fas fa-layer-group"></i></span>
+						<ul class="wanteddecks">
+							{{#each deckcards as |deckcard|}}
+								<li>
+									{{deckcard.fulldeck}}
+								</li>
+							{{/each}}
+						</ul>
+					{{else}}
+						<span>&nbsp;</span>
+					{{/with}}
+				</div>
+				<div class="wanted">
+					<span>
+						{{group.total}}
+						{{#if (eq group.max 1)}}
+							<i class="far fa-heart"></i>
+						{{else}}
+							<i class="fas fa-heart"></i>
+						{{/if}}
+					</span>
+					<ul class="wanteddecks">
+						{{#each group.wantedcards as |wantedcard|}}
+							<li>
+								{{wantedcard.number}} <i class="fas fa-heart"></i> {{wantedcard.fulldeck}}
+							</li>
+						{{/each}}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+{{/each}}
+
