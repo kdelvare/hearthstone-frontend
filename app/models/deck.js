@@ -6,6 +6,7 @@ export default DS.Model.extend({
 	name: DS.attr('string'),
 	url: DS.attr('string'),
 	deckstring: DS.attr('string'),
+	comment: DS.attr('string'),
 
 	cardclass: DS.belongsTo(),
 	deckcards: DS.hasMany(),

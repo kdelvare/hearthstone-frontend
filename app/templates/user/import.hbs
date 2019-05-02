@@ -38,6 +38,8 @@ Importer un deck
 	Nom : {{input value=deck.name}}
 	<br/>
 	URL : {{input value=deck.url}}
+	<br/>
+	Commentaire : {{textarea value=deck.comment cols=80 rows=6}}
 	<br/><br/>
 
 	Utilisateur : <select onchange={{action "setUser" value="target.value"}}>
