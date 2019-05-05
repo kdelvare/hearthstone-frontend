@@ -30,7 +30,7 @@
 	<tr>
 		{{#each model.decks as |deck|}}
 			<td style="background-color: hsl({{get (get deckstats deck.id) "color"}});">
-				{{#link-to 'user.deck' deck.id}}
+				{{#link-to 'user.decks.deck' deck.id}}
 					{{deck.name}}
 				{{/link-to}}
 				{{#if deck.url}}

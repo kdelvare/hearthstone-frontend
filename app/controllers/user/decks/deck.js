@@ -149,14 +149,14 @@ export default Controller.extend({
 					deckcard.set('deck', savedDeck);
 					deckcard.save();
 				});
-				this.transitionToRoute('user.deck', savedDeck.id);
+				this.transitionToRoute('user.decks.deck', savedDeck.id);
 			});
 		},
 
 		delete() {
 			this.get('model.deck').deleteRecord();
 			this.get('model.deck').save().then(() => {
-				this.transitionToRoute('user.deckgroups', { queryParams: { cardset: 1130 } });
+				this.transitionToRoute('user.decks', { queryParams: { cardset: 1130 } });
 			});
 		},
 

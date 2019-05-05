@@ -135,7 +135,7 @@ export default Controller.extend({
 				user: this.get('model.user')
 			});
 			deck.save().then(savedDeck => {
-				this.transitionToRoute('user.deck', this.get('model.user.id'), savedDeck.id);
+				this.transitionToRoute('user.decks.deck', this.get('model.user.id'), savedDeck.id);
 			});
 		}
 	}
