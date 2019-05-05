@@ -1,0 +1,73 @@
+<div>
+	{{#each deckclasses as |cardclass|}}
+		<img src={{cardclass.image}} title={{cardclass.name_fr}} alt={{cardclass.name_fr}} width="64px"
+			class={{concat "pointer" (if (and class (not-eq class cardclass.id)) " faded")}}
+			{{action 'toggleParam' 'class' cardclass.id}}
+		/>
+	{{/each}}
+</div>
+
+<div>
+	{{#each model.cardsets as |set|}}
+		{{#if set.standard}}
+			<img src={{set.image}} title={{set.name_fr}} alt={{set.name_fr}} height="50px"
+				class={{concat "pointer" (if (and cardset (not-eq cardset set.id)) " faded")}}
+				{{action 'toggleParam' 'cardset' set.id}}
+			/>
+		{{/if}}
+	{{/each}}
+</div>
+
+<p/>
+
+<table>
+	<tr>
+		<th>Source</th>
+		<th>Classe</th>
+		<th>Nom</th>
+		<th>Cartes</th>
+		<th>Poussière</th>
+		<th>Coût restant</th>
+		<th>Non classé</th>
+		<th>Classé</th>
+	</tr>
+	{{#each alldecks as |deck|}}
+		<tr>
+			<td>{{deck.source.name}}</td>
+			<th class={{concat 'cardclass cardclass-' deck.cardclass.name_fr}}>{{deck.cardclass.name_fr}}</th>
+			<td>
+				{{#link-to 'user.decks.deck' deck.id}}
+					{{deck.name}}
+				{{/link-to}}
+			</td>
+			{{#if deck.size}}
+				<td>{{deck.owned}}/{{deck.size}}</td>
+				<td style="background-color: hsl({{deck.color}});">{{deck.ownedDust}}/{{deck.dust}}</td>
+				<td class={{if (gt missing 0) "missing"}}>{{deck.missingDust}}</td>
+			{{else}}
+				<td></td>
+				<td></td>
+				<td></td>
+			{{/if}}
+			{{#with (filter (action "filterOwned") deck.deckstats) as |deckstats|}}
+				<td>
+					{{#with (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual) as |totalstats|}}
+						{{#if (gt totalstats 0)}}
+							{{round (div (mult 100 deckstats.firstObject.wincasual) totalstats)}} %
+						{{/if}}
+					{{/with}}
+				</td>
+				<td>
+					{{#with (add deckstats.firstObject.win deckstats.firstObject.loose) as |totalstats|}}
+						{{#if (gt totalstats 0)}}
+							{{round (div (mult 100 deckstats.firstObject.win) totalstats)}} %
+						{{/if}}
+					{{/with}}
+				</td>
+			{{else}}
+				<td></td>
+				<td></td>
+			{{/with}}
+		</tr>
+	{{/each}}
+</table>
