@@ -30,6 +30,7 @@
 		<th>Coût restant</th>
 		<th>Non classé</th>
 		<th>Classé</th>
+		<th><i class="fas fa-heart faded"></i></th>
 	</tr>
 	{{#each alldecks as |deck|}}
 		<tr>
@@ -68,6 +69,15 @@
 				<td></td>
 				<td></td>
 			{{/with}}
+			<th>
+				{{#if (gt deck.ownedDust 0)}}
+					{{#with (filter (action "filterOwned") deck.wanteddecks) as |wanteddecks|}}
+						<i class="fas fa-heart pointer" style="color: red;" {{action "removeWanteddeck" wanteddecks.firstObject}}></i>
+					{{else}}
+						<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" deck}}></i>
+					{{/with}}
+				{{/if}}
+			</th>
 		</tr>
 	{{/each}}
 </table>

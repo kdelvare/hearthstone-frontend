@@ -60,6 +60,58 @@ export default Controller.extend({
 
 		filterOwned(collection) {
 			return collection.user.get('id') === this.get('model.user.id');
+		},
+
+		addWanteddeck(deck) {
+			const user = this.get('model.user')
+			const wanteddeck = this.get('store').createRecord('wanteddeck', {
+				user: user,
+				deck: deck
+			});
+			wanteddeck.save().then(wanteddeck => {
+				deck.deckcards.forEach(deckcard => {
+					let userCollection = deckcard.card.get('collections').filter(collection => {
+						return collection.user.get('id') === user.id;
+					}).firstObject;
+					if (userCollection) {
+						const missingNumber = deckcard.number - userCollection.number;
+						if (missingNumber > 0) {
+							const wantedcard = this.get('store').createRecord('wantedcard', {
+								user: user,
+								card: deckcard.card,
+								wanteddeck: wanteddeck,
+								number: missingNumber
+							});
+							wantedcard.save();
+						}
+					} else {
+						const wantedcard = this.get('store').createRecord('wantedcard', {
+							user: user,
+							card: deckcard.card,
+							wanteddeck: wanteddeck,
+							number: deckcard.number
+						});
+						wantedcard.save();
+					}
+				});
+			});
+		},
+
+		removeWanteddeck(wanteddeck) {
+			wanteddeck.get('wantedcards').then(wantedcards => {
+				wantedcards.forEach(wantedcard => {
+					wantedcard.get('card').then(card => {
+						card.wantedcards.removeObject(wantedcard);
+					});
+					wantedcard.deleteRecord();
+					wantedcard.save();
+				});
+			});
+			wanteddeck.get('deck').then(deck => {
+				deck.wanteddecks.removeObject(wanteddeck);
+			});
+			wanteddeck.deleteRecord();
+			wanteddeck.save();
 		}
 	}
 });
