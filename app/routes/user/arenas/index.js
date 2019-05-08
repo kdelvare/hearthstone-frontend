@@ -8,7 +8,10 @@ export default Route.extend({
 	model() {
 		const user = this.get('currentUser.user');
 		return RSVP.hash({
-			arenas: this.store.query('arena', { filter: { user: user.id } }),
+			arenas: this.store.query('arena', {
+				filter: { user: user.id },
+				include: 'cardclass,arenamatches,arenamatches.cardclass'
+			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			user: user
 		});

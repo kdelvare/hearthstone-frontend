@@ -22,12 +22,20 @@
 			<td>{{#link-to 'user.arenas.arena' arena.id}}{{moment-format arena.date 'L'}}{{/link-to}}</td>
 			<th class={{concat 'cardclass cardclass-' arena.cardclass.name_fr}}>{{arena.cardclass.name_fr}}</th>
 			<td>{{arena.archetype}}</td>
-			<td>{{arena.score}}</td>
 			<td>
-				{{arena.win}}
-				{{#unless arena.done}}
-					(en cours)
-				{{/unless}}
+				{{arena.score}}
+			</td>
+			<td>
+				{{#each arena.arenamatches as |arenamatch|}}
+					<img src={{arenamatch.cardclass.image}} title={{arenamatch.cardclass.name_fr}} alt={{arenamatch.cardclass.name_fr}} width="32px"
+						class={{if (not arenamatch.won) "faded" ""}}
+					/>
+				{{else}}
+					{{arena.win}}
+					{{#unless arena.done}}
+						(en cours)
+					{{/unless}}
+				{{/each}}
 			</td>
 		{{/link-to}}
 	{{/each}}
