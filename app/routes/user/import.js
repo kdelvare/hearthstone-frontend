@@ -13,7 +13,9 @@ export default Route.extend({
 				fields: { deck: 'name,deckstring', cardclass: 'name', deckgroup: 'name', user: 'name' }
 			}),
 			user: user,
-			deckgroups: this.store.findAll('deckgroup'),
+			deckgroups: this.store.query('deckgroup', {
+				sort: '-cardset_id,name'
+			}),
 			cardsets: this.store.query('cardset', { filter: { collectible: true } })
 		});
 	}
