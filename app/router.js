@@ -10,8 +10,9 @@ Router.map(function() {
 	this.route('login');
 
 	this.route('user', function() {
+		this.route('profile');
 		this.route('collection');
-		this.route('wanted');
+		this.route('packs');
 		this.route('deckgroups', function() {
 			this.route('deckgroup', { path: '/:deckgroup_id' });
 			this.route('classdecks');
@@ -21,8 +22,10 @@ Router.map(function() {
 		});
 		this.route('import');
 		this.route('stats');
-		this.route('profile');
-		this.route('packs');
+		this.route('wanted');
+		this.route('arenas', function() {
+			this.route('arena', { path: '/:arena_id' });
+		});
 	})
 });
 

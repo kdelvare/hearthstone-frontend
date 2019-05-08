@@ -1,0 +1,29 @@
+<select onchange={{action (mut class) value="target.value"}}>
+	{{#each model.cardclasses as |cardclass|}}
+		<option value={{cardclass.id}} selected={{eq class cardclass.id}}>{{cardclass.name_fr}}</option>
+	{{/each}}
+</select>
+{{input value=archetype placeholder="Archétype"}}
+{{input value=score placeholder="Score"}}
+<button {{action "save"}}>Créer</button>
+
+<hr/>
+
+<table>
+	<tr>
+		<th>Date</th>
+		<th>Classe</th>
+		<th>Archétype</th>
+		<th>Score</th>
+		<th>Résultat</th>
+	</tr>
+	{{#each model.arenas as |arena|}}
+		<tr>
+			<td>{{moment-format arena.date 'L'}}</td>
+			<th class={{concat 'cardclass cardclass-' arena.cardclass.name_fr}}>{{arena.cardclass.name_fr}}</th>
+			<td>{{arena.archetype}}</td>
+			<td>{{arena.score}}</td>
+			<td></td>
+		</tr>
+	{{/each}}
+</table>
