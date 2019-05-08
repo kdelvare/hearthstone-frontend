@@ -18,8 +18,8 @@
 		<th>Résultat</th>
 	</tr>
 	{{#each model.arenas as |arena|}}
-		<tr>
-			<td>{{moment-format arena.date 'L'}}</td>
+		{{#link-to 'user.arenas.arena' arena.id tagName='tr'}}
+			<td>{{#link-to 'user.arenas.arena' arena.id}}{{moment-format arena.date 'L'}}{{/link-to}}</td>
 			<th class={{concat 'cardclass cardclass-' arena.cardclass.name_fr}}>{{arena.cardclass.name_fr}}</th>
 			<td>{{arena.archetype}}</td>
 			<td>{{arena.score}}</td>
@@ -29,6 +29,6 @@
 					(en cours)
 				{{/unless}}
 			</td>
-		</tr>
+		{{/link-to}}
 	{{/each}}
 </table>

@@ -8,5 +8,6 @@ export default DS.Model.extend({
 	win: DS.attr('number'),
 
 	cardclass: DS.belongsTo(),
-	user: DS.belongsTo()
+	user: DS.belongsTo(),
+	arenamatches: DS.hasMany()
 });

@@ -1,0 +1,30 @@
+<h3>{{model.arena.cardclass.name_fr}} {{model.arena.archetype}} {{model.arena.score}}</h3>
+
+<h4>Matches</h4>
+{{#unless model.arena.done}}
+	<table>
+		<tr>
+			{{#each arenaclasses as |cardclass|}}
+				<th class={{concat 'cardclass cardclass-' cardclass.name_fr}}>{{cardclass.name_fr}}</th>
+			{{/each}}
+		</tr>
+		<tr>
+			{{#each arenaclasses as |cardclass|}}
+				<td>
+					<button {{action "win" cardclass}}>Gagné</button>
+					<br/>
+					<button {{action "lose" cardclass}}>Perdu</button>
+				</td>
+			{{/each}}
+		</tr>
+	</table>
+{{/unless}}
+
+<table>
+	{{#each model.arena.arenamatches as |arenamatch|}}
+		<tr>
+			<th class={{concat 'cardclass cardclass-' arenamatch.cardclass.name_fr}}>{{arenamatch.cardclass.name_fr}}</th>
+			<td>{{if arenamatch.won "Gagné" "Perdu"}}</td>
+		</tr>
+	{{/each}}
+</table>
