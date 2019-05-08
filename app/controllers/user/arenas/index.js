@@ -10,7 +10,7 @@ export default Controller.extend({
 				archetype: this.get('archetype'),
 				score: this.get('score'),
 				done: false,
-				win: -1,
+				win: 0,
 				cardclass: this.get('store').peekRecord('cardclass', this.get('class')),
 				user: this.get('model.user')
 			}).save().then(/*arena => {

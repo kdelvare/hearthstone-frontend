@@ -23,7 +23,12 @@
 			<th class={{concat 'cardclass cardclass-' arena.cardclass.name_fr}}>{{arena.cardclass.name_fr}}</th>
 			<td>{{arena.archetype}}</td>
 			<td>{{arena.score}}</td>
-			<td></td>
+			<td>
+				{{arena.win}}
+				{{#unless arena.done}}
+					(en cours)
+				{{/unless}}
+			</td>
 		</tr>
 	{{/each}}
 </table>
