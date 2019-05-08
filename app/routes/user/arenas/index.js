@@ -10,7 +10,7 @@ export default Route.extend({
 		return RSVP.hash({
 			arenas: this.store.query('arena', {
 				filter: { user: user.id },
-				include: 'cardclass,arenamatches,arenamatches.cardclass'
+				include: 'cardclass,arenamatches,arenamatches.cardclass,arenarewards,arenarewards.cardset,arenarewards.card'
 			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
 			user: user

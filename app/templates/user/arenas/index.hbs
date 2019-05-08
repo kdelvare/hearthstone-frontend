@@ -16,6 +16,8 @@
 		<th>Archétype</th>
 		<th>Score</th>
 		<th>Résultat</th>
+		<th>Récompenses</th>
+		<th>Bénéfice</th>
 	</tr>
 	{{#each model.arenas as |arena|}}
 		{{#link-to 'user.arenas.arena' arena.id tagName='tr'}}
@@ -31,11 +33,20 @@
 						class={{if (not arenamatch.won) "faded" ""}}
 					/>
 				{{else}}
-					{{arena.win}}
+					{{arena.win}} victoires
 					{{#unless arena.done}}
 						(en cours)
 					{{/unless}}
 				{{/each}}
+			</td>
+			<td>
+				{{#each arena.arenarewards as |arenareward index|}}
+					{{#if index}}+{{/if}}
+					{{arenareward.text}}
+				{{/each}}
+			</td>
+			<td>
+				{{arena.gain}}
 			</td>
 		{{/link-to}}
 	{{/each}}

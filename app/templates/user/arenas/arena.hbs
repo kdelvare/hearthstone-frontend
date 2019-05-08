@@ -28,3 +28,26 @@
 		</tr>
 	{{/each}}
 </table>
+
+{{#if model.arena.done}}
+	<h4>Récompenses</h4>
+	<ul>
+		{{#each model.arena.arenarewards as |arenareward|}}
+			<li>{{arenareward.text}}</li>
+		{{/each}}
+	</ul>
+
+	Or : {{input value=gold}} <button {{action "addGold"}}>Ajouter</button>
+	<br/>
+	Poussière : {{input value=dust}} <button {{action "addDust"}}>Ajouter</button>
+	<br/>
+	Paquet :
+	<select onchange={{action (mut cardset) value="target.value"}}>
+		{{#each model.cardsets as |cardset2|}}
+			<option value={{cardset2.id}} selected={{eq cardset cardset2.id}}>{{cardset2.name_fr}}</option>
+		{{/each}}
+	</select>
+	<button {{action "addPack"}}>Ajouter</button>
+	<br/>
+	Carte : TODO
+{{/if}}

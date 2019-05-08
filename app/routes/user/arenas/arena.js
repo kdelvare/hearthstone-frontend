@@ -12,6 +12,7 @@ export default Route.extend({
 				include: 'cardclass,arenamatches,arenamatches.cardclass'
 			}),
 			cardclasses: this.store.query('cardclass', { filter: { collectible: true } }),
+			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
 			user: user
 		});
 	}
