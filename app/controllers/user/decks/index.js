@@ -6,7 +6,9 @@ export default Controller.extend({
 	cardset: null,
 	class: null,
 
-	alldecks: computed('model.{user,decks,deckgroups}', function() {
+	sources: computed('model.{user,decks,deckgroups}', function() {
+		let sources = this.get('model.deckgroups').toArray();
+		sources.unshift(this.get('model.user'));
 		let alldecks = this.get('model.deckgroups').reduce((decks, deckgroup) => {
 			deckgroup.decks.forEach(deck => {
 				deck.set('source', deckgroup);
@@ -41,7 +43,7 @@ export default Controller.extend({
 			deck.set('color', `${deck.color[0]}, ${deck.color[1]}%, ${deck.color[2]}%`);
 		})
 
-		return alldecks;
+		return sources;
 	}),
 
 	deckclasses: computed('model.cardclasses', function() {
