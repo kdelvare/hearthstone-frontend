@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { encode } from 'deckstrings';
+import RSVP from 'rsvp';
 
 export default Controller.extend({
 	queryParams: ['cardset'],
@@ -161,54 +162,62 @@ export default Controller.extend({
 		},
 
 		addWanteddeck(deck) {
+			const user = this.get('model.user')
 			const wanteddeck = this.get('store').createRecord('wanteddeck', {
-				user: this.get('model.user'),
+				user: user,
 				deck: deck
 			});
+			this.set('lock', true);
 			wanteddeck.save().then(wanteddeck => {
+				let wantedcardPromises = [];
 				deck.deckcards.forEach(deckcard => {
 					let userCollection = deckcard.card.get('collections').filter(collection => {
-						return collection.user.get('id') === this.get('model.user.id');
+						return collection.user.get('id') === user.id;
 					}).firstObject;
 					if (userCollection) {
 						const missingNumber = deckcard.number - userCollection.number;
 						if (missingNumber > 0) {
 							const wantedcard = this.get('store').createRecord('wantedcard', {
-								user: this.get('model.user'),
+								user: user,
 								card: deckcard.card,
 								wanteddeck: wanteddeck,
 								number: missingNumber
 							});
-							wantedcard.save();
+							wantedcardPromises.push(wantedcard.save());
 						}
 					} else {
 						const wantedcard = this.get('store').createRecord('wantedcard', {
-							user: this.get('model.user'),
+							user: user,
 							card: deckcard.card,
 							wanteddeck: wanteddeck,
 							number: deckcard.number
 						});
-						wantedcard.save();
+						wantedcardPromises.push(wantedcard.save());
 					}
+				});
+				RSVP.allSettled(wantedcardPromises).then(() => {
+					this.set('lock', false);
 				});
 			});
 		},
 
 		removeWanteddeck(wanteddeck) {
-			wanteddeck.get('wantedcards').then(wantedcards => {
-				wantedcards.forEach(wantedcard => {
-					wantedcard.get('card').then(card => {
-						card.wantedcards.removeObject(wantedcard);
+			if (!this.get('lock')) {
+				wanteddeck.get('wantedcards').then(wantedcards => {
+					wantedcards.forEach(wantedcard => {
+						wantedcard.get('card').then(card => {
+							card.wantedcards.removeObject(wantedcard);
+						});
+						wantedcard.deleteRecord();
+						wantedcard.save();
 					});
-					wantedcard.deleteRecord();
-					wantedcard.save();
 				});
-			});
-			wanteddeck.get('deck').then(deck => {
-				deck.wanteddecks.removeObject(wanteddeck);
-			});
-			wanteddeck.deleteRecord();
-			wanteddeck.save();
+				wanteddeck.get('deck').then(deck => {
+					deck.wanteddecks.removeObject(wanteddeck);
+				});
+				wanteddeck.deleteRecord();
+				wanteddeck.save();
+			}
 		},
 
 		showDeckstring() {
