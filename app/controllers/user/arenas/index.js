@@ -13,9 +13,9 @@ export default Controller.extend({
 				win: 0,
 				cardclass: this.get('store').peekRecord('cardclass', this.get('class')),
 				user: this.get('model.user')
-			}).save().then(/*arena => {
+			}).save().then(arena => {
 				this.transitionToRoute('user.arenas.arena', arena.id);
-			}*/);
+			});
 		}
 	}
 });

@@ -19,6 +19,7 @@ Router.map(function() {
 		});
 		this.route('decks', function() {
 			this.route('deck', { path: '/:deck_id' });
+			this.route('compare', { path: '/:deck_id1/:deck_id2' });
 		});
 		this.route('import');
 		this.route('stats');

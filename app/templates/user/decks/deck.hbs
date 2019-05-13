@@ -267,3 +267,10 @@
 		<td>A obtenir d'une extension des années précédentes</td>
 	</tr>
 </table>
+
+<select onchange={{action 'compare' value="target.value"}}>
+	<option>Comparer avec...</option>
+	{{#each compareDecks as |deck|}}
+		<option value={{deck.id}}>{{deck.fullname}}</option>
+	{{/each}}
+</select>

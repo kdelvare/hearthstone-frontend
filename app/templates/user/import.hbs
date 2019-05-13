@@ -21,14 +21,7 @@ Importer un deck
 				Attention ! Ce deck est identique aux decks
 				<ul>
 				{{#each sameDecks as |sameDeck|}}
-					{{log "sameDeck" sameDeck sameDeck.cardclass sameDeck.name sameDeck.deckgroup sameDeck.user}}
-					<li>{{sameDeck.cardclass.name_fr}} {{sameDeck.name}}
-					{{#if sameDeck.deckgroup}}
-						du groupe {{sameDeck.deckgroup.name}}
-					{{/if}}
-					{{#if sameDeck.user}}
-						de l'utilisateur {{sameDeck.user.name}}
-					{{/if}}</li>
+					<li>{{sameDeck.fullname}}</li>
 				{{/each}}
 				</ul>
 			</p>

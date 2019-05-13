@@ -84,6 +84,13 @@ export default Controller.extend({
 		}, 0);
 	}),
 
+	compareDecks: computed('model.decks', function() {
+		const cardclass_id = this.get('model.deck.cardclass.id');
+		return this.get('model.decks').filter(deck => {
+			return deck.get('cardclass.id') === cardclass_id;
+		})
+	}),
+
 	_updateDeckstring() {
 		const deck = this.get('model.deck');
 		deck.set('deckstring', deck.exportString);
@@ -366,6 +373,10 @@ export default Controller.extend({
 				});
 				deckstat.save();
 			}
+		},
+
+		compare(compareDeck) {
+			this.transitionToRoute('user.decks.compare', this.get('model.deck.id'), compareDeck);
 		}
 	}
 });

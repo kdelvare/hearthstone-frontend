@@ -1,0 +1,38 @@
+{{commonCount}} cartes en commun
+
+<table>
+	<tr>
+		<th class={{concat 'cardclass cardclass-' model.deck1.cardclass.name_fr}}>{{model.deck1.cardclass.name_fr}} {{model.deck1.name}}</th>
+		<th class={{concat 'cardclass cardclass-' model.deck2.cardclass.name_fr}}>{{model.deck2.cardclass.name_fr}} {{model.deck2.name}}</th>
+	</tr>
+	{{#each compareCards as |compareCard|}}
+		<tr>
+			{{#with compareCard.deckcard1 as |deckcard|}}
+				<td class={{concat "deckcard cardset-" deckcard.card.cardset.class}}>
+					<span class={{concat 'rarity-' deckcard.card.rarity.name_fr (if (lt deckcard.card.cardclass.id 12) ' cardclass')}}>
+						{{deckcard.number}}x {{deckcard.card.name_fr}}
+					</span>
+					<div class="cardinfo">
+						<img src={{deckcard.card.image}} />
+						<div class="cardset">{{deckcard.card.cardset.name_fr}}</div>
+					</div>
+				</td>
+			{{else}}
+				<td></td>
+			{{/with}}
+			{{#with compareCard.deckcard2 as |deckcard|}}
+				<td class={{concat "deckcard cardset-" deckcard.card.cardset.class}}>
+					<span class={{concat 'rarity-' deckcard.card.rarity.name_fr (if (lt deckcard.card.cardclass.id 12) ' cardclass')}}>
+						{{deckcard.number}}x {{deckcard.card.name_fr}}
+					</span>
+					<div class="cardinfo">
+						<img src={{deckcard.card.image}} />
+						<div class="cardset">{{deckcard.card.cardset.name_fr}}</div>
+					</div>
+				</td>
+			{{else}}
+				<td></td>
+			{{/with}}
+		</tr>
+	{{/each}}
+</table>
