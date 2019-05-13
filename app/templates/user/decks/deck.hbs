@@ -53,9 +53,8 @@
 			{{else}}
 				<i class="fas fa-heart faded pointer" style="color: red;" {{action "addWanteddeck" model.deck}}></i>
 			{{/with}}
-			<i class="fas fa-file-export pointer" title="Exporter" {{action "showDeckstring"}}></i>
-			{{#if showDeckstring}}
-				{{model.deck.deckstring}}
+			{{#if model.deck.deckstring}}
+				<i class={{concat "fas fa-file-export pointer" (if deckstringCopied " copied" "")}} title="Exporter" {{action "copyDeckstring"}}></i>
 			{{/if}}
 			<br/>
 			{{#with (filter (action "filterOwned") model.deck.deckstats) as |deckstats|}}

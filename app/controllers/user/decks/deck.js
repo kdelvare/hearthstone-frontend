@@ -8,8 +8,6 @@ export default Controller.extend({
 	cardset: null,
 	page: 1,
 
-	showDeckstring: false,
-
 	exportString: computed('model.deck.cardclass', 'model.deck.deckcards.@each.{number,card}', function() {
 		const heroes = [0, 0, 274, 31, 637, 671, 813, 930, 1066, 893, 7];
 		const cardclass = this.get('model.deck.cardclass');
@@ -227,8 +225,11 @@ export default Controller.extend({
 			}
 		},
 
-		showDeckstring() {
-			this.toggleProperty('showDeckstring');
+		copyDeckstring() {
+			let deckstring = this.get('model.deck.deckstring');
+			navigator.clipboard.writeText(deckstring).then(() => {
+				this.set('deckstringCopied', true);
+			});
 		},
 
 		incNumber(deckcard) {
