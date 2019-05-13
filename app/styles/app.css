@@ -241,9 +241,6 @@ th, td {
 tr.decks {
 	vertical-align: top;
 }
-.copied {
-	color: green;
-}
 
 .rarity-Gratuite {
 	color: dimgray;

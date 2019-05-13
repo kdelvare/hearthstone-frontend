@@ -23,10 +23,5 @@ export default Route.extend({
 				sort: 'name'
 			})
 		});
-	},
-
-	setupController(controller) {
-		this._super(...arguments);
-		controller.set('deckstringCopied', false);
 	}
 });
