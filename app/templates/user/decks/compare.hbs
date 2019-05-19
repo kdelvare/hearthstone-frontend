@@ -2,8 +2,16 @@
 
 <table>
 	<tr>
-		<th class={{concat 'cardclass cardclass-' model.deck1.cardclass.name_fr}}>{{model.deck1.cardclass.name_fr}} {{model.deck1.name}}</th>
-		<th class={{concat 'cardclass cardclass-' model.deck2.cardclass.name_fr}}>{{model.deck2.cardclass.name_fr}} {{model.deck2.name}}</th>
+		<th class={{concat 'cardclass cardclass-' model.deck1.cardclass.name_fr}}>
+			{{model.deck1.cardclass.name_fr}} {{model.deck1.name}}
+			<br/>
+			({{model.deck1.belongsname}})
+		</th>
+		<th class={{concat 'cardclass cardclass-' model.deck2.cardclass.name_fr}}>
+			{{model.deck2.cardclass.name_fr}} {{model.deck2.name}}
+			<br/>
+			({{model.deck2.belongsname}})
+		</th>
 	</tr>
 	{{#each compareCards as |compareCard|}}
 		<tr>
