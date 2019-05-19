@@ -16,7 +16,8 @@ export default DS.Model.extend({
 	gain: computed('arenarewards', function() {
 		const arenarewards = this.get('arenarewards').toArray();
 		// Remove pack that could have been bought
-		arenarewards.pop(arenarewards.find(arenareward => arenareward.cardset.get('id')));
+		const packIndex = arenarewards.indexOf(arenarewards.find(arenareward => arenareward.cardset.get('id')));
+		arenarewards.splice(packIndex, 1);
 		const packs = arenarewards.filter((arenareward) => arenareward.cardset.get('id'));
 		const cards = arenarewards.filter((arenareward) => arenareward.card.get('id'));
 		const dust = arenarewards.reduce((dust, arenareward) => {

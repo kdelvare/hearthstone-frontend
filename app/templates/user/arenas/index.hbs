@@ -15,7 +15,8 @@
 		<th>Classe</th>
 		<th>Archétype</th>
 		<th>Score</th>
-		<th>Résultat</th>
+		<th>Matches</th>
+		<th>Victoires</th>
 		<th>Récompenses</th>
 		<th>Bénéfice</th>
 	</tr>
@@ -32,12 +33,13 @@
 					<img src={{arenamatch.cardclass.image}} title={{arenamatch.cardclass.name_fr}} alt={{arenamatch.cardclass.name_fr}} width="32px"
 						class={{if (not arenamatch.won) "faded" ""}}
 					/>
-				{{else}}
-					{{arena.win}} victoires
-					{{#unless arena.done}}
-						(en cours)
-					{{/unless}}
 				{{/each}}
+				{{#unless arena.done}}
+					(...)
+				{{/unless}}
+			</td>
+			<td>
+				{{arena.win}}
 			</td>
 			<td>
 				{{#each arena.arenarewards as |arenareward index|}}
@@ -46,7 +48,9 @@
 				{{/each}}
 			</td>
 			<td>
-				{{arena.gain}}
+				{{#if arena.done}}
+					{{arena.gain}}
+				{{/if}}
 			</td>
 		{{/link-to}}
 	{{/each}}
