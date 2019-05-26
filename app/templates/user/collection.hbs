@@ -95,7 +95,7 @@
 	{{#with (filter (action "filterOwned") card.collections) as |collection|}}
 		<div class="card">
 			<div class="image">
-				<img src={{card.image}} class="pointer" title={{card.cardset.name_fr}} {{action 'addToCollection' card}} />
+				<img src={{card.image}} class="pointer" title={{card.cardset.name_fr}} alt={{card.name_fr}} {{action 'addToCollection' card}} />
 			</div>
 			<div class="number">
 				<div class="wanted-decks">
