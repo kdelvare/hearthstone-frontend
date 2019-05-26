@@ -1,33 +1,33 @@
 <div class="navigation">
 	<div class="session">
 		{{#link-to 'user.profile' title="Profil"}}
-			<i class="fas fa-user pointer fa-2x"></i>
+			<i class="fas fa-user pointer fa-2x" alt="Profil"></i>
 		{{/link-to}}
 	</div>
 
 	{{#link-to 'user.collection' title="Collection"}}
-		<i class="fas fa-th pointer fa-2x"></i>
+		<i class="fas fa-th pointer fa-2x" alt="Collection"></i>
 	{{/link-to}}
 
 	{{#link-to 'user.decks' (query-params cardset=latest) title="Decks"}}
-		<i class="fas fa-layer-group pointer fa-2x"></i>
+		<i class="fas fa-layer-group pointer fa-2x" alt="Decks"></i>
 	{{/link-to}}
 
 	{{#link-to 'user.import' class="fa-stack fa-1x" title="Importer un deck"}}
 		<i class="fas fa-layer-group fa-stack-2x"></i>
-		<i class="fas fa-long-arrow-alt-down fa-stack-2x" style="color: green;"></i>
+		<i class="fas fa-long-arrow-alt-down fa-stack-2x" style="color: green;" alt="Importer"></i>
 	{{/link-to}}
 
 	{{#link-to 'user.stats' title="Stats"}}
-		<i class="fas fa-percent pointer fa-2x"></i>
+		<i class="fas fa-percent pointer fa-2x" alt="Stats"></i>
 	{{/link-to}}
 
 	{{#link-to 'user.wanted' title="Recherchées"}}
-		<i class="fas fa-heart pointer fa-2x"></i>
+		<i class="fas fa-heart pointer fa-2x" alt="Recherchées"></i>
 	{{/link-to}}
 
 	{{#link-to 'user.arenas' title="Arène"}}
-		<i class="fas fa-gopuram pointer fa-2x"></i>
+		<i class="fas fa-gopuram pointer fa-2x" alt="Arène"></i>
 	{{/link-to}}
 </div>
 

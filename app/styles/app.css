@@ -66,6 +66,11 @@ th.format img {
 	margin-bottom: 20px;
 }
 
+.card .image {
+	width: 256px;
+	height: 387px;
+}
+
 .card .number {
 	text-align: center;
 	margin-top: -40px;
