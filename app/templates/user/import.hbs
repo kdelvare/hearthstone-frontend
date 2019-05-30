@@ -21,7 +21,11 @@ Importer un deck
 				Attention ! Ce deck est identique aux decks
 				<ul>
 				{{#each sameDecks as |sameDeck|}}
-					<li>{{sameDeck.fullname}}</li>
+					<li>
+						{{#link-to 'user.decks.deck' sameDeck.id}}
+							{{sameDeck.name}}
+						{{/link-to}}
+					</li>
 				{{/each}}
 				</ul>
 			</p>
