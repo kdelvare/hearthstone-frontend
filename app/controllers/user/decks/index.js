@@ -122,6 +122,17 @@ export default Controller.extend({
 				wanteddeck.deleteRecord();
 				wanteddeck.save();
 			}
+		},
+
+		deleteDeckgroup(deckgroup) {
+			deckgroup.get('decks').then(decks => {
+				decks.forEach(deck => {
+					deck.deleteRecord();
+					deck.save();
+				})
+			})
+			deckgroup.deleteRecord();
+			deckgroup.save();
 		}
 	}
 });

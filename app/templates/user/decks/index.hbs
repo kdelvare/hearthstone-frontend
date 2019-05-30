@@ -45,6 +45,9 @@
 									<i class="fas fa-external-link-alt"></i>
 								</a>
 							{{/if}}
+							{{#unless (eq source.constructor.modelName 'user')}}
+								<br/><i class="fas fa-trash pointer" title="Supprimer" {{action "deleteDeckgroup" source}}></i>
+							{{/unless}}
 						</td>
 					{{/unless}}
 					<th class={{concat 'cardclass cardclass-' deck.cardclass.name_fr}}>{{deck.cardclass.name_fr}}</th>
