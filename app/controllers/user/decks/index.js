@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import RSVP from 'rsvp';
+import RSVP, { all } from 'rsvp';
 
 export default Controller.extend({
 	queryParams: ['cardset', 'class'],
@@ -107,32 +107,68 @@ export default Controller.extend({
 
 		removeWanteddeck(wanteddeck) {
 			if (!this.get('lock')) {
+				let promises = [];
 				wanteddeck.get('wantedcards').then(wantedcards => {
 					wantedcards.forEach(wantedcard => {
 						wantedcard.get('card').then(card => {
 							card.wantedcards.removeObject(wantedcard);
 						});
-						wantedcard.deleteRecord();
-						wantedcard.save();
+						promises.push(wantedcard.invoke('destroyRecord'));
 					});
 				});
-				wanteddeck.get('deck').then(deck => {
-					deck.wanteddecks.removeObject(wanteddeck);
-				});
-				wanteddeck.deleteRecord();
-				wanteddeck.save();
+				all(promises).then(() => {
+					wanteddeck.get('deck').then(deck => {
+						deck.wanteddecks.removeObject(wanteddeck);
+					});
+					wanteddeck.destroyRecord();
+				})
 			}
 		},
 
-		deleteDeckgroup(deckgroup) {
+		toggleWantedDeckgroup(deckgroup) {
 			deckgroup.get('decks').then(decks => {
 				decks.forEach(deck => {
-					deck.deleteRecord();
-					deck.save();
+					deck.get('wanteddecks').then(wanteddecks => {
+						const userWanteddecks = wanteddecks.filter(wanteddeck => wanteddeck.user.get('id') === this.get('model.user.id'));
+						if (userWanteddecks.length) {
+							this.send('removeWanteddeck', userWanteddecks.firstObject);
+						} else {
+							this.send('addWanteddeck', deck);
+						}
+					})
+				});
+			});
+		},
+
+		deleteDeckgroup(deckgroup) {
+			let deckPromises = [];
+			deckgroup.get('decks').then(decks => {
+				decks.forEach(deck => {
+					let wanteddeckPromises = [];
+					deck.get('wanteddecks').then(wanteddecks => {
+						wanteddecks.forEach(wanteddeck => {
+							let wantedcardPromises = [];
+							wanteddeck.get('wantedcards').then(wantedcards => {
+								wantedcards.forEach(wantedcard => {
+									wantedcard.get('card').then(card => {
+										card.wantedcards.removeObject(wantedcard);
+									});
+									wantedcardPromises.push(wantedcard.invoke('destroyRecord'));
+								});
+							});
+							all(wantedcardPromises).then(() => {
+								wanteddeckPromises.push(wanteddeck.invoke('destroyRecord'));
+							})
+						})
+					})
+					all(wanteddeckPromises).then(() => {
+						deckPromises.push(deck.invoke('destroyRecord'));
+					})
 				})
 			})
-			deckgroup.deleteRecord();
-			deckgroup.save();
+			all(deckPromises).then(() => {
+				deckgroup.destroyRecord();
+			})
 		}
 	}
 });

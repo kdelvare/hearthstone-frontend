@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { encode } from 'deckstrings';
-import RSVP from 'rsvp';
+import RSVP, { all } from 'rsvp';
 
 export default Controller.extend({
 	queryParams: ['cardset'],
@@ -163,10 +163,29 @@ export default Controller.extend({
 		},
 
 		delete() {
-			this.get('model.deck').deleteRecord();
-			this.get('model.deck').save().then(() => {
-				this.transitionToRoute('user.decks', { queryParams: { cardset: 1130 } });
-			});
+			const deck = this.get('model.deck');
+			let wanteddeckPromises = [];
+			deck.get('wanteddecks').then(wanteddecks => {
+				wanteddecks.forEach(wanteddeck => {
+					let wantedcardPromises = [];
+					wanteddeck.get('wantedcards').then(wantedcards => {
+						wantedcards.forEach(wantedcard => {
+							wantedcard.get('card').then(card => {
+								card.wantedcards.removeObject(wantedcard);
+							});
+							wantedcardPromises.push(wantedcard.invoke('destroyRecord'));
+						});
+					});
+					all(wantedcardPromises).then(() => {
+						wanteddeckPromises.push(wanteddeck.invoke('destroyRecord'));
+					})
+				})
+			})
+			all(wanteddeckPromises).then(() => {
+				deck.destroyRecord().then(() => {
+					this.transitionToRoute('user.decks', { queryParams: { cardset: 1130 } });
+				});
+			})
 		},
 
 		addWanteddeck(deck) {
@@ -211,20 +230,21 @@ export default Controller.extend({
 
 		removeWanteddeck(wanteddeck) {
 			if (!this.get('lock')) {
+				let promises = [];
 				wanteddeck.get('wantedcards').then(wantedcards => {
 					wantedcards.forEach(wantedcard => {
 						wantedcard.get('card').then(card => {
 							card.wantedcards.removeObject(wantedcard);
 						});
-						wantedcard.deleteRecord();
-						wantedcard.save();
+						promises.push(wantedcard.invoke('destroyRecord'));
 					});
 				});
-				wanteddeck.get('deck').then(deck => {
-					deck.wanteddecks.removeObject(wanteddeck);
-				});
-				wanteddeck.deleteRecord();
-				wanteddeck.save();
+				all(promises).then(() => {
+					wanteddeck.get('deck').then(deck => {
+						deck.wanteddecks.removeObject(wanteddeck);
+					});
+					wanteddeck.destroyRecord();
+				})
 			}
 		},
 
@@ -269,8 +289,7 @@ export default Controller.extend({
 		removeDeckcard(deckcard) {
 			const deckcards = this.get('model.deck.deckcards');
 			deckcards.removeObject(deckcard);
-			deckcard.deleteRecord();
-			deckcard.save().then(() => this._updateDeckstring());
+			deckcard.destroyRecord().then(() => this._updateDeckstring());
 		},
 
 		toggleParam(name, value) {
