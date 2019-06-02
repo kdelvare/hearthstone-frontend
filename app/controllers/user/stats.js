@@ -29,12 +29,13 @@ export default Controller.extend({
 			rarities.forEach(rarity => {
 				subdata = data.rarities[rarity.id];
 				subdata.rate = subdata.owned / subdata.total || 0;
-				subdata.wantedrate = subdata.wanted / subdata.total || 0;
+				subdata.missingrate = subdata.missing / subdata.unique || 0;
+				subdata.wantedrate = subdata.wanted_uniq / subdata.unique || 0;
 			});
 			// 72% common, 23% rare, 4% epic, 1% legendary (with no double)
 			const fullLegendaries = data.rarities['5'].owned == data.rarities['5'].total;
-			multiple = data.rarities['1'].rate * 0.72 + data.rarities['3'].rate * 0.23 + data.rarities['4'].rate * 0.04 + (fullLegendaries ? 0.01 : 0);
-			missing = 1 - multiple;
+			missing = data.rarities['1'].missingrate * 0.72 + data.rarities['3'].missingrate * 0.23 + data.rarities['4'].missingrate * 0.04 + (fullLegendaries ? 0 : 0.01);
+			multiple = 1 - missing;
 			data.getnew = [
 				multiple ** 5,
 				5 * missing * multiple ** 4,
@@ -70,15 +71,15 @@ export default Controller.extend({
 			data.getwantedsum[1] = data.getwantedsum[2] + data.getwanted[1];
 			data.getwantedsum[0] = data.getwantedsum[1] + data.getwanted[0];
 			// Dust value for disenchanting extra cards...
-			data.newValue = 5 * (data.rarities['1'].rate * rarities.findBy('id', '1').destructionDust * 0.72
-				+ data.rarities['3'].rate * rarities.findBy('id', '3').destructionDust * 0.23
-				+ data.rarities['4'].rate * rarities.findBy('id', '4').destructionDust * 0.04
+			data.newValue = 5 * ((1 - data.rarities['1'].missingrate) * rarities.findBy('id', '1').destructionDust * 0.72
+				+ (1 - data.rarities['3'].missingrate) * rarities.findBy('id', '3').destructionDust * 0.23
+				+ (1 - data.rarities['4'].missingrate) * rarities.findBy('id', '4').destructionDust * 0.04
 				+ (fullLegendaries ? rarities.findBy('id', '5').destructionDust * 0.01 : 0));
 			// ... and avoid crafting missing cards
-			data.completionValue = data.newValue + 5 * ((1 - data.rarities['1'].rate) * rarities.findBy('id', '1').creationDust * 0.72
-				+ (1 - data.rarities['3'].rate) * rarities.findBy('id', '3').creationDust * 0.23
-				+ (1 - data.rarities['4'].rate) * rarities.findBy('id', '4').creationDust * 0.04
-				+ (fullLegendaries ? 0 : (1 - data.rarities['5'].rate) * rarities.findBy('id', '5').creationDust * 0.01));
+			data.completionValue = data.newValue + 5 * (data.rarities['1'].missingrate * rarities.findBy('id', '1').creationDust * 0.72
+				+ data.rarities['3'].missingrate * rarities.findBy('id', '3').creationDust * 0.23
+				+ data.rarities['4'].missingrate * rarities.findBy('id', '4').creationDust * 0.04
+				+ (fullLegendaries ? 0 : rarities.findBy('id', '5').creationDust * 0.01));
 			// ... and avoid crafting wanted cards
 			data.wantedValue = data.newValue + 5 * (data.rarities['1'].wantedrate * rarities.findBy('id', '1').creationDust * 0.72
 				+ data.rarities['3'].wantedrate * rarities.findBy('id', '3').creationDust * 0.23
@@ -99,39 +100,6 @@ export default Controller.extend({
 		});
 
 		return completion;
-	}),
-
-	total: computed('model.{stat.total,cardsets,cardclasses,rarities}', function() {
-		const total = this.get('model.stat.total');
-		const cardsets = this.get('standard') ? this.get('model.cardsets').filterBy('standard', true) : this.get('model.cardsets');
-		const cardclasses = this.get('model.cardclasses');
-		const rarities = this.get('model.rarities');
-
-		let data = total;
-		let subdata;
-		data.rate = 100 * data.owned / data.total;
-		cardsets.forEach(cardset => {
-			data = total.cardsets[cardset.id];
-			data.rate = 100 * data.owned / data.total;
-			rarities.forEach(rarity => {
-				subdata = data.rarities[rarity.id];
-				subdata.rate = 100 * subdata.owned / subdata.total || 0;
-			});
-		});
-		cardclasses.forEach(cardclass => {
-			data = total.cardclasses[cardclass.id];
-			data.rate = 100 * data.owned / data.total;
-			rarities.forEach(rarity => {
-				subdata = data.rarities[rarity.id];
-				subdata.rate = 100 * subdata.owned / subdata.total;
-			});
-		});
-		rarities.forEach(rarity => {
-			data = total.rarities[rarity.id];
-			data.rate = 100 * data.owned / data.total;
-		});
-
-		return total;
 	}),
 
 	actions: {
