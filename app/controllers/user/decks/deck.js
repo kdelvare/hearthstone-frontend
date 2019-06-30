@@ -140,6 +140,7 @@ export default Controller.extend({
 		clone() {
 			const deck = this.get('store').createRecord('deck', {
 				name: this.get('model.deck.name'),
+				url: this.get('model.deck.url'),
 				comment: this.get('model.deck.comment'),
 				cardclass: this.get('model.deck.cardclass'),
 				user: this.get('model.user')
