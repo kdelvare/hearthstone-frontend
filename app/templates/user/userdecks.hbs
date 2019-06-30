@@ -1,0 +1,45 @@
+<table>
+	<tr>
+		<th>Classe</th>
+		<th>Nom</th>
+		<th>Lien</th>
+		<th>Non classé</th>
+		<th>Classé</th>
+	</tr>
+	{{#each model.decks as |deck index|}}
+		<tr>
+			<th class={{concat 'cardclass cardclass-' deck.cardclass.name_fr}}>{{deck.cardclass.name_fr}}</th>
+			<td>
+				{{#link-to 'user.decks.deck' deck.id}}
+					{{deck.name}}
+				{{/link-to}}
+			</td>
+			<td>
+				{{#if deck.url}}
+					<a href={{deck.url}} target="_blank">
+						<i class="fas fa-external-link-alt"></i>
+					</a>
+				{{/if}}
+			</td>
+			{{#with (filter (action "filterOwned") deck.deckstats) as |deckstats|}}
+				<td>
+					{{#with (add deckstats.firstObject.wincasual deckstats.firstObject.loosecasual) as |totalstats|}}
+						{{#if (gt totalstats 0)}}
+							{{round (div (mult 100 deckstats.firstObject.wincasual) totalstats)}} %
+						{{/if}}
+					{{/with}}
+				</td>
+				<td>
+					{{#with (add deckstats.firstObject.win deckstats.firstObject.loose) as |totalstats|}}
+						{{#if (gt totalstats 0)}}
+							{{round (div (mult 100 deckstats.firstObject.win) totalstats)}} %
+						{{/if}}
+					{{/with}}
+				</td>
+			{{else}}
+				<td></td>
+				<td></td>
+			{{/with}}
+		</tr>
+	{{/each}}
+</table>
