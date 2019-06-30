@@ -184,7 +184,7 @@ export default Controller.extend({
 			})
 			all(wanteddeckPromises).then(() => {
 				deck.destroyRecord().then(() => {
-					this.transitionToRoute('user.decks', { queryParams: { cardset: 1130 } });
+					this.transitionToRoute('user.userdecks');
 				});
 			})
 		},
