@@ -306,6 +306,8 @@ export default Controller.extend({
 		},
 
 		addWin() {
+			let now = new Date();
+			this.set('latestDeckstat', 'Victoire enregistrée le ' + now.toLocaleString());
 			let deckstat = this.get('model.deck.deckstats').filter(deckstat => {
 				return deckstat.user.get('id') === this.get('model.user.id');
 			}).firstObject;
@@ -326,6 +328,8 @@ export default Controller.extend({
 		},
 
 		addLoose() {
+			let now = new Date();
+			this.set('latestDeckstat', 'Défaite enregistrée le ' + now.toLocaleString());
 			let deckstat = this.get('model.deck.deckstats').filter(deckstat => {
 				return deckstat.user.get('id') === this.get('model.user.id');
 			}).firstObject;

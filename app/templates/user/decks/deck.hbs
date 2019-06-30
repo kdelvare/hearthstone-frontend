@@ -80,6 +80,10 @@
 			{{/with}}
 		</h2>
 
+		{{#if latestDeckstat}}
+			{{latestDeckstat}}
+			<br/>
+		{{/if}}
 		{{#if isEditing}}
 			{{textarea value=model.deck.comment cols=80 rows=6}}
 		{{else}}
