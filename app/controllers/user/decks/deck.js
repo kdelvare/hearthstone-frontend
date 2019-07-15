@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { encode } from 'deckstrings';
-import RSVP, { all } from 'rsvp';
+import { allSettled } from 'rsvp';
 
 export default Controller.extend({
 	queryParams: ['cardset'],
@@ -165,24 +165,18 @@ export default Controller.extend({
 
 		delete() {
 			const deck = this.get('model.deck');
-			let wanteddeckPromises = [];
 			deck.get('wanteddecks').then(wanteddecks => {
 				wanteddecks.forEach(wanteddeck => {
-					let wantedcardPromises = [];
 					wanteddeck.get('wantedcards').then(wantedcards => {
 						wantedcards.forEach(wantedcard => {
 							wantedcard.get('card').then(card => {
 								card.wantedcards.removeObject(wantedcard);
+								wantedcard.destroyRecord();
 							});
-							wantedcardPromises.push(wantedcard.invoke('destroyRecord'));
 						});
 					});
-					all(wantedcardPromises).then(() => {
-						wanteddeckPromises.push(wanteddeck.invoke('destroyRecord'));
-					})
+					wanteddeck.destroyRecord();
 				})
-			})
-			all(wanteddeckPromises).then(() => {
 				deck.destroyRecord().then(() => {
 					this.transitionToRoute('user.userdecks');
 				});
@@ -223,7 +217,7 @@ export default Controller.extend({
 						wantedcardPromises.push(wantedcard.save());
 					}
 				});
-				RSVP.allSettled(wantedcardPromises).then(() => {
+				allSettled(wantedcardPromises).then(() => {
 					this.set('lock', false);
 				});
 			});
@@ -231,21 +225,18 @@ export default Controller.extend({
 
 		removeWanteddeck(wanteddeck) {
 			if (!this.get('lock')) {
-				let promises = [];
 				wanteddeck.get('wantedcards').then(wantedcards => {
 					wantedcards.forEach(wantedcard => {
 						wantedcard.get('card').then(card => {
 							card.wantedcards.removeObject(wantedcard);
+							wantedcard.destroyRecord();
 						});
-						promises.push(wantedcard.invoke('destroyRecord'));
 					});
 				});
-				all(promises).then(() => {
-					wanteddeck.get('deck').then(deck => {
-						deck.wanteddecks.removeObject(wanteddeck);
-					});
-					wanteddeck.destroyRecord();
-				})
+				wanteddeck.get('deck').then(deck => {
+					deck.wanteddecks.removeObject(wanteddeck);
+				});
+				wanteddeck.destroyRecord();
 			}
 		},
 
