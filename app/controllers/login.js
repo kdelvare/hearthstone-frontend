@@ -10,7 +10,7 @@ export default Controller.extend({
 			const { login, password } = this.getProperties('login', 'password');
 			this.get('session').authenticate('authenticator:oauth2', login, password).then(() => {
 				this.get('currentUser').load().then(() => {
-					this.transitionToRoute('user.collection');
+					this.transitionToRoute('user.userdecks');
 				})
 			}).catch((reason) => {
 				this.set('errorMessage', reason.error || reason);
