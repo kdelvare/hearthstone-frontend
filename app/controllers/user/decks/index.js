@@ -126,15 +126,26 @@ export default Controller.extend({
 			}
 		},
 
-		toggleWantedDeckgroup(deckgroup) {
+		addWantedDeckgroup(deckgroup) {
+			deckgroup.get('decks').then(decks => {
+				decks.forEach(deck => {
+					deck.get('wanteddecks').then(wanteddecks => {
+						const userWanteddecks = wanteddecks.filter(wanteddeck => wanteddeck.user.get('id') === this.get('model.user.id'));
+						if (!userWanteddecks.length) {
+							this.send('addWanteddeck', deck);
+						}
+					})
+				});
+			});
+		},
+
+		removeWantedDeckgroup(deckgroup) {
 			deckgroup.get('decks').then(decks => {
 				decks.forEach(deck => {
 					deck.get('wanteddecks').then(wanteddecks => {
 						const userWanteddecks = wanteddecks.filter(wanteddeck => wanteddeck.user.get('id') === this.get('model.user.id'));
 						if (userWanteddecks.length) {
 							this.send('removeWanteddeck', userWanteddecks.firstObject);
-						} else {
-							this.send('addWanteddeck', deck);
 						}
 					})
 				});

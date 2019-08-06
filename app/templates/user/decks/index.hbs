@@ -47,7 +47,8 @@
 							{{/if}}
 							{{#unless (eq source.constructor.modelName 'user')}}
 								<br/>
-								<i class="fas fa-heart pointer" {{action "toggleWantedDeckgroup" source}}></i>
+								<i class="fas fa-heart pointer" {{action "addWantedDeckgroup" source}}></i>
+								<i class="fas fa-heart faded pointer" {{action "removeWantedDeckgroup" source}}></i>
 								<i class="fas fa-trash pointer" title="Supprimer" {{action "deleteDeckgroup" source}}></i>
 							{{/unless}}
 						</td>
