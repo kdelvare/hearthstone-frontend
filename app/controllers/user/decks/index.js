@@ -107,17 +107,21 @@ export default Controller.extend({
 
 		removeWanteddeck(wanteddeck) {
 			if (!this.get('lock')) {
+				const recordsToDestroy = [];
 				wanteddeck.get('wantedcards').then(wantedcards => {
 					wantedcards.forEach(wantedcard => {
 						wantedcard.get('card').then(card => {
 							card.wantedcards.removeObject(wantedcard);
-							wantedcard.destroyRecord();
+							recordsToDestroy.pushObject(wantedcard);
 						});
 					});
-				});
-				wanteddeck.get('deck').then(deck => {
-					deck.wanteddecks.removeObject(wanteddeck);
-					wanteddeck.destroyRecord();
+					wanteddeck.get('deck').then(deck => {
+						deck.wanteddecks.removeObject(wanteddeck);
+						wanteddeck.destroyRecord();
+						recordsToDestroy.forEach(recordToDestroy => {
+							recordToDestroy.destroyRecord();
+						})
+					});
 				});
 			}
 		},

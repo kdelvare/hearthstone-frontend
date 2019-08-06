@@ -22,7 +22,8 @@ export default Route.extend({
 			deckgroups: this.store.query('deckgroup', {
 				filter: deckgroupFilters,
 				sort: 'name,decks.cardclass_id',
-				include: 'decks,decks.cardclass,decks.deckcards,decks.deckcards.card,decks.deckcards.card.rarity,decks.deckcards.card.collections,decks.deckcards.card.collections.user,decks.wanteddecks.user',
+				include: 'decks,decks.cardclass,decks.deckcards,decks.deckcards.card,decks.deckcards.card.rarity,decks.deckcards.card.collections,decks.deckcards.card.collections.user,' +
+					'decks.wanteddecks.user,decks.wanteddecks.wantedcards,decks.wanteddecks.wantedcards.card',
 				fields: { decks: 'name,url,cardclass,deckcards,wanteddecks', deckcards: 'number,card', collections: 'number,user' }
 			}),
 			decks: this.store.query('deck', {
