@@ -2,6 +2,10 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
+	latest: computed('model.cardsets', function() {
+		return this.get('model.cardsets').lastObject.id;
+	}),
+
 	compareCards: computed('model.{deck1.deckcards,deck2.deckcards}', function() {
 		const deckcards1 = this.get('model.deck1.sortedDeckcards').toArray();
 		const deckcards2 = this.get('model.deck2.sortedDeckcards').toArray();

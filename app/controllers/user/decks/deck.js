@@ -10,6 +10,10 @@ export default Controller.extend({
 
 	showDeckstring: false,
 
+	latest: computed('model.cardsets', function() {
+		return this.get('model.cardsets').lastObject.id;
+	}),
+
 	exportString: computed('model.deck.cardclass', 'model.deck.deckcards.@each.{number,card}', function() {
 		const heroes = [0, 0, 274, 31, 637, 671, 813, 930, 1066, 893, 7];
 		const cardclass = this.get('model.deck.cardclass');
@@ -59,9 +63,15 @@ export default Controller.extend({
 	deckCardsets: computed('model.deck.deckcards.@each.number', function() {
 		const deckcards = this.get('model.deck.deckcards');
 		return deckcards.reduce((deckCardsets, deckcard) => {
-			const cardset = deckcard.card.get('cardset.id');
-			if (!deckCardsets[cardset]) { deckCardsets[cardset] = { name: deckcard.card.get('cardset.name_fr'), number: 0, class: deckcard.card.get('cardset.class') }; }
-			deckCardsets[cardset].number += deckcard.number;
+			const cardset = deckcard.card.get('cardset');
+			if (!deckCardsets[cardset.get('id')]) {
+				deckCardsets[cardset.get('id')] = {
+					name: cardset.get('name_fr'),
+					number: 0,
+					class: cardset.get('id') === this.get('latest') ? 'current': cardset.get('class')
+				};
+			}
+			deckCardsets[cardset.get('id')].number += deckcard.number;
 			return deckCardsets;
 		}, {});
 	}),

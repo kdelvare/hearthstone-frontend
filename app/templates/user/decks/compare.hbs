@@ -1,6 +1,6 @@
 {{commonCount}} cartes en commun
 
-<table>
+<table class="decks">
 	<tr>
 		<th class={{concat 'cardclass cardclass-' model.deck1.cardclass.name_fr}}>
 			{{model.deck1.cardclass.name_fr}} {{model.deck1.name}}
@@ -16,7 +16,7 @@
 	{{#each compareCards as |compareCard|}}
 		<tr>
 			{{#with compareCard.deckcard1 as |deckcard|}}
-				<td class={{concat "deckcard cardset-" deckcard.card.cardset.class}}>
+				<td class={{concat "deckcard cardset-" (if (eq deckcard.card.cardset.id latest) 'current' deckcard.card.cardset.class)}}>
 					<span class={{concat 'rarity-' deckcard.card.rarity.name_fr (if (lt deckcard.card.cardclass.id 12) ' cardclass')}}>
 						{{deckcard.number}}x {{deckcard.card.name_fr}}
 					</span>
@@ -29,7 +29,7 @@
 				<td></td>
 			{{/with}}
 			{{#with compareCard.deckcard2 as |deckcard|}}
-				<td class={{concat "deckcard cardset-" deckcard.card.cardset.class}}>
+				<td class={{concat "deckcard cardset-" (if (eq deckcard.card.cardset.id latest) 'current' deckcard.card.cardset.class)}}>
 					<span class={{concat 'rarity-' deckcard.card.rarity.name_fr (if (lt deckcard.card.cardclass.id 12) ' cardclass')}}>
 						{{deckcard.number}}x {{deckcard.card.name_fr}}
 					</span>
@@ -43,4 +43,30 @@
 			{{/with}}
 		</tr>
 	{{/each}}
+</table>
+
+<h3>Légende</h3>
+<table>
+	<tr class="decks">
+		<td class='rarity-Gratuite'>Gratuite</td>
+		<td class='rarity-Commune'>Commune</td>
+		<td class='rarity-Rare'>Rare</td>
+		<td class='rarity-Epique'>Epique</td>
+		<td class='rarity-Légendaire'>Légendaire</td>
+	</tr>
+</table>
+<table>
+	<tr class="decks">
+		<td class='cardclass'>Carte de classe</td>
+		<td>Carte neutre</td>
+	</tr>
+</table>
+<table>
+	<tr class="decks">
+		<td class='cardset-Basique'>Basique</td>
+		<td class='cardset-Classique'>Classique</td>
+		<td class='cardset-current'>Extension courante</td>
+		<td class='cardset-year'>Année en cours</td>
+		<td>Années précédentes</td>
+	</tr>
 </table>

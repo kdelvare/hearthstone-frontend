@@ -18,6 +18,7 @@ export default Route.extend({
 				include: 'user,deckgroup,cardclass,deckcards,deckcards.card,deckcards.card.rarity,deckcards.card.cardset,deckcards.card.cardset.year,deckcards.card.cardclass,deckcards.card.type,deckcards.card.collections,deckcards.card.collections.user,wanteddecks.user,deckstats,deckstats.user',
 				fields: { users: 'name', cardsets: 'name_fr,year', deckcards: 'number,card', cards: 'cost,atk,health', collections: 'number,user', deckstats: 'win,loose,wincasual,loosecasual' }
 			}),
+			cardsets: this.store.query('cardset', { filter: { collectible: true } }),
 			user: user
 		});
 	}

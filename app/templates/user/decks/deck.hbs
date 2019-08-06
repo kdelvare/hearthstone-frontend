@@ -114,10 +114,10 @@
 				{{#with deckcard.card as |card|}}
 					{{#with (filter (action "filterOwned") card.collections) as |collections|}}
 						<tr>
-							<td class={{if (gte collections.firstObject.number deckcard.number) 'owned'}}>
+							<td class={{if (gte collections.firstObject.number deckcard.number) 'owned' (concat 'cardset-' (if (eq card.cardset.id latest) 'current' card.cardset.class))}}>
 								{{min collections.firstObject.number deckcard.number}}/{{deckcard.number}}
 							</td>
-							<td class={{concat "deckcard cardset-" card.cardset.class}}>
+							<td class={{concat "deckcard cardset-" (if (eq card.cardset.id latest) 'current' card.cardset.class)}}>
 								<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
 								<div class="cardinfo">
 									<img src={{card.image}} />
@@ -143,10 +143,10 @@
 						</tr>
 					{{else}}
 						<tr>
-							<td>
+							<td class={{concat 'cardset-' (if (eq card.cardset.id latest) 'current' card.cardset.class)}}>
 								0/{{deckcard.number}}
 							</td>
-							<td class={{concat "deckcard cardset-" card.cardset.class}}>
+							<td class={{concat "deckcard cardset-" (if (eq card.cardset.id latest) 'current' card.cardset.class)}}>
 								<span class={{concat 'rarity-' card.rarity.name_fr (if (lt card.cardclass.id 12) ' cardclass')}}>{{card.name_fr}}</span>
 								<div class="cardinfo">
 									<img src={{card.image}} />

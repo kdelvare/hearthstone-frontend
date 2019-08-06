@@ -5,6 +5,7 @@ export default Controller.extend({
 	session: service(),
 	currentUser: service(),
 
+
 	actions: {
 		authenticate() {
 			const { login, password } = this.getProperties('login', 'password');

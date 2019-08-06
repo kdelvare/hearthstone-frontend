@@ -14,9 +14,7 @@ export default DS.Model.extend({
 	}),
 
 	class: computed('id', 'year', function() {
-		if (this.get('id') === '1130') { // Latest set
-			return 'current';
-		} else if (this.get('year.id') === '4') { // Latest year
+		if (this.get('year.id') === '4') { // Latest year
 			return 'year';
 		} else if (this.get('id') === '3') { // Classic
 			return 'Classique';
